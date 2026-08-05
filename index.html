@@ -3,52 +3,207 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omyra</title>
+    <meta name="theme-color" content="#0F3D2E">
 
-    <style>
-        body {
-            margin: 0;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: Arial, sans-serif;
-            background: #F7F5F1;
-            color: #111827;
-        }
+    <title>Omyra | Gestión inteligente para peluquerías</title>
+    <meta
+            name="description"
+            content="Agenda, clientes, empleados, servicios y WhatsApp en un único lugar. Descubre Omyra."
+    >
 
-        main {
-            text-align: center;
-            padding: 40px;
-        }
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
+            rel="stylesheet"
+    >
 
-        h1 {
-            margin: 0 0 12px;
-            font-size: 64px;
-            color: #0F3D2E;
-        }
-
-        p {
-            margin-bottom: 28px;
-            font-size: 20px;
-        }
-
-        a {
-            display: inline-block;
-            padding: 14px 24px;
-            border-radius: 10px;
-            background: #0F3D2E;
-            color: white;
-            text-decoration: none;
-        }
-    </style>
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
+<header class="header">
+    <div class="container header__inner">
+        <a class="brand" href="#inicio" aria-label="Omyra, inicio">Omyra</a>
+
+        <nav class="nav" aria-label="Navegación principal">
+            <a href="#producto">Producto</a>
+            <a href="#whatsapp">WhatsApp</a>
+            <a href="#peluquerias">Para peluquerías</a>
+        </nav>
+
+        <a
+                class="button button--small button--primary header__cta"
+                href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra"
+        >
+            Solicitar demo
+            <span aria-hidden="true">→</span>
+        </a>
+
+        <button
+                class="menu-button"
+                type="button"
+                aria-label="Abrir menú"
+                aria-expanded="false"
+                aria-controls="mobile-menu"
+        >
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </div>
+
+    <nav class="mobile-menu" id="mobile-menu" aria-label="Navegación móvil">
+        <a href="#producto">Producto</a>
+        <a href="#whatsapp">WhatsApp</a>
+        <a href="#peluquerias">Para peluquerías</a>
+        <a
+                class="button button--primary"
+                href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra"
+        >
+            Solicitar demo
+        </a>
+    </nav>
+</header>
+
 <main>
-    <h1>Omyra</h1>
-    <p>La nueva forma de gestionar tu peluquería.</p>
-    <a href="mailto:hola@omyra.es">hola@omyra.es</a>
+    <section class="hero" id="inicio">
+        <div class="hero__decoration hero__decoration--one" aria-hidden="true"></div>
+        <div class="hero__decoration hero__decoration--two" aria-hidden="true"></div>
+
+        <div class="container hero__grid">
+            <div class="hero__copy">
+          <span class="eyebrow">
+            <span aria-hidden="true">✦</span>
+            Plataforma para peluquerías
+          </span>
+
+                <h1>
+                    Menos gestión.
+                    <span>Más tiempo</span>
+                    para tus clientes.
+                </h1>
+
+                <p>
+                    Agenda, clientes, empleados, servicios y WhatsApp en un único lugar.
+                    Omyra simplifica el día a día de tu peluquería para que puedas centrarte
+                    en lo que realmente importa.
+                </p>
+
+                <div class="hero__actions">
+                    <a
+                            class="button button--primary"
+                            href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra"
+                    >
+                        Solicitar demo
+                        <span aria-hidden="true">→</span>
+                    </a>
+
+                    <a class="button button--secondary" href="#producto">
+                        <span class="play" aria-hidden="true">▷</span>
+                        Ver cómo funciona
+                    </a>
+                </div>
+
+                <div class="hero__points" aria-label="Ventajas principales">
+                    <span>Fácil de usar</span>
+                    <span>Todo en uno</span>
+                    <span>Soporte cercano</span>
+                </div>
+            </div>
+
+            <div class="hero__visual" aria-label="Vista del producto Omyra">
+                <div class="laptop">
+                    <div class="laptop__screen">
+                        <!--
+                          Sustituye images/dashboard.png por una captura real de Omyra
+                          manteniendo el mismo nombre. No tendrás que modificar el HTML.
+                        -->
+                        <img
+                                src="images/dashboard.png"
+                                alt="Vista de la plataforma Omyra"
+                        >
+                    </div>
+                    <div class="laptop__base">
+                        <span class="laptop__notch"></span>
+                    </div>
+                </div>
+
+                <article class="floating-card floating-card--whatsapp">
+                    <span class="floating-card__icon floating-card__icon--whatsapp">✓</span>
+                    <div>
+                        <strong>Reserva confirmada</strong>
+                        <small>Viernes a las 15:30</small>
+                    </div>
+                </article>
+
+                <article class="floating-card floating-card--stats">
+                    <small>Ocupación semanal</small>
+                    <strong>78%</strong>
+                    <span class="chart" aria-hidden="true">
+              <i></i><i></i><i></i><i></i><i></i><i></i>
+            </span>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <section class="trust" id="producto">
+        <div class="container trust__grid">
+            <article>
+                <span class="trust__icon">◎</span>
+                <div>
+                    <strong>Todo organizado</strong>
+                    <small>Agenda, clientes, equipo y servicios</small>
+                </div>
+            </article>
+
+            <article>
+                <span class="trust__icon">↗</span>
+                <div>
+                    <strong>Acceso desde cualquier lugar</strong>
+                    <small>Desde el navegador que ya utilizas</small>
+                </div>
+            </article>
+
+            <article>
+                <span class="trust__icon">⌁</span>
+                <div>
+                    <strong>Soporte cercano</strong>
+                    <small>Acompañamiento durante la implantación</small>
+                </div>
+            </article>
+
+            <article id="peluquerias">
+                <span class="trust__icon">✦</span>
+                <div>
+                    <strong>Evolución continua</strong>
+                    <small>Mejoras creadas junto a peluquerías reales</small>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section class="next-section" id="whatsapp">
+        <div class="container next-section__inner">
+            <span>El siguiente paso</span>
+            <h2>WhatsApp, agenda y clientes conectados.</h2>
+            <p>
+                Esta será la siguiente sección que construiremos, manteniendo la misma
+                estética y utilizando capturas reales del producto.
+            </p>
+        </div>
+    </section>
 </main>
+
+<footer class="footer">
+    <div class="container footer__inner">
+        <a class="brand" href="#inicio">Omyra</a>
+        <a href="mailto:hola@omyra.es">hola@omyra.es</a>
+        <span>© <span id="year"></span> Omyra</span>
+    </div>
+</footer>
+
+<script src="script.js"></script>
 </body>
 </html>
