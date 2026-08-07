@@ -3,205 +3,298 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="theme-color" content="#0F3D2E">
+    <meta name="theme-color" content="#123f33">
 
-    <title>Omyra | GGestión inteligente para negocios de servicios</title>
-    <meta
-            name="description"
-            content="Agenda, clientes, empleados, servicios y WhatsApp en un único lugar. Descubre Omyra."
-    >
+    <title>Omyra | Gestión sencilla para salones y negocios de belleza</title>
+    <meta name="description" content="Agenda, clientes, equipo, servicios y reservas conectados en un solo lugar. Descubre Omyra y solicita una demo personalizada.">
+    <meta name="robots" content="index, follow">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Omyra | Tu salón, bajo control">
+    <meta property="og:description" content="Menos interrupciones y más tiempo para tus clientes. Descubre una forma más sencilla de gestionar tu salón.">
+    <meta property="og:image" content="images/product/agenda-dia.png">
+    <meta property="og:locale" content="es_ES">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-            href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap"
-            rel="stylesheet"
-    >
-
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@600;700&amp;display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/styles.css">
 </head>
 
 <body>
-<header class="header">
+<a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+<header class="header" id="inicio">
     <div class="container header__inner">
-        <a class="brand" href="#inicio" aria-label="Omyra, inicio">Omyra</a>
+        <a class="brand" href="#inicio" aria-label="Omyra, inicio">
+            <span class="brand__mark" aria-hidden="true"><i></i></span>
+            <span>Omyra</span>
+        </a>
 
         <nav class="nav" aria-label="Navegación principal">
             <a href="#producto">Producto</a>
+            <a href="#dia-a-dia">El día a día</a>
             <a href="#whatsapp">WhatsApp</a>
-            <a href="#howTo">Cómo funciona</a>
+            <a href="#preguntas">Preguntas</a>
         </nav>
 
-        <a
-                class="button button--small button--primary header__cta"
-                href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra"
-        >
-            Solicitar demo
-            <span aria-hidden="true">→</span>
+        <a class="button button--small button--primary header__cta" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.">
+            Solicitar demo <span aria-hidden="true">→</span>
         </a>
 
-        <button
-                class="menu-button"
-                type="button"
-                aria-label="Abrir menú"
-                aria-expanded="false"
-                aria-controls="mobile-menu"
-        >
-            <span></span>
-            <span></span>
-            <span></span>
+        <button class="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
+            <span></span><span></span><span></span>
         </button>
     </div>
 
     <nav class="mobile-menu" id="mobile-menu" aria-label="Navegación móvil">
         <a href="#producto">Producto</a>
+        <a href="#dia-a-dia">El día a día</a>
         <a href="#whatsapp">WhatsApp</a>
-        <a href="#howTo">Cómo funciona</a>
-        <a
-                class="button button--primary"
-                href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra"
-        >
-            Solicitar demo
-        </a>
+        <a href="#preguntas">Preguntas</a>
+        <a class="button button--primary" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.">Solicitar demo</a>
     </nav>
 </header>
 
-<main>
-    <section class="hero" id="inicio">
-        <div class="hero__decoration hero__decoration--one" aria-hidden="true"></div>
-        <div class="hero__decoration hero__decoration--two" aria-hidden="true"></div>
+<main id="contenido">
+    <section class="hero" aria-labelledby="hero-title">
+        <div class="hero__orb hero__orb--one" aria-hidden="true"></div>
+        <div class="hero__orb hero__orb--two" aria-hidden="true"></div>
 
         <div class="container hero__grid">
-            <div class="hero__copy">
-          <span class="eyebrow">
-            <span aria-hidden="true">✦</span>
-            Todo tu negocio en un único lugar
-          </span>
-
-                <h1>
-                    Menos gestión.
-                    <span>Más tiempo</span>
-                    para tus clientes.
-                </h1>
-
-                <p>
-                    Agenda, clientes, empleados, servicios y WhatsApp en un único lugar.
-                    Omyra simplifica la gestión diaria de tu negocio para que puedas centrarte
-                    en lo que realmente importa, tus clientes.
-                </p>
+            <div class="hero__copy" data-reveal>
+                <span class="eyebrow"><span aria-hidden="true">✦</span> Gestión para salones que quieren avanzar</span>
+                <h1 id="hero-title">Tu salón funciona. <em>Incluso cuando tú estás atendiendo.</em></h1>
+                <p>Omyra reúne agenda, clientes, equipo y servicios para que dejes de gestionar el negocio entre llamadas, mensajes y notas sueltas.</p>
 
                 <div class="hero__actions">
-                    <a
-                            class="button button--primary"
-                            href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra"
-                    >
-                        Solicitar demo
-                        <span aria-hidden="true">→</span>
-                    </a>
-
-                    <a class="button button--secondary" href="#producto">
-                        <span class="play" aria-hidden="true">▷</span>
-                        Ver cómo funciona
-                    </a>
+                    <a class="button button--primary" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.">Quiero ver Omyra <span aria-hidden="true">→</span></a>
+                    <a class="button button--secondary" href="https://demo.omyra.es" target="_blank" rel="noopener">Entrar en la demo <span aria-hidden="true">↗</span></a>
                 </div>
 
-                <div class="hero__points" aria-label="Ventajas principales">
-                    <span>Fácil de usar</span>
-                    <span>Todo en uno</span>
-                    <span>Soporte cercano</span>
-                </div>
+                <ul class="hero__points" aria-label="Ventajas principales">
+                    <li>Sin instalaciones</li>
+                    <li>Fácil de aprender</li>
+                    <li>Soporte cercano</li>
+                </ul>
             </div>
 
-            <div class="hero__visual" aria-label="Vista del producto Omyra">
-                <div class="laptop">
-                    <div class="laptop__screen">
-                        <!--
-                          Sustituye images/dashboard.png por una captura real de Omyra
-                          manteniendo el mismo nombre. No tendrás que modificar el HTML.
-                        -->
-                        <img
-                                src="images/dashboard.png"
-                                alt="Vista de la plataforma Omyra"
-                        >
+            <div class="hero__visual" data-reveal>
+                <div class="product-window product-window--hero">
+                    <div class="product-window__bar">
+                        <span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                        <span>demo.omyra.es</span>
+                        <span class="secure-pill">Seguro</span>
                     </div>
-                    <div class="laptop__base">
-                        <span class="laptop__notch"></span>
-                    </div>
+                    <img src="images/product/agenda-dia.png" alt="Agenda diaria real de Omyra con citas, profesionales y horas disponibles" fetchpriority="high">
                 </div>
 
-                <article class="floating-card floating-card--whatsapp">
-                    <span class="floating-card__icon floating-card__icon--whatsapp">✓</span>
-                    <div>
-                        <strong>Reserva confirmada</strong>
-                        <small>Viernes a las 15:30</small>
+                <article class="floating-card floating-card--top">
+                    <span class="floating-card__icon">✓</span>
+                    <div><strong>Día organizado</strong><small>Citas y huecos, de un vistazo</small></div>
+                </article>
+
+                <article class="floating-card floating-card--bottom">
+                    <small>Una sola agenda para</small>
+                    <strong>todo el equipo</strong>
+                    <span class="avatar-row" aria-hidden="true"><i>L</i><i>M</i><i>D</i><i>S</i></span>
+                </article>
+            </div>
+        </div>
+
+        <div class="container hero__foot">
+            <p>Todo lo que ocurre en tu salón, conectado en un mismo lugar.</p>
+            <div class="hero__modules" aria-label="Módulos de Omyra">
+                <span>Agenda</span><span>Clientes</span><span>Equipo</span><span>Servicios</span><span>Reservas</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="problem section" id="dia-a-dia">
+        <div class="container problem__grid">
+            <div class="section-heading section-heading--left" data-reveal>
+                <span class="section-kicker">El día a día, sin caos</span>
+                <h2>Tu atención debería estar en el cliente, no en cuadrar la agenda.</h2>
+            </div>
+            <div class="problem__copy" data-reveal>
+                <p>Cuando las citas viven en una libreta, las ausencias en un chat y los clientes en la memoria, cualquier cambio interrumpe tu trabajo. Omyra pone orden sin hacerte trabajar para el software.</p>
+            </div>
+        </div>
+
+        <div class="container benefit-grid">
+            <article class="benefit-card benefit-card--dark" data-reveal>
+                <span class="benefit-card__number">01</span>
+                <div class="benefit-card__icon" aria-hidden="true">⌁</div>
+                <h3>Menos interrupciones</h3>
+                <p>La información que necesitas está disponible sin buscar entre mensajes, papeles o varias herramientas.</p>
+            </article>
+            <article class="benefit-card" data-reveal>
+                <span class="benefit-card__number">02</span>
+                <div class="benefit-card__icon" aria-hidden="true">◎</div>
+                <h3>Más control real</h3>
+                <p>Comprueba la ocupación, los huecos del día y la carga de cada profesional con claridad.</p>
+            </article>
+            <article class="benefit-card benefit-card--gold" data-reveal>
+                <span class="benefit-card__number">03</span>
+                <div class="benefit-card__icon" aria-hidden="true">↗</div>
+                <h3>Una atención más fluida</h3>
+                <p>Consulta el historial de cada cliente y ofrece un servicio más personal desde el primer minuto.</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="product section" id="producto">
+        <div class="container">
+            <div class="section-heading" data-reveal>
+                <span class="section-kicker">Omyra por dentro</span>
+                <h2>Diseñado para entenderlo en minutos y usarlo todos los días.</h2>
+                <p>Sin pantallas innecesarias. Sin información escondida. Cada módulo responde a una tarea real de tu negocio.</p>
+            </div>
+
+            <article class="feature-showcase feature-showcase--agenda" data-reveal>
+                <div class="feature-showcase__copy">
+                    <span class="feature-tag">Agenda visual</span>
+                    <h3>El día completo, en una sola mirada.</h3>
+                    <p>Consulta las citas de todo el equipo, detecta huecos y entiende qué está pasando sin abrir mil pantallas.</p>
+                    <ul class="check-list">
+                        <li>Vista diaria y semanal</li>
+                        <li>Servicios y duración visibles</li>
+                        <li>Bloqueos y ausencias integrados</li>
+                    </ul>
+                </div>
+                <div class="feature-showcase__media">
+                    <div class="product-window product-window--large">
+                        <div class="product-window__bar"><span class="window-dots" aria-hidden="true"><i></i><i></i><i></i></span><span>Agenda · Omyra</span></div>
+                        <img src="images/product/agenda-dia.png" alt="Detalle de la agenda diaria en Omyra" loading="lazy">
+                    </div>
+                </div>
+            </article>
+
+            <div class="product-grid">
+                <article class="product-card product-card--clients" data-reveal>
+                    <div class="product-card__copy">
+                        <span class="feature-tag">Clientes</span>
+                        <h3>Conoce a quien vuelve.</h3>
+                        <p>Centraliza datos, visitas e información útil para ofrecer una atención más personal.</p>
+                    </div>
+                    <div class="product-card__image product-card__image--clients">
+                        <img src="images/product/clientes.png" alt="Listado y métricas de clientes en Omyra" loading="lazy">
                     </div>
                 </article>
 
-                <article class="floating-card floating-card--stats">
-                    <small>Ocupación semanal</small>
-                    <strong>78%</strong>
-                    <span class="chart" aria-hidden="true">
-              <i></i><i></i><i></i><i></i><i></i><i></i>
-            </span>
+                <article class="product-card product-card--team" data-reveal>
+                    <div class="product-card__copy">
+                        <span class="feature-tag">Equipo y ausencias</span>
+                        <h3>Organiza sin improvisar.</h3>
+                        <p>Vacaciones, formación, bajas y asuntos propios quedan visibles donde realmente importan.</p>
+                    </div>
+                    <div class="product-card__image product-card__image--team">
+                        <img src="images/product/equipo.png" alt="Calendario de vacaciones y ausencias del equipo en Omyra" loading="lazy">
+                    </div>
+                </article>
+
+                <article class="product-card product-card--services" data-reveal>
+                    <div class="product-card__copy">
+                        <span class="feature-tag">Servicios</span>
+                        <h3>Tu catálogo siempre claro.</h3>
+                        <p>Precios, duración y demanda de cada servicio para tomar decisiones con información real.</p>
+                    </div>
+                    <div class="product-card__image product-card__image--services">
+                        <img src="images/product/servicios.png" alt="Catálogo de servicios, precios y duración en Omyra" loading="lazy">
+                    </div>
+                </article>
+
+                <article class="product-card product-card--promise" data-reveal>
+                    <span class="product-card__quote" aria-hidden="true">“</span>
+                    <p>La tecnología debe quitarte trabajo, no darte otra tarea que gestionar.</p>
+                    <span class="signature">La idea detrás de Omyra</span>
                 </article>
             </div>
         </div>
     </section>
 
-    <section class="trust" id="producto">
-        <div class="container trust__grid">
-            <article>
-                <span class="trust__icon">◎</span>
-                <div>
-                    <strong>Todo organizado</strong>
-                    <small>Agenda, clientes, equipo y servicios</small>
+    <section class="whatsapp section" id="whatsapp">
+        <div class="container whatsapp__grid">
+            <div class="whatsapp__visual" data-reveal>
+                <div class="phone">
+                    <div class="phone__top"><span class="phone__avatar">O</span><div><strong>Omyra</strong><small>en línea</small></div></div>
+                    <div class="phone__chat">
+                        <div class="message message--received">¡Hola! Quería reservar un corte y acabado esta semana.</div>
+                        <div class="message message--sent">Claro. Tengo hueco el jueves a las 17:00 o el viernes a las 12:30. ¿Cuál prefieres?</div>
+                        <div class="message message--received">El jueves a las 17:00 😊</div>
+                        <div class="message message--sent message--confirmation"><span>✓</span><strong>Reserva confirmada</strong><small>Jueves · 17:00 · Corte y acabado</small></div>
+                    </div>
+                    <div class="phone__input"><span>Escribe un mensaje</span><i aria-hidden="true">➤</i></div>
                 </div>
-            </article>
+                <div class="chat-note"><span aria-hidden="true">✦</span> La conversación termina en una cita organizada.</div>
+            </div>
 
-            <article>
-                <span class="trust__icon">↗</span>
-                <div>
-                    <strong>Acceso desde cualquier lugar</strong>
-                    <small>Desde el navegador que ya utilizas</small>
+            <div class="whatsapp__copy" data-reveal>
+                <span class="section-kicker section-kicker--light">WhatsApp conectado</span>
+                <h2>Donde tus clientes ya están. Pero con tu agenda detrás.</h2>
+                <p>Convierte una conversación en una reserva sin perder el hilo, sin duplicar información y sin apuntarla para después.</p>
+                <div class="whatsapp__points">
+                    <article><span aria-hidden="true">01</span><div><strong>El cliente pregunta</strong><small>Desde el canal que ya utiliza cada día.</small></div></article>
+                    <article><span aria-hidden="true">02</span><div><strong>Omyra consulta disponibilidad</strong><small>Ten en cuenta horarios, servicios y equipo.</small></div></article>
+                    <article><span aria-hidden="true">03</span><div><strong>La cita queda registrada</strong><small>Sin copiar, pegar ni volver a comprobar.</small></div></article>
                 </div>
-            </article>
-
-            <article>
-                <span class="trust__icon">⌁</span>
-                <div>
-                    <strong>Soporte cercano</strong>
-                    <small>Acompañamiento durante la implantación</small>
-                </div>
-            </article>
-
-            <article id="howTo">
-                <span class="trust__icon">✦</span>
-                <div>
-                    <strong>Evolución continua</strong>
-                    <small>Mejoras creadas junto a negocios reales</small>
-                </div>
-            </article>
+            </div>
         </div>
     </section>
 
-    <section class="next-section" id="whatsapp">
-        <div class="container next-section__inner">
-            <span>El siguiente paso</span>
-            <h2>WhatsApp, agenda y clientes conectados.</h2>
-            <p>
-                Esta será la siguiente sección que construiremos, manteniendo la misma
-                estética y utilizando capturas reales del producto.
-            </p>
+    <section class="steps section" id="como-funciona">
+        <div class="container">
+            <div class="section-heading" data-reveal>
+                <span class="section-kicker">Empezar es sencillo</span>
+                <h2>De tu forma de trabajar a Omyra, paso a paso.</h2>
+            </div>
+            <div class="steps__grid">
+                <article data-reveal><span>1</span><h3>Nos cuentas cómo trabajas</h3><p>Conocemos tu negocio, el equipo, los horarios y los servicios que ofreces.</p></article>
+                <article data-reveal><span>2</span><h3>Preparamos tu espacio</h3><p>Configuramos Omyra para que empieces con una base clara y adaptada a tu operativa.</p></article>
+                <article data-reveal><span>3</span><h3>Te acompañamos al empezar</h3><p>Resolvemos dudas contigo hasta que el uso diario resulte natural para todo el equipo.</p></article>
+            </div>
+        </div>
+    </section>
+
+    <section class="demo section">
+        <div class="container demo__card" data-reveal>
+            <div class="demo__glow" aria-hidden="true"></div>
+            <span class="section-kicker section-kicker--light">Una demo, a tu ritmo</span>
+            <h2>Enséñanos cómo funciona tu salón. Te enseñamos cómo Omyra puede simplificarlo.</h2>
+            <p>Sin compromiso y sin una presentación genérica: una conversación centrada en lo que hoy te quita tiempo.</p>
+            <div class="demo__actions">
+                <a class="button button--gold" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.%0A%0AMi%20negocio%20es%3A%20%0AN%C3%BAmero%20de%20profesionales%3A%20">Solicitar mi demo <span aria-hidden="true">→</span></a>
+                <a class="demo__link" href="https://demo.omyra.es" target="_blank" rel="noopener">Prefiero explorar la demo <span aria-hidden="true">↗</span></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq section" id="preguntas">
+        <div class="container faq__grid">
+            <div class="section-heading section-heading--left" data-reveal>
+                <span class="section-kicker">Preguntas frecuentes</span>
+                <h2>Lo esencial, antes de verlo en acción.</h2>
+                <p>Si tu duda no está aquí, escríbenos a <a href="mailto:hola@omyra.es">hola@omyra.es</a>.</p>
+            </div>
+            <div class="faq__list" data-reveal>
+                <details open><summary>¿Tengo que instalar algo?</summary><p>No. Omyra funciona desde el navegador, por lo que puedes acceder desde tus dispositivos habituales.</p></details>
+                <details><summary>¿Sirve para varios profesionales?</summary><p>Sí. La agenda muestra la actividad del equipo y permite organizar citas, horarios y ausencias de cada profesional.</p></details>
+                <details><summary>¿Puedo ver el producto antes de decidir?</summary><p>Claro. Puedes entrar en la demo pública o solicitar una demostración personalizada para verlo aplicado a tu forma de trabajar.</p></details>
+                <details><summary>¿Me ayudáis a empezar?</summary><p>Sí. La puesta en marcha incluye acompañamiento para configurar el negocio y resolver las primeras dudas del equipo.</p></details>
+            </div>
         </div>
     </section>
 </main>
 
 <footer class="footer">
-    <div class="container footer__inner">
-        <a class="brand" href="#inicio">Omyra</a>
-        <a href="mailto:hola@omyra.es">hola@omyra.es</a>
-        <span>© <span id="year"></span> Omyra</span>
+    <div class="container footer__main">
+        <div>
+            <a class="brand brand--light" href="#inicio" aria-label="Omyra, inicio"><span class="brand__mark" aria-hidden="true"><i></i></span><span>Omyra</span></a>
+            <p>Gestión sencilla para salones que quieren dedicar más tiempo a sus clientes.</p>
+        </div>
+        <div class="footer__links"><strong>Descubre Omyra</strong><a href="#producto">Producto</a><a href="#whatsapp">WhatsApp</a><a href="#como-funciona">Cómo funciona</a></div>
+        <div class="footer__links"><strong>Hablemos</strong><a href="mailto:hola@omyra.es">hola@omyra.es</a><a href="https://demo.omyra.es" target="_blank" rel="noopener">Demo en directo ↗</a></div>
     </div>
+    <div class="container footer__bottom"><span>© <span id="year"></span> Omyra</span><span>Hecho con cuidado para negocios que cuidan.</span></div>
 </footer>
 
 <script src="js/script.js"></script>
