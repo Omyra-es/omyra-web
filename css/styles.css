@@ -1,3 +1,11 @@
+@font-face {
+  font-family: "Geist";
+  src: url("../fonts/Geist-Variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   --forest: #123f33;
   --forest-deep: #092c24;
@@ -33,7 +41,7 @@ body {
   overflow-x: hidden;
   color: var(--ink);
   background: var(--ivory);
-  font-family: "DM Sans", sans-serif;
+  font-family: "Geist", sans-serif;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -343,7 +351,7 @@ h3 {
   max-width: 650px;
   margin: 0;
   color: var(--ink);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: clamp(3.45rem, 5.55vw, 5.9rem);
   line-height: 0.98;
   letter-spacing: -0.055em;
@@ -608,7 +616,7 @@ h3 {
 .demo__card h2 {
   margin: 15px 0 0;
   color: var(--ink);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: clamp(2.45rem, 4.35vw, 4.55rem);
   line-height: 1.04;
   letter-spacing: -0.045em;
@@ -664,7 +672,7 @@ h3 {
   top: 28px;
   right: 31px;
   color: rgba(18, 63, 51, 0.33);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: 1.1rem;
 }
 
@@ -692,7 +700,7 @@ h3 {
 
 .benefit-card h3 {
   margin: 0;
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: 1.65rem;
   letter-spacing: -0.025em;
 }
@@ -748,7 +756,7 @@ h3 {
 
 .feature-showcase h3 {
   margin: 0;
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: clamp(2.2rem, 3.5vw, 3.65rem);
   line-height: 1.04;
   letter-spacing: -0.04em;
@@ -822,7 +830,7 @@ h3 {
 
 .product-card h3 {
   margin: 0;
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: 2.05rem;
   line-height: 1.08;
   letter-spacing: -0.035em;
@@ -899,7 +907,7 @@ h3 {
   top: 44px;
   left: 50px;
   color: var(--gold-bright);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: 6rem;
   line-height: 1;
 }
@@ -909,7 +917,7 @@ h3 {
   max-width: 470px;
   margin: 0;
   color: var(--white);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: clamp(2rem, 3.2vw, 3.25rem);
   line-height: 1.12;
   letter-spacing: -0.035em;
@@ -1004,7 +1012,7 @@ h3 {
   border-radius: 50%;
   color: var(--forest-deep);
   background: var(--gold-bright);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-weight: 700;
 }
 
@@ -1153,7 +1161,7 @@ h3 {
 
 .whatsapp__points article > span {
   color: var(--gold-bright);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: 1.05rem;
 }
 
@@ -1210,13 +1218,13 @@ h3 {
   border-radius: 50%;
   color: var(--forest);
   background: var(--white);
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-weight: 700;
 }
 
 .steps__grid h3 {
   margin: 0;
-  font-family: "Playfair Display", serif;
+  font-family: "Geist", sans-serif;
   font-size: 1.45rem;
 }
 
