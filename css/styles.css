@@ -407,6 +407,9 @@ h3 {
   position: relative;
   min-width: 0;
   padding: 58px 0 70px;
+  left: -30px;
+
+
 }
 
 .product-window {
@@ -493,8 +496,9 @@ h3 {
 }
 
 .floating-card--bottom {
-  bottom: 25px;
-  left: -37px;
+  right: 180px;
+  bottom: 90px;
+  left: auto;
   display: grid;
   min-width: 210px;
   padding: 16px 18px;
@@ -1449,6 +1453,11 @@ h3 {
     right: -20px;
   }
 
+  .floating-card--bottom {
+    right: 100px;
+    bottom: 90px;
+  }
+
   .whatsapp__grid {
     gap: 65px;
   }
@@ -1554,6 +1563,7 @@ h3 {
   }
 
   .hero__visual {
+    left: 0;
     max-width: 760px;
     margin: 0 auto;
   }
@@ -1818,6 +1828,10 @@ h3 {
     flex-direction: column;
     justify-content: center;
     padding: 18px 0;
+  }
+
+  .floating-card--bottom {
+    display: none;
   }
 }
 
