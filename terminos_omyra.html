@@ -1,0 +1,701 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Términos de Servicio | Omyra</title>
+    <meta name="description"
+          content="Términos de Servicio de Omyra. Condiciones de uso de la plataforma, integraciones, responsabilidades y reglas aplicables al servicio.">
+
+    <style>
+        :root {
+            --forest-green: #0F3D2E;
+            --deep-navy: #0B1D33;
+            --warm-ivory: #F7F5F1;
+            --graphite: #111827;
+            --champagne-gold: #C8A96A;
+            --surface: #FFFFFF;
+            --surface-subtle: #F3F1EC;
+            --border: #E5E2DC;
+            --text-muted: #6B7280;
+            --radius: 16px;
+            --shadow: 0 16px 40px rgba(11, 29, 51, 0.07);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--warm-ivory);
+            color: var(--graphite);
+            font-family: "Geist", "Inter", -apple-system, BlinkMacSystemFont,
+                         "Segoe UI", sans-serif;
+            line-height: 1.7;
+        }
+
+        a {
+            color: var(--forest-green);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            text-decoration-thickness: 2px;
+        }
+
+        .legal-header {
+            border-bottom: 1px solid var(--border);
+            background: rgba(247, 245, 241, 0.92);
+            backdrop-filter: blur(12px);
+        }
+
+        .legal-header-inner {
+            width: min(1100px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 18px 0;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--forest-green);
+            font-size: 1.3rem;
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            width: 30px;
+            height: 30px;
+            border: 7px solid var(--forest-green);
+            border-top-color: var(--champagne-gold);
+            border-radius: 50%;
+        }
+
+        main {
+            width: min(920px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 64px 0 80px;
+        }
+
+        .hero {
+            margin-bottom: 34px;
+        }
+
+        .eyebrow {
+            margin: 0 0 8px;
+            color: var(--forest-green);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0 0 14px;
+            color: var(--deep-navy);
+            font-size: clamp(2.2rem, 7vw, 3.8rem);
+            line-height: 1.05;
+            letter-spacing: -0.035em;
+        }
+
+        .lead {
+            max-width: 760px;
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+        }
+
+        .updated {
+            display: inline-block;
+            margin-top: 18px;
+            padding: 7px 11px;
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            background: var(--surface);
+            color: var(--text-muted);
+            font-size: 0.8rem;
+        }
+
+        .legal-card {
+            padding: 34px;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        section + section {
+            margin-top: 34px;
+            padding-top: 34px;
+            border-top: 1px solid var(--border);
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            color: var(--deep-navy);
+            font-size: 1.45rem;
+            line-height: 1.3;
+        }
+
+        h3 {
+            margin: 24px 0 10px;
+            color: var(--graphite);
+            font-size: 1.05rem;
+        }
+
+        p {
+            margin: 0 0 14px;
+        }
+
+        ul {
+            margin: 10px 0 18px;
+            padding-left: 22px;
+        }
+
+        li + li {
+            margin-top: 5px;
+        }
+
+        .identity-box,
+        .notice-box {
+            margin: 18px 0;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            background: var(--surface-subtle);
+        }
+
+        .identity-box p,
+        .notice-box p {
+            margin: 0;
+        }
+
+        .identity-box p + p,
+        .notice-box p + p {
+            margin-top: 4px;
+        }
+
+        .accent-box {
+            margin-top: 18px;
+            padding: 20px;
+            border-left: 4px solid var(--champagne-gold);
+            border-radius: 0 12px 12px 0;
+            background: #FBF8F0;
+        }
+
+        .legal-footer {
+            border-top: 1px solid var(--border);
+            background: var(--surface);
+        }
+
+        .legal-footer-inner {
+            width: min(1100px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 28px 0;
+            color: var(--text-muted);
+            font-size: 0.84rem;
+        }
+
+        @media (max-width: 680px) {
+            main {
+                width: min(100% - 28px, 920px);
+                padding-top: 42px;
+            }
+
+            .legal-header-inner,
+            .legal-footer-inner {
+                width: min(100% - 28px, 1100px);
+            }
+
+            .legal-card {
+                padding: 24px 20px;
+            }
+
+            section + section {
+                margin-top: 28px;
+                padding-top: 28px;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --warm-ivory: #0B1D33;
+                --surface: #10233A;
+                --surface-subtle: #142A43;
+                --border: #263B53;
+                --graphite: #F7F5F1;
+                --deep-navy: #FFFFFF;
+                --text-muted: #B4BEC9;
+            }
+
+            .legal-header {
+                background: rgba(11, 29, 51, 0.92);
+            }
+
+            .accent-box {
+                background: #1A2B3A;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="legal-header">
+    <div class="legal-header-inner">
+        <a class="brand" href="https://omyra.es" aria-label="Ir a Omyra">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>Omyra</span>
+        </a>
+    </div>
+</header>
+
+<main>
+    <div class="hero">
+        <p class="eyebrow">Legal · Condiciones de uso</p>
+        <h1>Términos de Servicio</h1>
+
+        <p class="lead">
+            Estos Términos de Servicio regulan el acceso y uso de Omyra y de sus
+            funcionalidades, incluidas las integraciones con servicios de terceros.
+            El uso de Omyra implica la aceptación de estas condiciones en la medida
+            en que resulten aplicables.
+        </p>
+
+        <span class="updated">Última actualización: 18 de agosto de 2026</span>
+    </div>
+
+    <article class="legal-card">
+
+        <section id="titular">
+            <h2>1. Titular del servicio</h2>
+
+            <p>
+                Omyra es un servicio operado por:
+            </p>
+
+            <div class="identity-box">
+                <p><strong>Responsable:</strong> Sergio Lozano Trujillo</p>
+                <p>
+                    <strong>Correo electrónico:</strong>
+                    <a href="mailto:hola@omyra.es">hola@omyra.es</a>
+                </p>
+                <p>
+                    <strong>Sitio web:</strong>
+                    <a href="https://omyra.es">https://omyra.es</a>
+                </p>
+            </div>
+        </section>
+
+        <section id="objeto">
+            <h2>2. Objeto de Omyra</h2>
+
+            <p>
+                Omyra es una plataforma de gestión de citas y atención al cliente
+                dirigida principalmente a peluquerías, barberías y otros negocios
+                de servicios.
+            </p>
+
+            <p>
+                Entre otras funcionalidades, Omyra puede permitir:
+            </p>
+
+            <ul>
+                <li>gestionar clientes, empleados, servicios y citas;</li>
+                <li>gestionar horarios, disponibilidad, ausencias y festivos;</li>
+                <li>recibir, modificar y cancelar solicitudes de cita;</li>
+                <li>automatizar determinadas comunicaciones;</li>
+                <li>integrar la atención mediante WhatsApp;</li>
+                <li>sincronizar citas con Google Calendar;</li>
+                <li>
+                    utilizar sistemas automatizados e inteligencia artificial para
+                    interpretar determinadas solicitudes.
+                </li>
+            </ul>
+        </section>
+
+        <section id="usuarios">
+            <h2>3. Usuarios y acceso al servicio</h2>
+
+            <p>
+                El acceso a determinadas funcionalidades de Omyra puede requerir una
+                cuenta habilitada para un negocio cliente.
+            </p>
+
+            <p>
+                Los usuarios se comprometen a proporcionar información veraz y a
+                mantener la confidencialidad de sus credenciales de acceso.
+            </p>
+
+            <p>
+                El negocio que utilice Omyra será responsable de controlar qué personas
+                acceden a su cuenta y de comunicar cualquier acceso no autorizado o
+                incidente de seguridad del que tenga conocimiento.
+            </p>
+        </section>
+
+        <section id="uso-adecuado">
+            <h2>4. Uso adecuado de Omyra</h2>
+
+            <p>
+                Los usuarios deberán utilizar Omyra de forma lícita y conforme a estos
+                Términos.
+            </p>
+
+            <p>No está permitido utilizar Omyra para:</p>
+
+            <ul>
+                <li>realizar actividades contrarias a la legislación aplicable;</li>
+                <li>acceder o intentar acceder a cuentas, datos o sistemas sin autorización;</li>
+                <li>interferir deliberadamente en el funcionamiento o seguridad del servicio;</li>
+                <li>introducir código malicioso o realizar ataques contra la plataforma;</li>
+                <li>
+                    utilizar las funcionalidades de comunicación para enviar contenidos
+                    ilícitos, abusivos o comunicaciones comerciales sin una base jurídica
+                    adecuada;
+                </li>
+                <li>
+                    vulnerar derechos de terceros, incluidos derechos de propiedad
+                    intelectual, privacidad o protección de datos.
+                </li>
+            </ul>
+        </section>
+
+        <section id="datos-clientes">
+            <h2>5. Datos de clientes y responsabilidad del negocio</h2>
+
+            <p>
+                Los negocios que utilizan Omyra pueden incorporar y tratar información
+                relativa a sus propios clientes.
+            </p>
+
+            <p>
+                Con carácter general, el negocio será responsable del tratamiento de
+                dichos datos y será responsable de:
+            </p>
+
+            <ul>
+                <li>disponer de una base jurídica válida para su tratamiento;</li>
+                <li>informar a sus clientes cuando corresponda;</li>
+                <li>mantener los datos actualizados cuando resulte necesario;</li>
+                <li>
+                    atender solicitudes relacionadas con los derechos de protección
+                    de datos;
+                </li>
+                <li>
+                    utilizar las funcionalidades promocionales únicamente cuando
+                    exista una base jurídica adecuada.
+                </li>
+            </ul>
+
+            <p>
+                Omyra tratará estos datos para prestar las funcionalidades contratadas
+                y conforme a las condiciones aplicables al servicio.
+            </p>
+        </section>
+
+        <section id="comunicaciones">
+            <h2>6. Comunicaciones y promociones</h2>
+
+            <p>
+                Omyra puede proporcionar herramientas para que los negocios gestionen
+                comunicaciones relacionadas con citas, recordatorios, atención al
+                cliente o promociones.
+            </p>
+
+            <p>
+                El negocio será responsable de garantizar que cualquier comunicación
+                comercial enviada a sus clientes cumple la normativa aplicable y de
+                respetar las solicitudes de oposición o retirada del consentimiento
+                que correspondan.
+            </p>
+        </section>
+
+        <section id="google">
+            <h2>7. Google Calendar</h2>
+
+            <p>
+                Omyra permite conectar voluntariamente cuentas de Google Calendar para
+                sincronizar determinadas citas de los empleados.
+            </p>
+
+            <p>
+                El usuario es responsable de seleccionar la cuenta de Google correcta
+                durante el proceso de autorización.
+            </p>
+
+            <p>
+                La integración puede permitir a Omyra crear, actualizar o eliminar
+                eventos de calendario relacionados con las citas gestionadas mediante
+                la plataforma, dentro de los permisos concedidos por el usuario.
+            </p>
+
+            <p>
+                El usuario puede desconectar Google Calendar desde Omyra. La desconexión
+                impide nuevas operaciones utilizando esa autorización, pero no elimina
+                necesariamente los eventos que ya hubieran sido creados previamente
+                en Google Calendar.
+            </p>
+
+            <div class="accent-box">
+                <p>
+                    El uso de Google Calendar está sujeto también a las condiciones y
+                    políticas de Google aplicables al usuario y a la cuenta conectada.
+                </p>
+            </div>
+        </section>
+
+        <section id="whatsapp">
+            <h2>8. WhatsApp y Meta</h2>
+
+            <p>
+                Omyra puede utilizar servicios proporcionados por Meta y WhatsApp para
+                permitir comunicaciones entre los negocios y sus clientes.
+            </p>
+
+            <p>
+                La disponibilidad y funcionamiento de estas funcionalidades puede
+                depender de las condiciones técnicas, políticas, restricciones y
+                disponibilidad de los servicios proporcionados por Meta.
+            </p>
+
+            <p>
+                El negocio será responsable del uso que haga de WhatsApp mediante Omyra
+                y del cumplimiento de las reglas aplicables a sus comunicaciones con
+                clientes.
+            </p>
+        </section>
+
+        <section id="ia">
+            <h2>9. Inteligencia artificial</h2>
+
+            <p>
+                Omyra puede utilizar sistemas de inteligencia artificial para interpretar
+                mensajes, identificar intenciones y facilitar determinadas gestiones.
+            </p>
+
+            <p>
+                Estas funcionalidades tienen carácter asistencial y pueden producir
+                interpretaciones incorrectas o incompletas.
+            </p>
+
+            <p>
+                Omyra adopta medidas para reducir estos errores, pero no garantiza que
+                los sistemas automatizados interpreten correctamente todos los mensajes
+                o situaciones posibles.
+            </p>
+
+            <p>
+                Cuando el sistema no pueda resolver adecuadamente una solicitud, podrá
+                ser necesario realizar la gestión por otros medios disponibles.
+            </p>
+        </section>
+
+        <section id="terceros">
+            <h2>10. Servicios de terceros</h2>
+
+            <p>
+                Algunas funcionalidades de Omyra dependen de servicios proporcionados
+                por terceros, incluyendo, entre otros, Google, Meta / WhatsApp, OpenAI
+                y proveedores de infraestructura.
+            </p>
+
+            <p>
+                Omyra no controla la disponibilidad permanente de estos servicios y no
+                puede garantizar que permanezcan ininterrumpidamente disponibles o que
+                sus condiciones técnicas no cambien.
+            </p>
+
+            <p>
+                Cuando una funcionalidad dependa de un proveedor externo, podrán
+                producirse interrupciones, limitaciones o cambios ajenos al control de
+                Omyra.
+            </p>
+        </section>
+
+        <section id="disponibilidad">
+            <h2>11. Disponibilidad y mantenimiento</h2>
+
+            <p>
+                Omyra trabaja para ofrecer un servicio estable y disponible, pero no
+                garantiza la disponibilidad ininterrumpida de la plataforma.
+            </p>
+
+            <p>
+                Podrán producirse interrupciones temporales por mantenimiento, mejoras,
+                incidencias técnicas, actualizaciones, problemas de infraestructura o
+                causas ajenas al control razonable de Omyra.
+            </p>
+
+            <p>
+                Cuando sea posible, Omyra procurará minimizar el impacto de dichas
+                interrupciones.
+            </p>
+        </section>
+
+        <section id="responsabilidad">
+            <h2>12. Responsabilidad</h2>
+
+            <p>
+                Omyra proporciona herramientas para facilitar la gestión de citas,
+                clientes y comunicaciones de los negocios.
+            </p>
+
+            <p>
+                Salvo en los casos en que legalmente corresponda lo contrario, Omyra
+                no será responsable de:
+            </p>
+
+            <ul>
+                <li>errores derivados de información incorrecta introducida por el usuario;</li>
+                <li>
+                    decisiones comerciales, laborales, fiscales o legales adoptadas por
+                    los negocios utilizando la información de la plataforma;
+                </li>
+                <li>incumplimientos legales imputables al negocio usuario;</li>
+                <li>fallos o interrupciones atribuibles a proveedores externos;</li>
+                <li>
+                    usos de la plataforma contrarios a estos Términos o a la normativa
+                    aplicable.
+                </li>
+            </ul>
+
+            <p>
+                Ninguna disposición de estos Términos excluirá o limitará responsabilidades
+                que no puedan excluirse o limitarse conforme a la legislación aplicable.
+            </p>
+        </section>
+
+        <section id="propiedad-intelectual">
+            <h2>13. Propiedad intelectual e industrial</h2>
+
+            <p>
+                Omyra, su software, diseño, identidad visual, documentación, textos y
+                demás elementos propios están protegidos por la normativa aplicable
+                en materia de propiedad intelectual e industrial.
+            </p>
+
+            <p>
+                El acceso al servicio no implica la cesión de derechos de propiedad
+                intelectual o industrial sobre Omyra.
+            </p>
+
+            <p>
+                Los usuarios conservarán los derechos que correspondan sobre los datos
+                y contenidos propios que incorporen legítimamente a la plataforma.
+            </p>
+        </section>
+
+        <section id="suspension">
+            <h2>14. Suspensión o limitación del servicio</h2>
+
+            <p>
+                Omyra podrá limitar o suspender el acceso a determinadas funcionalidades
+                cuando resulte razonablemente necesario para:
+            </p>
+
+            <ul>
+                <li>proteger la seguridad de la plataforma;</li>
+                <li>evitar usos ilícitos o abusivos;</li>
+                <li>resolver una incidencia grave;</li>
+                <li>cumplir una obligación legal;</li>
+                <li>hacer frente a un incumplimiento relevante de estos Términos.</li>
+            </ul>
+
+            <p>
+                Cuando resulte razonablemente posible, se procurará informar al negocio
+                afectado.
+            </p>
+        </section>
+
+        <section id="privacidad">
+            <h2>15. Privacidad</h2>
+
+            <p>
+                El tratamiento de datos personales realizado mediante Omyra se regula
+                en la Política de Privacidad.
+            </p>
+
+            <p>
+                Puede consultarse en:
+                <a href="https://omyra.es/privacidad">
+                    https://omyra.es/privacidad
+                </a>.
+            </p>
+        </section>
+
+        <section id="cambios">
+            <h2>16. Cambios en Omyra y en estos Términos</h2>
+
+            <p>
+                Omyra podrá modificar o ampliar sus funcionalidades, así como actualizar
+                estos Términos cuando resulte necesario por cambios en el servicio,
+                proveedores, normativa aplicable o modelo de funcionamiento.
+            </p>
+
+            <p>
+                Cuando los cambios sean relevantes, se adoptarán medidas razonables para
+                informar a los usuarios.
+            </p>
+
+            <p>
+                La versión vigente será la publicada en este sitio web y mostrará la
+                fecha de su última actualización.
+            </p>
+        </section>
+
+        <section id="legislacion">
+            <h2>17. Legislación aplicable</h2>
+
+            <p>
+                Estos Términos se regirán por la legislación española, sin perjuicio de
+                las normas imperativas que puedan resultar aplicables en cada caso.
+            </p>
+
+            <p>
+                Cualquier controversia se resolverá conforme a las reglas de competencia
+                establecidas por la legislación aplicable.
+            </p>
+        </section>
+
+        <section id="contacto">
+            <h2>18. Contacto</h2>
+
+            <p>
+                Para cualquier consulta relacionada con estos Términos o con el uso de
+                Omyra:
+            </p>
+
+            <div class="identity-box">
+                <p><strong>Responsable:</strong> Sergio Lozano Trujillo</p>
+                <p>
+                    <strong>Correo electrónico:</strong>
+                    <a href="mailto:hola@omyra.es">hola@omyra.es</a>
+                </p>
+                <p>
+                    <strong>Sitio web:</strong>
+                    <a href="https://omyra.es">https://omyra.es</a>
+                </p>
+            </div>
+        </section>
+
+    </article>
+</main>
+
+<footer class="legal-footer">
+    <div class="legal-footer-inner">
+        © 2026 Omyra · Gestión inteligente de citas.
+    </div>
+</footer>
+
+</body>
+</html>
