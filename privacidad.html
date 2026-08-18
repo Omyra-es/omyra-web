@@ -1,0 +1,895 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Política de Privacidad de Omyra">
+    <title>Política de Privacidad | Omyra</title>
+
+    <style>
+        :root {
+            --omyra-green: #0F3D2E;
+            --omyra-green-dark: #0A2D22;
+            --omyra-navy: #0B1D33;
+            --omyra-ivory: #F7F5F1;
+            --omyra-graphite: #111827;
+            --omyra-gold: #C8A96A;
+
+            --surface: #FFFFFF;
+            --surface-soft: #FBFAF8;
+            --border: #E7E2D9;
+            --text-muted: #667085;
+            --shadow: 0 18px 50px rgba(17, 24, 39, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            margin: 0;
+            background: var(--omyra-ivory);
+            color: var(--omyra-graphite);
+            font-family:
+                Geist,
+                "Helvetica Neue",
+                Helvetica,
+                Arial,
+                sans-serif;
+            line-height: 1.65;
+        }
+
+        a {
+            color: var(--omyra-green);
+            text-decoration-thickness: 1px;
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            color: var(--omyra-green-dark);
+        }
+
+        .site-header {
+            border-bottom: 1px solid var(--border);
+            background: rgba(247, 245, 241, 0.94);
+            backdrop-filter: blur(12px);
+        }
+
+        .site-header-inner {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 24px;
+            min-height: 76px;
+        }
+
+        .brand {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--omyra-green);
+            font-size: 1.25rem;
+            font-weight: 650;
+            text-decoration: none;
+        }
+
+        .brand-mark {
+            display: grid;
+            width: 34px;
+            height: 34px;
+            place-items: center;
+            border: 3px solid var(--omyra-green);
+            border-radius: 50%;
+            position: relative;
+        }
+
+        .brand-mark::after {
+            content: "";
+            width: 9px;
+            height: 9px;
+            border-radius: 50%;
+            background: var(--omyra-gold);
+        }
+
+        .header-link {
+            color: var(--omyra-graphite);
+            font-size: 0.92rem;
+            font-weight: 600;
+            text-decoration: none;
+        }
+
+        .page {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+            padding: 64px 0 80px;
+        }
+
+        .hero {
+            max-width: 820px;
+            margin-bottom: 34px;
+        }
+
+        .eyebrow {
+            margin: 0 0 10px;
+            color: var(--omyra-green);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--omyra-navy);
+            font-size: clamp(2.2rem, 6vw, 4rem);
+            line-height: 1.06;
+            letter-spacing: -0.035em;
+        }
+
+        .updated {
+            margin: 18px 0 0;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+        }
+
+        .intro {
+            margin: 22px 0 0;
+            color: #475467;
+            font-size: 1.03rem;
+        }
+
+        .privacy-layout {
+            display: grid;
+            grid-template-columns: minmax(0, 1fr);
+            gap: 24px;
+        }
+
+        .privacy-card {
+            padding: clamp(24px, 4vw, 44px);
+            border: 1px solid var(--border);
+            border-radius: 18px;
+            background: var(--surface);
+            box-shadow: var(--shadow);
+        }
+
+        section + section {
+            margin-top: 42px;
+            padding-top: 42px;
+            border-top: 1px solid var(--border);
+        }
+
+        h2 {
+            margin: 0 0 14px;
+            color: var(--omyra-navy);
+            font-size: 1.45rem;
+            line-height: 1.25;
+        }
+
+        h3 {
+            margin: 26px 0 10px;
+            color: var(--omyra-graphite);
+            font-size: 1.03rem;
+            line-height: 1.3;
+        }
+
+        p {
+            margin: 0 0 14px;
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        ul {
+            margin: 12px 0 16px;
+            padding-left: 22px;
+        }
+
+        li + li {
+            margin-top: 6px;
+        }
+
+        .identity-box,
+        .notice-box {
+            margin: 18px 0;
+            padding: 18px 20px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: var(--surface-soft);
+        }
+
+        .identity-box strong {
+            color: var(--omyra-navy);
+        }
+
+        .notice-box {
+            border-left: 4px solid var(--omyra-gold);
+        }
+
+        .site-footer {
+            padding: 28px 0 40px;
+            color: var(--text-muted);
+            font-size: 0.88rem;
+        }
+
+        .site-footer-inner {
+            width: min(1120px, calc(100% - 40px));
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 24px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        @media (max-width: 680px) {
+            .site-header-inner,
+            .page,
+            .site-footer-inner {
+                width: min(100% - 28px, 1120px);
+            }
+
+            .site-header-inner {
+                min-height: 68px;
+            }
+
+            .page {
+                padding-top: 42px;
+            }
+
+            .privacy-card {
+                border-radius: 14px;
+            }
+
+            section + section {
+                margin-top: 34px;
+                padding-top: 34px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header class="site-header">
+    <div class="site-header-inner">
+        <a class="brand" href="https://omyra.es" aria-label="Volver a Omyra">
+            <span class="brand-mark" aria-hidden="true"></span>
+            <span>Omyra</span>
+        </a>
+
+        <a class="header-link" href="https://omyra.es">
+            Volver a omyra.es
+        </a>
+    </div>
+</header>
+
+<main class="page">
+
+    <div class="hero">
+        <p class="eyebrow">Legal · Privacidad</p>
+        <h1>Política de Privacidad</h1>
+
+        <p class="updated">
+            Última actualización: 18 de agosto de 2026
+        </p>
+
+        <p class="intro">
+            En Omyra nos tomamos en serio la privacidad y la protección de los datos personales.
+            Esta Política de Privacidad explica qué información puede tratarse mediante Omyra,
+            para qué se utiliza, qué proveedores tecnológicos intervienen, cómo se protegen los
+            datos y qué derechos corresponden a las personas interesadas.
+        </p>
+    </div>
+
+    <div class="privacy-layout">
+        <article class="privacy-card">
+
+            <section id="responsable">
+                <h2>1. Responsable del tratamiento</h2>
+
+                <p>
+                    Para los tratamientos de datos realizados directamente por Omyra, el responsable es:
+                </p>
+
+                <div class="identity-box">
+                    <p><strong>Responsable:</strong> Sergio Lozano Trujillo</p>
+                    <p><strong>Correo electrónico:</strong> <a href="mailto:hola@omyra.es">hola@omyra.es</a></p>
+                    <p><strong>Sitio web:</strong> <a href="https://omyra.es">https://omyra.es</a></p>
+                </div>
+
+                <p>
+                    Cuando Omyra presta sus servicios a una peluquería, barbería u otro negocio
+                    que utiliza la plataforma para gestionar a sus propios clientes, dicho negocio
+                    será, con carácter general, el responsable del tratamiento de los datos de sus
+                    clientes y Omyra actuará como encargado del tratamiento, tratando la información
+                    siguiendo las instrucciones del negocio y para prestar las funcionalidades contratadas.
+                </p>
+            </section>
+
+            <section id="que-es-omyra">
+                <h2>2. Qué es Omyra</h2>
+
+                <p>
+                    Omyra es una plataforma de gestión de citas y atención al cliente dirigida a
+                    peluquerías, barberías y otros negocios de servicios.
+                </p>
+
+                <p>Entre otras funcionalidades, Omyra permite:</p>
+
+                <ul>
+                    <li>gestionar clientes, empleados, servicios y citas;</li>
+                    <li>gestionar horarios, disponibilidad, ausencias y festivos;</li>
+                    <li>recibir y gestionar solicitudes de cita;</li>
+                    <li>automatizar determinadas comunicaciones relacionadas con las citas;</li>
+                    <li>integrar la atención al cliente mediante WhatsApp;</li>
+                    <li>sincronizar las citas de los empleados con Google Calendar;</li>
+                    <li>utilizar sistemas de inteligencia artificial para interpretar determinadas solicitudes realizadas mediante los canales de atención habilitados.</li>
+                </ul>
+            </section>
+
+            <section id="datos-tratados">
+                <h2>3. Qué datos pueden tratarse</h2>
+
+                <p>
+                    Los datos tratados dependen del uso que se haga de Omyra.
+                </p>
+
+                <h3>3.1. Datos de los negocios que utilizan Omyra</h3>
+
+                <p>Omyra puede tratar:</p>
+
+                <ul>
+                    <li>nombre del negocio;</li>
+                    <li>NIF o CIF;</li>
+                    <li>datos de acceso a la plataforma;</li>
+                    <li>datos identificativos y de contacto de las personas responsables;</li>
+                    <li>información necesaria para la contratación, soporte y facturación;</li>
+                    <li>configuración y preferencias del servicio.</li>
+                </ul>
+
+                <h3>3.2. Datos de empleados</h3>
+
+                <p>Omyra puede tratar:</p>
+
+                <ul>
+                    <li>nombre y apellidos;</li>
+                    <li>horarios y disponibilidad;</li>
+                    <li>servicios que realiza;</li>
+                    <li>citas asignadas;</li>
+                    <li>ausencias y bloqueos de agenda;</li>
+                    <li>información necesaria para las integraciones que el negocio decida activar.</li>
+                </ul>
+
+                <p>
+                    Cuando un empleado conecta Google Calendar, también se trata la dirección de
+                    correo electrónico correspondiente a la cuenta de Google conectada y las
+                    credenciales OAuth necesarias para mantener la integración.
+                </p>
+
+                <h3>3.3. Datos de clientes de los negocios</h3>
+
+                <p>
+                    Los negocios que utilizan Omyra pueden incorporar o generar información relativa
+                    a sus clientes, incluyendo:
+                </p>
+
+                <ul>
+                    <li>nombre y apellidos;</li>
+                    <li>número de teléfono;</li>
+                    <li>dirección de correo electrónico;</li>
+                    <li>fecha de nacimiento o información relacionada con el cumpleaños;</li>
+                    <li>citas solicitadas, modificadas, completadas o canceladas;</li>
+                    <li>servicios contratados;</li>
+                    <li>empleado asignado;</li>
+                    <li>fecha y hora de las citas;</li>
+                    <li>notas u observaciones introducidas por el negocio;</li>
+                    <li>contenido de las comunicaciones necesarias para gestionar la relación con el negocio.</li>
+                </ul>
+
+                <p>
+                    Estos datos pueden utilizarse, entre otras finalidades, para gestionar citas y
+                    servicios, mantener la relación con el cliente y, cuando exista una base jurídica
+                    que lo permita, gestionar promociones, comunicaciones comerciales o acciones
+                    relacionadas con su cumpleaños.
+                </p>
+
+                <p>
+                    Respecto de estos datos, el negocio que utiliza Omyra será normalmente el responsable
+                    del tratamiento y será responsable de determinar la base jurídica aplicable a cada finalidad.
+                </p>
+            </section>
+
+            <section id="finalidades">
+                <h2>4. Finalidades del tratamiento</h2>
+
+                <h3>Prestación del servicio</h3>
+                <p>
+                    Omyra trata la información necesaria para proporcionar las funcionalidades de la plataforma,
+                    incluyendo la gestión de negocios, empleados, clientes, servicios, horarios,
+                    disponibilidad y citas.
+                </p>
+
+                <h3>Gestión de cuentas y seguridad</h3>
+                <p>Los datos pueden tratarse para:</p>
+
+                <ul>
+                    <li>identificar a los usuarios;</li>
+                    <li>gestionar el acceso a la plataforma;</li>
+                    <li>prevenir accesos no autorizados;</li>
+                    <li>proteger la seguridad del servicio;</li>
+                    <li>detectar e investigar incidencias técnicas;</li>
+                    <li>mantener la estabilidad y correcto funcionamiento de Omyra.</li>
+                </ul>
+
+                <h3>Atención y soporte</h3>
+                <p>
+                    Omyra puede utilizar datos de contacto y otra información necesaria para atender
+                    consultas, incidencias o solicitudes relacionadas con el funcionamiento del servicio.
+                </p>
+
+                <h3>Obligaciones administrativas y legales</h3>
+                <p>
+                    Cuando resulte necesario, determinados datos podrán tratarse para cumplir obligaciones
+                    fiscales, contables, contractuales o legales.
+                </p>
+
+                <h3>Comunicaciones comerciales de los negocios</h3>
+                <p>
+                    Omyra puede proporcionar funcionalidades que permitan a los negocios gestionar
+                    comunicaciones promocionales dirigidas a sus propios clientes.
+                </p>
+
+                <p>
+                    El negocio será responsable de disponer de una base jurídica adecuada para realizar
+                    dichas comunicaciones, de respetar las preferencias del cliente y de atender las
+                    solicitudes de oposición o retirada del consentimiento que correspondan.
+                </p>
+
+                <p>
+                    Omyra no utiliza por iniciativa propia los datos de los clientes de los negocios
+                    para realizar publicidad de Omyra dirigida a dichos clientes.
+                </p>
+            </section>
+
+            <section id="whatsapp">
+                <h2>5. Integración con WhatsApp</h2>
+
+                <p>
+                    Omyra puede integrarse con WhatsApp para permitir que los clientes de los negocios
+                    realicen gestiones mediante este canal, como solicitar, modificar o cancelar citas,
+                    consultar servicios o resolver cuestiones relacionadas con su cita.
+                </p>
+
+                <p>En estas comunicaciones pueden tratarse datos como:</p>
+
+                <ul>
+                    <li>número de teléfono;</li>
+                    <li>contenido de los mensajes;</li>
+                    <li>información relativa a citas;</li>
+                    <li>servicios solicitados;</li>
+                    <li>disponibilidad necesaria para resolver la petición.</li>
+                </ul>
+
+                <p>
+                    WhatsApp y los servicios asociados son proporcionados por entidades pertenecientes
+                    al grupo Meta, que pueden realizar sus propios tratamientos de datos conforme a sus
+                    correspondientes políticas y condiciones.
+                </p>
+            </section>
+
+            <section id="ia-openai">
+                <h2>6. Inteligencia artificial y OpenAI</h2>
+
+                <p>
+                    Omyra utiliza actualmente servicios proporcionados mediante la API de OpenAI para
+                    interpretar determinadas solicitudes realizadas por los usuarios mediante las
+                    funcionalidades de atención automatizada.
+                </p>
+
+                <p>La información enviada al sistema de inteligencia artificial puede incluir:</p>
+
+                <ul>
+                    <li>el contenido del mensaje recibido;</li>
+                    <li>fecha y zona horaria necesarias para interpretar expresiones temporales;</li>
+                    <li>idioma;</li>
+                    <li>tipo de negocio;</li>
+                    <li>servicios disponibles;</li>
+                    <li>empleados disponibles;</li>
+                    <li>estado y contexto de la conversación.</li>
+                </ul>
+
+                <p>
+                    Omyra no incorpora deliberadamente a estas solicitudes datos de la ficha del cliente
+                    como su teléfono, dirección de correo electrónico, fecha de nacimiento o historial
+                    completo de citas.
+                </p>
+
+                <p>
+                    No obstante, dado que se procesa el contenido del mensaje escrito por el propio usuario,
+                    dicho mensaje podría incluir información personal facilitada voluntariamente durante
+                    la conversación.
+                </p>
+
+                <p>
+                    Esta información se utiliza exclusivamente para interpretar la solicitud y prestar
+                    las funcionalidades de atención automatizada de Omyra.
+                </p>
+
+                <p>
+                    Omyra no utiliza esta integración para realizar publicidad dirigida a los clientes
+                    de los negocios.
+                </p>
+            </section>
+
+            <section id="google-calendar">
+                <h2>7. Integración con Google Calendar</h2>
+
+                <p>
+                    Omyra permite que cada empleado conecte voluntariamente una cuenta de Google Calendar
+                    con el objetivo de sincronizar las citas gestionadas mediante la plataforma.
+                </p>
+
+                <h3>7.1. Datos de Google a los que accede Omyra</h3>
+
+                <p>Cuando el usuario conecta Google Calendar, Omyra puede obtener y tratar:</p>
+
+                <ul>
+                    <li>la dirección de correo electrónico de la cuenta de Google seleccionada;</li>
+                    <li>tokens OAuth necesarios para mantener autorizada la integración;</li>
+                    <li>permisos para realizar las operaciones de calendario autorizadas expresamente por el usuario.</li>
+                </ul>
+
+                <p>
+                    Omyra no recibe ni almacena la contraseña de la cuenta de Google.
+                </p>
+
+                <h3>7.2. Uso de los datos de Google</h3>
+
+                <p>
+                    Omyra utiliza el acceso concedido exclusivamente para proporcionar la funcionalidad
+                    de sincronización con Google Calendar.
+                </p>
+
+                <p>En particular, Omyra puede:</p>
+
+                <ul>
+                    <li>crear eventos correspondientes a citas gestionadas mediante Omyra;</li>
+                    <li>actualizar dichos eventos cuando se modifica una cita;</li>
+                    <li>eliminar los eventos correspondientes cuando una cita se cancela o deja de ser aplicable;</li>
+                    <li>volver a intentar operaciones de sincronización que hayan producido errores.</li>
+                </ul>
+
+                <p>
+                    Omyra no utiliza los datos obtenidos mediante las APIs de Google para publicidad,
+                    elaboración de perfiles publicitarios o venta de información.
+                </p>
+
+                <p>
+                    Omyra tampoco utiliza los datos obtenidos mediante las APIs de Google para entrenar
+                    modelos de inteligencia artificial.
+                </p>
+
+                <h3>7.3. Almacenamiento de las credenciales de Google</h3>
+
+                <p>
+                    Para mantener activa la sincronización, Omyra almacena un token OAuth de actualización
+                    asociado al empleado.
+                </p>
+
+                <p>
+                    Dicho token se almacena de forma protegida mediante cifrado y se utiliza exclusivamente
+                    para obtener acceso autorizado a Google Calendar cuando sea necesario ejecutar las
+                    operaciones de sincronización solicitadas.
+                </p>
+
+                <h3>7.4. Desconexión de Google Calendar</h3>
+
+                <p>
+                    El usuario puede desconectar Google Calendar desde las opciones de configuración de Omyra.
+                </p>
+
+                <p>
+                    Al realizar la desconexión, Omyra elimina de sus sistemas las credenciales de Google
+                    asociadas al empleado y deja de utilizar dicha autorización para realizar nuevas
+                    operaciones de sincronización.
+                </p>
+
+                <p>
+                    Cuando corresponde, Omyra solicita también a Google la revocación del token OAuth
+                    utilizado para la integración.
+                </p>
+
+                <p>
+                    La desconexión de Google Calendar no elimina automáticamente los eventos que ya hubieran
+                    sido creados previamente en el calendario del usuario.
+                </p>
+
+                <h3>7.5. Política de uso de datos de Google</h3>
+
+                <div class="notice-box">
+                    <p>
+                        El uso y eventual transferencia por Omyra de información recibida de las APIs de Google
+                        se realizará de conformidad con la
+                        <a href="https://developers.google.com/terms/api-services-user-data-policy"
+                           target="_blank"
+                           rel="noopener noreferrer">
+                            Google API Services User Data Policy
+                        </a>,
+                        incluidos sus requisitos de uso limitado.
+                    </p>
+                </div>
+            </section>
+
+            <section id="base-juridica">
+                <h2>8. Base jurídica</h2>
+
+                <p>
+                    La base jurídica del tratamiento dependerá de la finalidad concreta y de la relación
+                    existente con la persona interesada.
+                </p>
+
+                <p>Los datos pueden tratarse cuando sea necesario para:</p>
+
+                <ul>
+                    <li>prestar un servicio solicitado o ejecutar una relación contractual;</li>
+                    <li>cumplir obligaciones legales;</li>
+                    <li>proteger intereses legítimos relacionados con la seguridad y correcto funcionamiento del servicio;</li>
+                    <li>gestionar funcionalidades solicitadas voluntariamente por el usuario;</li>
+                    <li>realizar otros tratamientos cuando exista consentimiento u otra base jurídica válida.</li>
+                </ul>
+
+                <p>
+                    Las integraciones externas, como Google Calendar, se activan únicamente cuando el usuario
+                    solicita expresamente su conexión y completa el proceso de autorización proporcionado
+                    por el proveedor correspondiente.
+                </p>
+
+                <p>
+                    Cuando Omyra actúe como encargado del tratamiento, la determinación de la base jurídica
+                    del tratamiento corresponderá al negocio que actúe como responsable.
+                </p>
+            </section>
+
+            <section id="proveedores">
+                <h2>9. Proveedores y terceros</h2>
+
+                <p>
+                    Para prestar sus servicios, Omyra puede utilizar proveedores tecnológicos que intervienen
+                    en el tratamiento de determinados datos.
+                </p>
+
+                <p>Actualmente pueden intervenir, entre otros:</p>
+
+                <ul>
+                    <li><strong>Hetzner</strong>, como proveedor de infraestructura y alojamiento;</li>
+                    <li><strong>OpenAI</strong>, para las funcionalidades de interpretación mediante inteligencia artificial;</li>
+                    <li><strong>Meta / WhatsApp</strong>, para las comunicaciones realizadas mediante WhatsApp;</li>
+                    <li><strong>Google</strong>, cuando un usuario activa la integración con Google Calendar.</li>
+                </ul>
+
+                <p>
+                    Cada proveedor podrá intervenir como encargado, subencargado o responsable independiente
+                    según la naturaleza concreta del servicio prestado.
+                </p>
+
+                <p>
+                    Omyra adopta las medidas contractuales y organizativas aplicables para proteger los datos
+                    tratados mediante sus proveedores.
+                </p>
+            </section>
+
+            <section id="transferencias">
+                <h2>10. Transferencias internacionales</h2>
+
+                <p>
+                    Algunos proveedores tecnológicos utilizados por Omyra pueden participar en tratamientos
+                    de información que impliquen transferencias internacionales de datos.
+                </p>
+
+                <p>
+                    Cuando resulte aplicable, dichas transferencias se realizarán utilizando los mecanismos
+                    y garantías reconocidos por la normativa de protección de datos, como decisiones de adecuación,
+                    cláusulas contractuales tipo u otros mecanismos legalmente admitidos.
+                </p>
+            </section>
+
+            <section id="conservacion">
+                <h2>11. Conservación de los datos</h2>
+
+                <p>
+                    Los datos personales se conservarán únicamente durante el tiempo necesario para cumplir
+                    la finalidad para la que fueron tratados y, posteriormente, durante los plazos que puedan
+                    resultar necesarios para cumplir obligaciones legales o atender posibles responsabilidades.
+                </p>
+
+                <p>En particular:</p>
+
+                <ul>
+                    <li>los datos asociados a una cuenta o relación contractual podrán conservarse mientras dicha relación permanezca activa;</li>
+                    <li>los datos tratados por cuenta de un negocio se conservarán conforme a las condiciones aplicables al servicio y a las instrucciones del responsable;</li>
+                    <li>las credenciales de integraciones externas se conservarán mientras la integración permanezca activa o hasta que sean revocadas, sustituidas o eliminadas;</li>
+                    <li>determinados datos podrán mantenerse bloqueados durante los plazos legalmente exigibles.</li>
+                </ul>
+
+                <p>
+                    Cuando los datos dejen de ser necesarios, serán eliminados, anonimizados o bloqueados cuando así corresponda.
+                </p>
+            </section>
+
+            <section id="seguridad">
+                <h2>12. Seguridad</h2>
+
+                <p>
+                    Omyra aplica medidas técnicas y organizativas destinadas a proteger la información frente
+                    a accesos no autorizados, pérdida, alteración, divulgación o destrucción.
+                </p>
+
+                <p>Entre dichas medidas se encuentran, según corresponda:</p>
+
+                <ul>
+                    <li>controles de acceso;</li>
+                    <li>autenticación de usuarios;</li>
+                    <li>aislamiento de la información correspondiente a diferentes negocios;</li>
+                    <li>cifrado de determinadas credenciales sensibles;</li>
+                    <li>medidas de seguridad de infraestructura;</li>
+                    <li>mecanismos de registro y seguimiento de incidencias.</li>
+                </ul>
+
+                <p>
+                    Las medidas de seguridad se revisan y adaptan en función de la evolución del servicio
+                    y de los riesgos identificados.
+                </p>
+            </section>
+
+            <section id="derechos">
+                <h2>13. Derechos de las personas interesadas</h2>
+
+                <p>Las personas interesadas pueden ejercer, cuando corresponda, sus derechos de:</p>
+
+                <ul>
+                    <li>acceso;</li>
+                    <li>rectificación;</li>
+                    <li>supresión;</li>
+                    <li>oposición;</li>
+                    <li>limitación del tratamiento;</li>
+                    <li>portabilidad;</li>
+                    <li>retirada del consentimiento cuando el tratamiento esté basado en él.</li>
+                </ul>
+
+                <p>
+                    Para ejercer estos derechos o realizar cualquier consulta relacionada con privacidad
+                    puede contactarse con:
+                    <a href="mailto:hola@omyra.es">hola@omyra.es</a>.
+                </p>
+
+                <p>
+                    Cuando la solicitud se refiera a datos tratados por Omyra por cuenta de un negocio cliente,
+                    Omyra podrá trasladar dicha solicitud al negocio correspondiente, que será el responsable
+                    de decidir y gestionar su atención.
+                </p>
+
+                <p>
+                    Omyra colaborará con el negocio responsable para ejecutar las actuaciones técnicas que sean necesarias.
+                </p>
+
+                <p>
+                    Las personas interesadas también tienen derecho a presentar una reclamación ante la autoridad
+                    de control competente. En España, dicha autoridad es la
+                    <a href="https://www.aepd.es/" target="_blank" rel="noopener noreferrer">
+                        Agencia Española de Protección de Datos (AEPD)
+                    </a>.
+                </p>
+            </section>
+
+            <section id="datos-negocios">
+                <h2>14. Datos obtenidos a través de los negocios</h2>
+
+                <p>
+                    En determinados casos Omyra recibe información que no ha sido proporcionada directamente
+                    por la persona interesada, sino incorporada por el negocio que utiliza la plataforma o
+                    generada durante la prestación del servicio.
+                </p>
+
+                <p>
+                    El negocio será responsable de disponer de una base jurídica adecuada para incorporar
+                    y tratar los datos de sus clientes mediante Omyra y de facilitarles la información que
+                    legalmente corresponda.
+                </p>
+            </section>
+
+            <section id="menores">
+                <h2>15. Menores de edad</h2>
+
+                <p>
+                    Omyra no está diseñado como un servicio dirigido específicamente a menores de edad.
+                </p>
+
+                <p>
+                    Cuando un negocio utilice la plataforma para gestionar una cita correspondiente a un menor,
+                    será responsabilidad del negocio garantizar el cumplimiento de las obligaciones aplicables
+                    respecto al tratamiento de dichos datos.
+                </p>
+            </section>
+
+            <section id="cookies">
+                <h2>16. Cookies y tecnologías similares</h2>
+
+                <p>
+                    Actualmente Omyra no utiliza herramientas de publicidad comportamental ni herramientas
+                    de analítica de terceros en su sitio web.
+                </p>
+
+                <p>
+                    La plataforma puede utilizar cookies o mecanismos técnicos estrictamente necesarios
+                    para funciones como la autenticación, mantenimiento de sesiones, seguridad y funcionamiento
+                    del servicio.
+                </p>
+
+                <p>
+                    La información específica sobre estas tecnologías podrá consultarse en la Política de Cookies de Omyra.
+                </p>
+            </section>
+
+            <section id="cambios">
+                <h2>17. Cambios en esta Política de Privacidad</h2>
+
+                <p>
+                    Omyra podrá actualizar esta Política de Privacidad cuando cambien las funcionalidades
+                    de la plataforma, los proveedores utilizados, la normativa aplicable o la forma en que
+                    se tratan los datos personales.
+                </p>
+
+                <p>
+                    Cuando los cambios sean relevantes, se adoptarán las medidas razonables para informar
+                    a los usuarios.
+                </p>
+
+                <p>
+                    La fecha de la última actualización aparecerá siempre al inicio de esta página.
+                </p>
+            </section>
+
+            <section id="contacto">
+                <h2>18. Contacto</h2>
+
+                <p>
+                    Para cualquier consulta relacionada con esta Política de Privacidad o con el tratamiento
+                    de datos personales realizado por Omyra:
+                </p>
+
+                <div class="identity-box">
+                    <p><strong>Responsable:</strong> Sergio Lozano Trujillo</p>
+                    <p><strong>Correo electrónico:</strong> <a href="mailto:hola@omyra.es">hola@omyra.es</a></p>
+                    <p><strong>Sitio web:</strong> <a href="https://omyra.es">https://omyra.es</a></p>
+                </div>
+            </section>
+
+        </article>
+    </div>
+</main>
+
+<footer class="site-footer">
+    <div class="site-footer-inner">
+        <span>© 2026 Omyra</span>
+
+        <nav class="footer-links" aria-label="Enlaces legales">
+            <a href="https://omyra.es">Inicio</a>
+            <a href="mailto:hola@omyra.es">Contacto</a>
+        </nav>
+    </div>
+</footer>
+
+</body>
+</html>
