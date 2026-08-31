@@ -68,3 +68,126 @@ faqItems.forEach((item) => {
 
 const year = document.getElementById("year");
 if (year) year.textContent = new Date().getFullYear();
+
+const demoPanel = document.querySelector(".demo-panel");
+const demoTriggers = document.querySelectorAll("[data-demo-trigger]");
+const demoCloseButtons = document.querySelectorAll("[data-demo-close]");
+const demoForm = document.getElementById("demo-request-form");
+const demoFormError = document.getElementById("demo-form-error");
+const demoFormSuccess = document.getElementById("demo-form-success");
+
+let lastDemoTrigger = null;
+
+function openDemoPanel(trigger) {
+  if (!demoPanel) return;
+
+  lastDemoTrigger = trigger ?? document.activeElement;
+
+  closeMenu();
+
+  demoPanel.classList.add("is-open");
+  demoPanel.setAttribute("aria-hidden", "false");
+  document.body.classList.add("demo-open");
+
+  window.setTimeout(() => {
+    document.getElementById("demo-name")?.focus();
+  }, 260);
+}
+
+function closeDemoPanel() {
+  if (!demoPanel) return;
+
+  demoPanel.classList.remove("is-open");
+  demoPanel.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("demo-open");
+
+  lastDemoTrigger?.focus?.();
+}
+
+demoTriggers.forEach((trigger) => {
+  trigger.addEventListener("click", (event) => {
+    event.preventDefault();
+    openDemoPanel(trigger);
+  });
+});
+
+demoCloseButtons.forEach((button) => {
+  button.addEventListener("click", closeDemoPanel);
+});
+
+document.addEventListener("keydown", (event) => {
+  if (event.key === "Escape" && demoPanel?.classList.contains("is-open")) {
+    closeDemoPanel();
+  }
+});
+
+if (demoForm) {
+  demoForm.addEventListener("submit", async (event) => {
+    event.preventDefault();
+
+    if (!demoFormError || !demoFormSuccess) return;
+
+    demoFormError.hidden = true;
+    demoFormError.textContent = "";
+
+    const formData = new FormData(demoForm);
+
+    const payload = {
+      name: String(formData.get("name") || "").trim(),
+      businessName: String(formData.get("businessName") || "").trim(),
+      phone: String(formData.get("phone") || "").trim(),
+      email: String(formData.get("email") || "").trim(),
+      context: String(formData.get("context") || "").trim(),
+      website: String(formData.get("website") || "").trim(),
+    };
+
+    if (!payload.name || !payload.businessName) {
+      demoFormError.textContent = "Indica tu nombre y el nombre del negocio.";
+      demoFormError.hidden = false;
+      return;
+    }
+
+    if (!payload.phone && !payload.email) {
+      demoFormError.textContent =
+        "Indica al menos un teléfono o un email para poder contactarte.";
+      demoFormError.hidden = false;
+      return;
+    }
+
+    const submitButton = demoForm.querySelector('button[type="submit"]');
+
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = "Enviando…";
+    }
+
+    try {
+      const response = await fetch("/api/public/demo-requests", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(payload),
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP ${response.status}`);
+      }
+
+      demoForm.hidden = true;
+      demoFormSuccess.hidden = false;
+    } catch (error) {
+      console.error("Demo request failed", error);
+
+      demoFormError.textContent =
+        "No hemos podido enviar la solicitud. Inténtalo de nuevo en unos instantes.";
+      demoFormError.hidden = false;
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerHTML =
+          'Solicitar demo <span aria-hidden="true">→</span>';
+      }
+    }
+  });
+}

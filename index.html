@@ -37,8 +37,10 @@
             <a href="#preguntas">Preguntas</a>
         </nav>
 
-        <a class="button button--small button--primary header__cta" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.">
-            Solicitar demo <span aria-hidden="true">→</span>
+        <a class="button button--primary"
+           href="#solicitar-demo"
+           data-demo-trigger>
+            Quiero ver Omyra <span aria-hidden="true">→</span>
         </a>
 
         <button class="menu-button" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="mobile-menu">
@@ -51,7 +53,11 @@
         <a href="#dia-a-dia">El día a día</a>
         <a href="#whatsapp">WhatsApp</a>
         <a href="#preguntas">Preguntas</a>
-        <a class="button button--primary" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.">Solicitar demo</a>
+        <a class="button button--primary"
+           href="#solicitar-demo"
+           data-demo-trigger>
+            Solicitar demo <span aria-hidden="true">→</span>
+        </a>
     </nav>
 </header>
 
@@ -67,7 +73,11 @@
                 <p>Omyra reúne agenda, clientes, equipo y servicios para que dejes de gestionar el negocio entre llamadas, mensajes y notas sueltas.</p>
 
                 <div class="hero__actions">
-                    <a class="button button--primary" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.">Quiero ver Omyra <span aria-hidden="true">→</span></a>
+                    <a class="button button--primary"
+                       href="#solicitar-demo"
+                       data-demo-trigger>
+                        Quiero ver Omyra <span aria-hidden="true">→</span>
+                    </a>
                 </div>
 
                 <ul class="hero__points" aria-label="Ventajas principales">
@@ -284,7 +294,7 @@
             <h2>Cuéntanos cómo funciona tu negocio. Te enseñamos cómo Omyra puede ayudarte a simplificarlo.</h2>
             <p>Sin compromiso y sin una presentación genérica: una conversación centrada en lo que hoy te quita tiempo.</p>
             <div class="demo__actions">
-                <a class="button button--gold" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.%0A%0AMi%20negocio%20es%3A%20%0AN%C3%BAmero%20de%20profesionales%3A%20">Solicitar mi demo <span aria-hidden="true">→</span></a>
+                <a class="button button--gold" href="mailto:hola@omyra.es?subject=Quiero%20una%20demo%20de%20Omyra&amp;body=Hola%2C%20me%20gustar%C3%ADa%20conocer%20Omyra%20y%20ver%20una%20demo.%0A%0AMi%20negocio%20es%3A%20%0AN%C3%BAmero%20de%20profesionales%3A%20">Contactanos <span aria-hidden="true">→</span></a>
             </div>
         </div>
     </section>
@@ -305,7 +315,135 @@
         </div>
     </section>
 </main>
+<div class="demo-panel" id="solicitar-demo" aria-hidden="true">
+    <div class="demo-panel__backdrop" data-demo-close></div>
 
+    <aside
+            class="demo-panel__content"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="demo-panel-title"
+    >
+        <button
+                class="demo-panel__close"
+                type="button"
+                aria-label="Cerrar formulario"
+                data-demo-close
+        >
+            ×
+        </button>
+
+        <div class="demo-panel__header">
+            <span class="section-kicker">Conoce Omyra</span>
+            <h2 id="demo-panel-title">Solicita una demo</h2>
+            <p>
+                Cuéntanos lo básico sobre tu negocio y nos pondremos
+                en contacto contigo para preparar una demo que tenga sentido para ti.
+            </p>
+        </div>
+
+        <form class="demo-form" id="demo-request-form" novalidate>
+            <div class="demo-form__field">
+                <label for="demo-name">Tu nombre *</label>
+                <input
+                        id="demo-name"
+                        name="name"
+                        type="text"
+                        autocomplete="name"
+                        maxlength="120"
+                        required
+                >
+            </div>
+
+            <div class="demo-form__field">
+                <label for="demo-business">Nombre del negocio *</label>
+                <input
+                        id="demo-business"
+                        name="businessName"
+                        type="text"
+                        autocomplete="organization"
+                        maxlength="180"
+                        required
+                >
+            </div>
+
+            <div class="demo-form__grid">
+                <div class="demo-form__field">
+                    <label for="demo-phone">Teléfono</label>
+                    <input
+                            id="demo-phone"
+                            name="phone"
+                            type="tel"
+                            autocomplete="tel"
+                            maxlength="30"
+                    >
+                </div>
+
+                <div class="demo-form__field">
+                    <label for="demo-email">Email</label>
+                    <input
+                            id="demo-email"
+                            name="email"
+                            type="email"
+                            autocomplete="email"
+                            maxlength="180"
+                    >
+                </div>
+            </div>
+
+            <p class="demo-form__hint">
+                Necesitamos al menos un teléfono o un email para poder contactarte.
+            </p>
+
+            <div class="demo-form__field">
+                <label for="demo-context">¿Quieres contarnos algo?</label>
+                <textarea
+                        id="demo-context"
+                        name="context"
+                        rows="5"
+                        maxlength="1500"
+                        placeholder="Por ejemplo, cómo gestionáis ahora las citas, qué os quita tiempo o qué os gustaría mejorar."
+                ></textarea>
+            </div>
+
+            <!-- Honeypot anti-bots -->
+            <div class="demo-form__honeypot" aria-hidden="true">
+                <label for="demo-website">Web</label>
+                <input
+                        id="demo-website"
+                        name="website"
+                        type="text"
+                        tabindex="-1"
+                        autocomplete="off"
+                >
+            </div>
+
+            <p class="demo-form__privacy">
+                Al enviar el formulario utilizaremos tus datos únicamente
+                para responder a tu solicitud.
+                <a href="privacidad.html">Consulta nuestra política de privacidad.</a>
+            </p>
+
+            <div class="demo-form__error" id="demo-form-error" role="alert" hidden></div>
+
+            <button class="button button--primary demo-form__submit" type="submit">
+                Solicitar demo <span aria-hidden="true">→</span>
+            </button>
+        </form>
+
+        <div class="demo-form-success" id="demo-form-success" hidden>
+            <span class="demo-form-success__icon" aria-hidden="true">✓</span>
+            <h3>Solicitud recibida</h3>
+            <p>
+                Gracias. Nos pondremos en contacto contigo para conocer
+                un poco mejor tu negocio y preparar la demo.
+            </p>
+            <button class="button button--secondary" type="button" data-demo-close>
+                Cerrar
+            </button>
+        </div>
+    </aside>
+</div>
 <footer class="footer">
     <div class="container footer__main">
         <div>
