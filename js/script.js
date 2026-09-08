@@ -101,6 +101,20 @@ function closeDemoPanel() {
   demoPanel.setAttribute("aria-hidden", "true");
   document.body.classList.remove("demo-open");
 
+  if (demoForm && demoFormSuccess) {
+    demoForm.reset();
+
+    demoForm.hidden = false;
+    demoFormSuccess.hidden = true;
+
+    demoFormError.hidden = true;
+    demoFormError.textContent = "";
+
+    demoForm
+      .querySelectorAll('[aria-invalid="true"]')
+      .forEach((field) => field.removeAttribute("aria-invalid"));
+  }
+
   lastDemoTrigger?.focus?.();
 }
 
@@ -140,18 +154,57 @@ if (demoForm) {
       context: String(formData.get("context") || "").trim(),
       website: String(formData.get("website") || "").trim(),
     };
+    demoForm
+      .querySelectorAll('[aria-invalid="true"]')
+      .forEach((field) => field.removeAttribute("aria-invalid"));
 
-    if (!payload.name || !payload.businessName) {
-      demoFormError.textContent = "Indica tu nombre y el nombre del negocio.";
-      demoFormError.hidden = false;
+    if (!payload.name) {
+      showDemoError(
+        "Indica tu nombre.",
+        "demo-name"
+      );
+      return;
+    }
+
+    if (!payload.businessName) {
+      showDemoError(
+        "Indica el nombre de tu negocio.",
+        "demo-business"
+      );
       return;
     }
 
     if (!payload.phone && !payload.email) {
-      demoFormError.textContent =
-        "Indica al menos un teléfono o un email para poder contactarte.";
-      demoFormError.hidden = false;
+      showDemoError(
+        "Indica al menos un teléfono o un email para poder contactarte."
+      );
       return;
+    }
+
+    if (payload.email) {
+      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+      if (!emailPattern.test(payload.email)) {
+        showDemoError(
+          "Introduce una dirección de email válida.",
+          "demo-email"
+        );
+        return;
+      }
+    }
+
+    if (payload.phone) {
+      const normalizedPhone = payload.phone.replace(/[\s().-]/g, "");
+
+      const phonePattern = /^\+?[0-9]{7,15}$/;
+
+      if (!phonePattern.test(normalizedPhone)) {
+        showDemoError(
+          "Introduce un número de teléfono válido.",
+          "demo-phone"
+        );
+        return;
+      }
     }
 
     const submitButton = demoForm.querySelector('button[type="submit"]');
@@ -173,6 +226,13 @@ if (demoForm) {
       });
 
       if (!response.ok) {
+        if (response.status === 400 || response.status === 422) {
+          showDemoError(
+            "Hay algún dato incorrecto en el formulario. Revísalo e inténtalo de nuevo."
+          );
+          return;
+        }
+
         throw new Error(`HTTP ${response.status}`);
       }
 
@@ -192,4 +252,20 @@ if (demoForm) {
       }
     }
   });
+
+  function showDemoError(message, fieldId = null) {
+    if (!demoFormError) return;
+
+    demoFormError.textContent = message;
+    demoFormError.hidden = false;
+
+    if (fieldId) {
+      const field = document.getElementById(fieldId);
+
+      if (field) {
+        field.setAttribute("aria-invalid", "true");
+        field.focus();
+      }
+    }
+  }
 }
