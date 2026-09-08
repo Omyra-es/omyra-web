@@ -162,7 +162,9 @@ if (demoForm) {
     }
 
     try {
-      const response = await fetch("/api/public/demo-requests", {
+      const response = await fetch(
+        "https://clientes.omyra.es/api/public/demo-requests",
+        {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
