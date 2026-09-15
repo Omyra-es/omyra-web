@@ -145,13 +145,17 @@ if (demoForm) {
     demoFormError.textContent = "";
 
     const formData = new FormData(demoForm);
+    const isFounderRequest = demoForm.dataset.requestKind === "founders";
+    const userContext = String(formData.get("context") || "").trim();
 
     const payload = {
       name: String(formData.get("name") || "").trim(),
       businessName: String(formData.get("businessName") || "").trim(),
       phone: String(formData.get("phone") || "").trim(),
       email: String(formData.get("email") || "").trim(),
-      context: String(formData.get("context") || "").trim(),
+      context: isFounderRequest
+        ? `Solicitud para el programa de negocios fundadores.${userContext ? `\n\n${userContext}` : ""}`
+        : userContext,
       website: String(formData.get("website") || "").trim(),
     };
     demoForm
@@ -248,7 +252,7 @@ if (demoForm) {
       if (submitButton) {
         submitButton.disabled = false;
         submitButton.innerHTML =
-          'Solicitar demo <span aria-hidden="true">→</span>';
+          `${isFounderRequest ? "Enviar solicitud" : "Solicitar demo"} <span aria-hidden="true">→</span>`;
       }
     }
   });

@@ -68,6 +68,10 @@ img {
   max-width: 100%;
 }
 
+img.stars{
+    width: 30px;
+}
+
 p {
   text-wrap: pretty;
 }
@@ -246,6 +250,11 @@ h3 {
 .button--small {
   min-height: 46px;
   padding-inline: 20px;
+}
+
+promotion {
+  color: var(--white);
+  background: #C8A96A !important;
 }
 
 .button--primary {
