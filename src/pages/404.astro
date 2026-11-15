@@ -1,0 +1,22 @@
+---
+import Base from '../layouts/Base.astro';
+import Button from '../components/Button.astro';
+---
+<Base title="Página no encontrada · Omyra" description="Esta página no existe." noindex>
+  <section class="nf bg-green is-dark">
+    <div class="wrap nf__in">
+      <span class="sticker nf__s" aria-hidden="true">Sin cita disponible</span>
+      <p class="eyebrow">Error 404</p>
+      <h1 class="display balance">Esta página <span class="gold">no tiene cita.</span></h1>
+      <p class="lead">Puede que el enlace haya cambiado o que la página ya no exista. Vuelve al inicio y sigue desde ahí.</p>
+      <div class="nf__ctas"><Button href="/" size="lg" arrow>Volver al inicio</Button><Button href="/contacto" variant="ghost" size="lg">Contactar</Button></div>
+    </div>
+  </section>
+</Base>
+<style>
+  .nf { isolation: isolate; min-height: 100vh; display: grid; align-items: center; padding: calc(var(--header-h) + 3rem) 0 4rem; position: relative; overflow: hidden; }
+  .nf__in { display: grid; gap: 1.5rem; justify-items: start; position: relative; }
+  .nf__ctas { display: flex; flex-wrap: wrap; gap: 1rem; }
+  .nf__s { background: var(--lilac); color: var(--deep); rotate: -6deg; }
+  @keyframes spin { to { transform: rotate(360deg); } }
+</style>

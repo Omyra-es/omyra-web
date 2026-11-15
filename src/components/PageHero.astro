@@ -1,0 +1,27 @@
+---
+// Cabecera de página interior, siempre sobre verde.
+interface Props { eyebrow: string; title: string; lead?: string; compact?: boolean }
+const { eyebrow, title, lead, compact = false } = Astro.props;
+---
+<section class:list={['phero bg-green is-dark', { 'phero--compact': compact }]}>
+  <div class="wrap phero__in">
+    <div class="phero__text">
+      <p class="eyebrow">{eyebrow}</p>
+      <h1 class="phero__h balance"><Fragment set:html={title} /></h1>
+      {lead && <p class="lead">{lead}</p>}
+      <slot name="actions" />
+    </div>
+    <slot />
+  </div>
+  <div class="ribbon phero__ribbon" aria-hidden="true"><div class="ribbon__track">{[0,1].map(() => <><span>Agenda</span><span>Reservas online</span><span>Clientes</span><span>Bonos y promociones</span><span>Facturación</span><span>Pagos</span></>)}</div></div>
+</section>
+<style>
+  .phero__ribbon { bottom: 1.6rem; }
+  .phero { position: relative; overflow: hidden; padding: calc(var(--header-h) + clamp(3.5rem, 2rem + 6vw, 7rem)) 0 clamp(7rem, 5rem + 5vw, 10rem); background: radial-gradient(110% 90% at 90% 0%, var(--green-2) 0%, var(--green) 45%, var(--deep) 100%); }
+  .phero--compact { padding-bottom: clamp(3rem, 2rem + 3vw, 5rem); }
+  .phero__in { position: relative; display: grid; grid-template-columns: 1.1fr .9fr; gap: 3rem; align-items: center; }
+  .phero__h { font-size: clamp(3rem, 1rem + 7vw, 8.5rem); line-height: .86; letter-spacing: -.06em; font-weight: 600; }
+  .phero__text { display: grid; gap: 1.4rem; justify-items: start; }
+  .phero__in:not(:has(> :nth-child(2))) { grid-template-columns: 1fr; }
+  @media (max-width: 900px) { .phero__in { grid-template-columns: 1fr; } }
+</style>

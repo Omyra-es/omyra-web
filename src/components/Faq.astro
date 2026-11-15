@@ -1,0 +1,27 @@
+---
+import type { Faq } from '../content/faq';
+interface Props { items: Faq[] }
+const { items } = Astro.props;
+---
+<div class="faq">
+  {items.map((f) => (
+    <details class="faq__item">
+      <summary><span>{f.q}</span><i aria-hidden="true"></i></summary>
+      <div class="faq__a"><p>{f.a}</p></div>
+    </details>
+  ))}
+</div>
+<style>
+  .faq { border-top: 1px solid var(--rule, var(--line)); }
+  .faq__item { border-bottom: 1px solid var(--rule, var(--line)); }
+  summary { list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 1.5rem; padding: 1.4rem 0; cursor: pointer; font-size: clamp(1.08rem, 1rem + .4vw, 1.3rem); font-weight: 600; letter-spacing: -.015em; }
+  summary::-webkit-details-marker { display: none; }
+  summary i { flex: none; width: 40px; height: 40px; border-radius: 12px; background: var(--lilac); color: var(--deep); border: 0; position: relative; transition: transform .35s var(--ease), background-color .3s; }
+  summary i::before, summary i::after { content: ''; position: absolute; left: 50%; top: 50%; width: 13px; height: 2px; background: currentColor; translate: -50% -50%; border-radius: 2px; }
+  summary i::after { rotate: 90deg; transition: rotate .35s var(--ease); }
+  details[open] summary i { background: var(--deep); color: var(--lime); transform: rotate(-8deg); }
+  details[open] summary i::after { rotate: 0deg; }
+  .faq__a { padding: 0 3.5rem 1.6rem 0; color: var(--text-2, var(--muted)); max-width: 52em; }
+  details[open] .faq__a { animation: faq-in .4s var(--ease); }
+  @keyframes faq-in { from { opacity: 0; transform: translateY(-6px); } }
+</style>

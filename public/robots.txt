@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://omyra.es/sitemap-index.xml

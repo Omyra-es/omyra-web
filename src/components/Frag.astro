@@ -1,0 +1,30 @@
+---
+// Fragmento real del producto, recortado y flotante. Sin barra de navegador ni menú lateral.
+// --x/--y/--w posicionan dentro de un .stack; --r inclina; --p controla el parallax.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { src: ImageMetadata; alt: string; x?: string; y?: string; w?: string; r?: string; z?: number; p?: string; class?: string; sizes?: string }
+const { src, alt, x = '0%', y = '0%', w = '100%', r = '0deg', z = 1, p = '0px', class: cls, sizes = '(min-width: 900px) 40vw, 90vw' } = Astro.props;
+---
+<figure class:list={['frag', cls]} style={`--x:${x};--y:${y};--w:${w};--r:${r};--z:${z};--p:${p}`}>
+  <Image src={src} alt={alt} widths={[400, 700, 1000, 1400]} sizes={sizes} format="webp" quality={86} />
+</figure>
+<style>
+  .frag { margin: 0; border-radius: 18px; overflow: hidden; background: #fff; box-shadow: 0 30px 60px -28px rgb(10 43 32 / .5), 0 0 0 1px rgb(15 61 46 / .08); rotate: var(--r); transition: transform .5s var(--ease), box-shadow .5s var(--ease); }
+  .frag :global(img) { width: 100%; height: auto; display: block; }
+  .frag:hover { transform: translateY(-8px) scale(1.02); box-shadow: 0 40px 70px -26px rgb(10 43 32 / .55), 0 0 0 1px rgb(15 61 46 / .1); z-index: 9 !important; }
+  :global(.stack) > .frag { position: absolute; left: var(--x); top: var(--y); width: var(--w); z-index: var(--z); }
+  :global(.js) .frag { opacity: 0; translate: 0 50px; scale: .94; transition: opacity .9s var(--ease), translate .9s var(--ease), scale .9s var(--ease), transform .5s var(--ease), box-shadow .5s var(--ease); transition-delay: calc(var(--z) * .12s); }
+  :global(.js) :global(.is-in) > .frag, :global(.js) .frag:global(.is-in) { opacity: 1; translate: 0 0; scale: 1; }
+  @supports (animation-timeline: view()) {
+    :global(.stack) > .frag :global(img) { animation: frag-par linear both; animation-timeline: view(); animation-range: cover; }
+    @keyframes frag-par { from { transform: translateY(calc(var(--p) * -1)); } to { transform: translateY(var(--p)); } }
+  }
+  @media (prefers-reduced-motion: reduce) { :global(.js) .frag { opacity: 1; translate: none; scale: none; } :global(.stack) > .frag :global(img) { animation: none; } }
+  @media (max-width: 760px) {
+    :global(.stack) > .frag { position: relative; left: auto; top: auto; width: 100%; margin-top: -1.2rem; }
+    :global(.stack) > .frag:first-child { margin-top: 0; }
+    :global(.stack) > .frag:nth-child(odd) { width: 94%; margin-left: 0; }
+    :global(.stack) > .frag:nth-child(even) { width: 88%; margin-left: 12%; }
+  }
+</style>

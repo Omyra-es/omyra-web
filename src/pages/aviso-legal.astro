@@ -1,0 +1,38 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../content/site';
+---
+<Legal title="Aviso legal" description="Aviso legal del sitio web de Omyra: datos del titular, condiciones de uso, propiedad intelectual y legislación aplicable." updated="15 de noviembre de 2026">
+  <h2>1. Datos del titular</h2>
+  <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se facilitan los datos del titular de este sitio web:</p>
+  <ul>
+    <li><b>Titular:</b> Sergio Lozano Trujillo, profesional autónomo que presta sus servicios con el nombre comercial Omyra.</li>
+    <li><b>NIF:</b> 05445200L</li>
+    <li><b>Domicilio:</b> calle Pilar Bardem 1B, 28521 Rivas-Vaciamadrid (Madrid), España.</li>
+    <li><b>Correo electrónico:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+    <li><b>Teléfono:</b> <a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
+  </ul>
+
+  <h2>2. Objeto del sitio web</h2>
+  <p>Este sitio web informa sobre Omyra, un software de reservas online y gestión de citas para negocios que trabajan con cita previa, y permite solicitar una demostración. Desde este sitio no se contrata el servicio: la contratación se formaliza aparte, con sus propias condiciones.</p>
+
+  <h2>3. Condiciones de uso</h2>
+  <p>El acceso a este sitio web es gratuito y atribuye la condición de usuario a quien lo visita. El usuario se compromete a utilizar el sitio y sus contenidos de forma lícita, conforme a la buena fe y sin dañar el sitio, sus sistemas ni los derechos de terceros.</p>
+  <p>Los precios que aparecen en el sitio se expresan sin IVA, salvo que se indique otra cosa.</p>
+
+  <h2>4. Propiedad intelectual e industrial</h2>
+  <p>Los textos, el diseño, la marca y el logotipo de Omyra y el resto de contenidos propios de este sitio pertenecen a su titular o se utilizan con autorización. No se permite reproducirlos, distribuirlos ni transformarlos con fines comerciales sin autorización previa por escrito.</p>
+  <p>Las imágenes de producto muestran un negocio de ejemplo con datos ficticios. Las fotografías de ambiente proceden de bancos de imágenes y se utilizan conforme a sus licencias.</p>
+
+  <h2>5. Responsabilidad</h2>
+  <p>Omyra procura que la información del sitio sea correcta y esté actualizada, pero no garantiza la ausencia de errores ni la disponibilidad ininterrumpida del sitio. Las condiciones aplicables al servicio son las que figuren en el contrato que se firme en cada caso.</p>
+
+  <h2>6. Enlaces a sitios de terceros</h2>
+  <p>Este sitio incluye enlaces a servicios de terceros, como WhatsApp. Omyra no controla esos sitios y no se responsabiliza de sus contenidos ni de sus políticas de privacidad o cookies.</p>
+
+  <h2>7. Protección de datos y cookies</h2>
+  <p>El tratamiento de datos personales se explica en la <a href="/privacidad">política de privacidad</a> y el uso de cookies, en la <a href="/cookies">política de cookies</a>.</p>
+
+  <h2>8. Legislación aplicable y jurisdicción</h2>
+  <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, serán competentes los juzgados y tribunales que correspondan conforme a la normativa aplicable. Si el usuario tiene la condición de consumidor, serán competentes los de su domicilio.</p>
+</Legal>

@@ -1,0 +1,60 @@
+---
+import Logo from './Logo.astro';
+import Button from './Button.astro';
+import { nav, cta, site } from '../content/site';
+import { pricing } from '../content/pricing';
+interface Props { tone?: 'dark' | 'light' }
+const path = Astro.url.pathname.replace(/\.html$/, '');
+---
+<header class="hdr">
+  <div class="wrap hdr__in">
+    <a href="/" class="hdr__logo" aria-label="Omyra, ir al inicio"><Logo width={118} /></a>
+    <nav class="hdr__nav" aria-label="Principal">
+      {nav.filter((n) => n.href !== '/contacto').map((n) => (
+        <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>
+      ))}
+    </nav>
+    <div class="hdr__cta">
+      <Button href={cta.demo.href} variant="gold">{cta.demo.label}</Button>
+    </div>
+    <button class="hdr__toggle" type="button" aria-expanded="false" aria-controls="menu-movil" data-menu-toggle>
+      <span class="sr-only">Menú</span><i></i><i></i>
+    </button>
+  </div>
+  <div class="menu" id="menu-movil">
+    <nav class="wrap menu__in" aria-label="Menú móvil">
+      <a href="/">Inicio</a>
+      {nav.map((n) => <a href={n.href} aria-current={path === n.href ? 'page' : undefined}>{n.label}</a>)}
+      <div class="menu__foot">
+        <p><b class="gold">{pricing.amount} €</b> {pricing.tax} {pricing.period} · Sin permanencia</p>
+        <Button href={cta.demo.href} variant="gold" size="lg" arrow>{cta.demo.label}</Button>
+        <a class="menu__tel" href={site.contact.phoneHref}>{site.contact.phone}</a>
+      </div>
+    </nav>
+  </div>
+</header>
+<style>
+  .hdr { position: fixed; inset: 0 0 auto; z-index: 50; color: var(--cream-l); transition: background-color .35s, box-shadow .35s, padding .35s; padding-block: 14px; }
+  .hdr.is-scrolled { background: rgb(10 43 32 / .92); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px); box-shadow: 0 1px 0 var(--line-dark); padding-block: 8px; }
+  .hdr__in { display: flex; align-items: center; gap: 2rem; min-height: 56px; }
+  .hdr__logo { display: inline-flex; }
+  .hdr__nav { display: flex; gap: 1.8rem; margin-left: auto; font-size: .96rem; }
+  .hdr__nav a { text-decoration: none; opacity: .82; position: relative; padding-block: .3rem; transition: opacity .2s; }
+  .hdr__nav a:hover, .hdr__nav a[aria-current] { opacity: 1; }
+  .hdr__nav a::after { content: ''; position: absolute; left: 0; right: 0; bottom: -2px; height: 2px; border-radius: 2px; background: var(--gold); transform: scaleX(0); transition: transform .3s var(--ease); }
+  .hdr__nav a:hover::after, .hdr__nav a[aria-current]::after { transform: scaleX(1); }
+  .hdr__toggle { display: none; margin-left: auto; width: 46px; height: 46px; border-radius: 14px; border: 1.5px solid rgb(247 245 241 / .3); background: none; cursor: pointer; position: relative; }
+  .hdr__toggle i { position: absolute; left: 13px; right: 13px; height: 2px; background: var(--cream-l); border-radius: 2px; transition: transform .3s var(--ease); }
+  .hdr__toggle i:first-of-type { top: 18px; } .hdr__toggle i:last-of-type { top: 25px; }
+  .hdr__toggle[aria-expanded='true'] i:first-of-type { transform: translateY(3.5px) rotate(45deg); }
+  .hdr__toggle[aria-expanded='true'] i:last-of-type { transform: translateY(-3.5px) rotate(-45deg); }
+  .menu { position: fixed; inset: 0; z-index: -1; background: var(--deep); padding-top: 96px; opacity: 0; visibility: hidden; transition: opacity .3s, visibility .3s; overflow-y: auto; }
+  .menu[data-open] { opacity: 1; visibility: visible; }
+  .menu__in { display: grid; gap: .2rem; }
+  .menu__in > a { font-size: 2rem; font-weight: 600; letter-spacing: -.03em; text-decoration: none; padding: .45rem 0; border-bottom: 1px solid var(--line-dark); }
+  .menu__in > a[aria-current] { color: var(--gold); }
+  .menu__foot { margin-top: 2rem; display: grid; gap: 1rem; color: var(--on-dark); }
+  .menu__tel { color: var(--cream-l); }
+  @media (max-width: 1060px) { .hdr__nav { gap: 1.2rem; font-size: .9rem; } }
+  @media (max-width: 960px) { .hdr__nav, .hdr__cta { display: none; } .hdr__toggle { display: block; } }
+</style>

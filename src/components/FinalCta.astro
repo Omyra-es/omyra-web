@@ -1,0 +1,72 @@
+---
+import Button from './Button.astro';
+import { cta, site } from '../content/site';
+interface Props { title?: string }
+const { title } = Astro.props;
+const feed = [
+  { s: 'Uñas', w: 'Manicura semipermanente · jue 19 nov · 10:00' },
+  { s: 'Peluquería', w: 'Corte y peinado · jue 19 nov · 18:00' },
+  { s: 'Spa canino', w: 'Baño y corte · vie 20 nov · 10:00' },
+  { s: 'Pestañas', w: 'Lifting de pestañas · vie 20 nov · 12:30' },
+  { s: 'Fisioterapia', w: 'Sesión de fisioterapia · sáb 21 nov · 11:00' },
+  { s: 'Tatuaje', w: 'Sesión de tatuaje · lun 23 nov · 16:00' },
+];
+---
+<section class="fcta bg-lime">
+  <div class="ribbon fcta__ribbon" aria-hidden="true"><div class="ribbon__track">{[0,1].map(() => <><span>Tú trabajas</span><span>Tus clientes reservan</span><span>Tu marca</span><span>Tus reservas</span><span>Tus clientes</span></>)}</div></div>
+  <div class="wrap fcta__in">
+    <p class="eyebrow reveal">Hablemos de tu negocio</p>
+    <h2 class="fcta__h reveal">{title ? <Fragment set:html={title} /> : <>Tú trabajas.<br />Tus clientes<br />reservan.</>}</h2>
+    <p class="fcta__lead reveal">Te enseñamos Omyra en una demo y vemos juntos cómo encaja con tu forma de trabajar. Escríbenos, llámanos al <a href={site.contact.phoneHref}>{site.contact.phone}</a> o envíanos un WhatsApp.</p>
+    <div class="fcta__ctas reveal">
+      <Button href={cta.demo.href} variant="dark" size="lg" arrow>{cta.demo.label}</Button>
+      <Button href={site.contact.whatsappHref} variant="ghost-dark" size="lg">Escríbenos por WhatsApp</Button>
+    </div>
+    <div class="feed" aria-hidden="true">
+      {feed.map((f, i) => (
+        <div class="feed__n" style={`--i:${i}`}>
+          <span class="feed__ic">+</span>
+          <span><b>Nueva reserva online</b><small>{f.w}</small></span>
+          <em>{f.s}</em>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+<style>
+  .fcta { position: relative; overflow: hidden; padding: clamp(7rem, 5rem + 7vw, 12rem) 0 clamp(5rem, 3rem + 7vw, 10rem); --eyebrow: var(--deep); }
+  .fcta__ribbon { top: 2.2rem; }
+  .fcta__lead a { font-weight: 600; }
+  .fcta__in { position: relative; display: grid; gap: 1.5rem; justify-items: start; }
+  .fcta__h { font-size: clamp(3.4rem, 1rem + 10vw, 11rem); line-height: .85; letter-spacing: -.065em; font-weight: 600; color: var(--deep); }
+  .fcta__lead { font-size: var(--fs-lead); max-width: 30em; color: var(--deep); }
+  .fcta__ctas { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: .4rem; }
+  .fcta__h :global(.gold) { color: var(--deep); background: linear-gradient(transparent 58%, var(--lilac) 58% 92%, transparent 92%); padding-inline: .04em; }
+  .feed { display: none; }
+  @media (min-width: 1100px) {
+    .fcta__in { grid-template-columns: minmax(0, 1fr) 340px; column-gap: clamp(2rem, 4vw, 5rem); }
+    .fcta__in > :not(.feed) { grid-column: 1; }
+    .fcta__h { font-size: clamp(3.4rem, 1rem + 7.4vw, 10rem); }
+    .feed { --c: 12s; --gap: 96px; display: block; position: relative; grid-column: 2; grid-row: 1 / span 5; align-self: center; width: 340px; height: calc(var(--gap) * 4); }
+    .feed__n { position: absolute; left: 0; right: 0; top: 0; display: grid; grid-template-columns: auto 1fr; column-gap: 12px; align-items: center; background: var(--cream-l); color: var(--ink); border-radius: 20px; padding: 12px 16px 12px 12px; box-shadow: 0 22px 40px -20px rgb(10 43 32 / .45); opacity: 0; animation: feed var(--c) calc(var(--c) / 6 * var(--i) - var(--c)) infinite cubic-bezier(.5, 0, .2, 1); }
+    .feed__n:nth-child(even) { rotate: 1.5deg; } .feed__n:nth-child(odd) { rotate: -1.5deg; }
+    .feed__ic { width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: var(--deep); color: var(--lime); font-weight: 800; font-size: 1.2rem; rotate: -6deg; }
+    .feed__n b { display: block; font-size: .95rem; } .feed__n small { display: block; color: var(--muted); font-size: .8rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; } .feed__n > span:nth-child(2) { min-width: 0; }
+    .feed__n em { position: absolute; right: 12px; top: -11px; font-style: normal; font-weight: 700; font-size: .72rem; background: var(--lilac); color: var(--deep); padding: .35em .75em; border-radius: 99px; }
+    .feed__n:nth-child(3n) em { background: var(--deep); color: var(--lime); }
+  }
+  @keyframes feed {
+    0% { opacity: 0; transform: translateY(-34px) scale(.94); }
+    3%, 16% { opacity: 1; transform: translateY(0); }
+    19.5%, 33% { opacity: 1; transform: translateY(var(--gap)); }
+    36.5%, 50% { opacity: .75; transform: translateY(calc(var(--gap) * 2)); }
+    53.5%, 66% { opacity: .4; transform: translateY(calc(var(--gap) * 3)); }
+    72%, 100% { opacity: 0; transform: translateY(calc(var(--gap) * 3.6)); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .feed__n { animation: none; opacity: 1; transform: translateY(calc(var(--gap) * var(--i))); }
+    .feed__n:nth-child(n+5) { display: none; }
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+</style>

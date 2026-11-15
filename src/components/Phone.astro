@@ -1,0 +1,22 @@
+---
+// Marco de móvil genérico (sin imitar ninguna marca). Muestra una captura real o un vídeo.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+interface Props { src?: ImageMetadata; alt: string; width?: string; position?: string; eager?: boolean; video?: string; poster?: string; class?: string; scroll?: boolean }
+const { src, alt, width = '280px', position = 'top', eager = false, video, poster, class: cls, scroll = false } = Astro.props;
+---
+<figure class:list={['phone', cls, { 'phone--scroll': scroll }]} style={`--w:${width}`}>
+  <div class="phone__screen">
+    {src && <Image src={src} alt={alt} widths={[320, 480, 750]} sizes={`(min-width: 900px) ${width}, 60vw`} loading={eager ? 'eager' : 'lazy'} fetchpriority={eager ? 'high' : undefined} format="webp" quality={80} style={`object-position:${position}`} />}
+    {video && <video src={video} poster={poster} muted loop playsinline preload="none" aria-label={alt} data-autoplay />}
+  </div>
+</figure>
+<style>
+  .phone { width: var(--pw, var(--w)); max-width: 100%; aspect-ratio: 375 / 780; padding: 8px; border-radius: 42px; background: #0b1712; box-shadow: var(--shadow), inset 0 0 0 1px rgb(255 255 255 / .07); position: relative; }
+  .phone::before { content: ''; position: absolute; z-index: 2; top: 15px; left: 50%; translate: -50% 0; width: 26%; height: 16px; border-radius: 12px; background: #0b1712; }
+  .phone__screen { width: 100%; height: 100%; border-radius: 34px; overflow: hidden; background: #fff; }
+  .phone__screen :global(img), .phone__screen video { width: 100%; height: 100%; object-fit: cover; }
+  .phone--scroll .phone__screen :global(img) { height: auto; min-height: 100%; animation: pscroll 12s 1.5s ease-in-out infinite alternate; }
+  @keyframes pscroll { 0%, 18% { transform: translateY(0); } 82%, 100% { transform: translateY(calc(-100% + var(--h, 600px))); } }
+  @media (max-width: 640px) { .phone { border-radius: 34px; padding: 6px; } .phone__screen { border-radius: 28px; } .phone::before { top: 11px; height: 12px; } }
+</style>

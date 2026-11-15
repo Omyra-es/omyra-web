@@ -1,0 +1,15 @@
+---
+interface Props { icon?: string; title: string; text?: string; class?: string; delay?: number }
+const { icon = '+', title, text, class: cls, delay = 0 } = Astro.props;
+---
+<div class:list={['toast', cls]} style={`--td:${delay}s`} aria-hidden="true">
+  <span class="toast__ic">{icon}</span><span><b>{title}</b>{text && <small>{text}</small>}</span>
+</div>
+<style>
+  .toast { position: absolute; display: flex; align-items: center; gap: 12px; background: var(--cream-l); color: var(--ink); border-radius: 18px; padding: 11px 16px 11px 11px; box-shadow: 0 20px 44px -14px rgb(0 0 0 / .45); font-size: .9rem; line-height: 1.25; white-space: nowrap; z-index: 3; animation: toast-in .7s var(--td) var(--ease) both, toast-float 6s calc(var(--td) + 1s) ease-in-out infinite; }
+  .toast__ic { width: 34px; height: 34px; border-radius: 11px; display: grid; place-items: center; background: var(--green); color: var(--gold); font-weight: 700; flex: none; }
+  .toast b { display: block; font-weight: 600; }
+  .toast small { display: block; color: var(--muted); font-size: .8rem; }
+  @keyframes toast-in { from { opacity: 0; transform: translateY(18px) scale(.94); } to { opacity: 1; transform: none; } }
+  @keyframes toast-float { 50% { translate: 0 -6px; } }
+</style>

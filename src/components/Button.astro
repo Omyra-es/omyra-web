@@ -1,0 +1,26 @@
+---
+interface Props { href: string; variant?: 'gold' | 'cream' | 'green' | 'ghost' | 'ghost-dark' | 'dark'; size?: 'md' | 'lg'; arrow?: boolean; class?: string }
+const { href, variant = 'gold', size = 'md', arrow = false, class: cls } = Astro.props;
+---
+<a href={href} class:list={['btn', `btn--${variant}`, `btn--${size}`, cls]}>
+  <span><slot /></span>{arrow && <span class="btn__arr" aria-hidden="true">→</span>}
+</a>
+<style>
+  .btn { --pad: .95rem 1.5rem; display: inline-flex; align-items: center; justify-content: center; gap: .6em; padding: var(--pad); border-radius: 99px; font-weight: 600; font-size: 1rem; line-height: 1.1; text-decoration: none; position: relative; isolation: isolate; transition: transform .25s var(--ease), background-color .25s; white-space: nowrap; }
+  .btn--lg { --pad: 1.1rem 1.8rem; font-size: 1.06rem; }
+  .btn::after { content: ''; position: absolute; inset: -6px; border-radius: inherit; border: 1.5px solid var(--gold); opacity: 0; transform: scale(.9); transition: .35s var(--ease); z-index: -1; pointer-events: none; }
+  .btn:hover { transform: translateY(-2px); }
+  .btn:hover::after, .btn:focus-visible::after { opacity: 1; transform: scale(1); }
+  .btn__arr { transition: transform .25s var(--ease); }
+  .btn:hover .btn__arr { transform: translateX(4px); }
+  .btn--gold { background: var(--gold); color: var(--deep); }
+  .btn--gold:hover { background: #e3fa8c; }
+  .btn--dark { background: var(--deep); color: var(--lime); }
+  .btn--dark:hover { background: var(--green); }
+  .btn--cream { background: var(--cream-l); color: var(--green); }
+  .btn--green { background: var(--green); color: var(--lime); }
+  .btn--green:hover { background: var(--deep); }
+  .btn--ghost { color: var(--cream-l); box-shadow: inset 0 0 0 1.5px rgb(247 245 241 / .3); }
+  .btn--ghost-dark { color: var(--green); box-shadow: inset 0 0 0 1.5px rgb(15 61 46 / .25); }
+  @media (max-width: 480px) { .btn--block-sm { width: 100%; } }
+</style>

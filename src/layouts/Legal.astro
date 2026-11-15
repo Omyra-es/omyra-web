@@ -1,0 +1,29 @@
+---
+import Base from './Base.astro';
+interface Props { title: string; description: string; updated: string }
+const { title, description, updated } = Astro.props;
+---
+<Base title={`${title} · Omyra`} description={description}>
+  <section class="lh bg-green is-dark">
+    <div class="wrap"><p class="eyebrow">Información legal</p><h1 class="h1">{title}</h1></div>
+  </section>
+  <section class="sec bg-light is-light">
+    <div class="wrap legal">
+      <p class="caption">Última actualización: {updated}</p>
+      <slot />
+    </div>
+  </section>
+</Base>
+<style>
+  .lh { padding: calc(var(--header-h) + 4rem) 0 3.5rem; }
+  .legal { max-width: 52rem; display: grid; gap: 1rem; }
+  .legal :global(h2) { font-size: 1.5rem; letter-spacing: -.02em; color: var(--green); margin-top: 1.6rem; }
+  .legal :global(h3) { font-size: 1.12rem; color: var(--green); margin-top: .6rem; }
+  .legal :global(p), .legal :global(li), .legal :global(td), .legal :global(th) { color: var(--ink); }
+  .legal :global(ul) { padding-left: 1.2rem; display: grid; gap: .4rem; }
+  .legal :global(.box) { background: var(--cream); border-left: 4px solid var(--lilac); padding: 1rem 1.2rem; border-radius: 12px; }
+  .legal :global(table) { width: 100%; border-collapse: collapse; font-size: .95rem; }
+  .legal :global(th), .legal :global(td) { text-align: left; vertical-align: top; padding: .7rem .6rem; border-bottom: 1px solid var(--line); }
+  .legal :global(th) { color: var(--green); font-weight: 600; }
+  .legal :global(.tbl) { overflow-x: auto; }
+</style>

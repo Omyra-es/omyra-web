@@ -1,0 +1,24 @@
+---
+import { sectors } from '../content/sectors';
+interface Props { items?: string[]; label?: string }
+const { items = [...sectors, 'Y cualquier negocio con citas'], label = 'Negocios que trabajan con citas' } = Astro.props;
+---
+<section class="marquee bg-deep" aria-label={label}>
+  <ul class="sr-only">{items.map((s) => <li>{s}</li>)}</ul>
+  <div class="marquee__track" aria-hidden="true">
+    {[0, 1].map(() => <div class="marquee__group">{items.map((s) => <span>{s}</span>)}</div>)}
+  </div>
+  <button class="marquee__btn" type="button" aria-pressed="false" data-marquee-toggle>Pausar</button>
+</section>
+<style>
+  .marquee { position: relative; overflow: hidden; padding: 1.6rem 0; border-block: 1px solid var(--line-dark); }
+  .marquee__track { display: flex; width: max-content; animation: marq 40s linear infinite; }
+  .marquee.is-paused .marquee__track { animation-play-state: paused; }
+  .marquee__group { display: flex; }
+  .marquee__group span { display: flex; align-items: center; gap: 2.4rem; padding-right: 2.4rem; white-space: nowrap; color: var(--gold); font-size: clamp(1.5rem, 1rem + 2vw, 2.6rem); font-weight: 500; letter-spacing: -.03em; }
+  .marquee__group span::after { content: '✦'; font-size: .7em; color: var(--lilac); }
+  .marquee__group span:nth-child(even) { color: var(--lilac); } .marquee__group span:nth-child(even)::after { color: var(--lime); }
+  .marquee__btn { position: absolute; right: 12px; bottom: 6px; font: 500 .68rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--on-dark); background: none; border: 0; padding: 6px; cursor: pointer; opacity: .6; }
+  .marquee__btn:hover, .marquee__btn:focus-visible { opacity: 1; }
+  @keyframes marq { to { transform: translateX(-50%); } }
+</style>
