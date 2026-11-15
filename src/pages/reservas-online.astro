@@ -1,0 +1,144 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Phone from '../components/Phone.astro';
+import BookingFlow from '../components/BookingFlow.astro';
+import Faq from '../components/Faq.astro';
+import FinalCta from '../components/FinalCta.astro';
+import LockScreen from '../components/LockScreen.astro';
+import { cta } from '../content/site';
+import { pick } from '../content/faq';
+
+import inicio from '../assets/luna/reserva-1-inicio.jpg';
+import servicio from '../assets/luna/reserva-2-servicio.jpg';
+import profesional from '../assets/luna/reserva-3-profesional.jpg';
+import fecha from '../assets/luna/reserva-4-fecha.jpg';
+import resumen from '../assets/luna/reserva-6-resumen.jpg';
+import ok from '../assets/luna/reserva-7-confirmada.jpg';
+
+const steps = [
+  { img: inicio, t: 'Entra por tu enlace', d: 'Desde tu Instagram, tu WhatsApp, Google o tu web. Llega a tu página, no a un listado.' },
+  { img: servicio, t: 'Elige el servicio', d: 'Por categorías, con foto, descripción, duración y precio.' },
+  { img: profesional, t: 'Elige profesional', d: 'Quien realiza ese servicio, o «Cualquiera».' },
+  { img: fecha, t: 'Elige fecha y hora', d: 'Solo ve los huecos libres según tus horarios y reglas.' },
+  { img: resumen, t: 'Revisa y confirma', d: 'Con el resumen de la cita y el campo para un código promocional.' },
+  { img: ok, t: '¡Reserva confirmada!', d: 'Recibe el correo de confirmación y tú, el aviso en tu móvil.' },
+];
+const faqs = pick('marketplace', 'personalizar', 'valoracion', 'pagos', 'comisiones', 'calendar');
+---
+<Base title="Reservas online con tu propia página · Omyra" description="Tu propia página de reservas online, con tu marca. Tus clientes reservan contigo, no en un marketplace: servicio, profesional, fecha y hora, señales y confirmación por correo.">
+  <PageHero eyebrow="Reservas online" title="Tu propio canal <span class='gold'>de reservas.</span>" lead="Una página de reservas con tu logo, tus colores y tus servicios. Tus clientes reservan contigo a cualquier hora, y la cita aparece directamente en tu agenda.">
+    <Fragment slot="actions"><Button href={cta.demo.href} size="lg" arrow>{cta.demo.label}</Button></Fragment>
+    <div class="rh"><BookingFlow plain /></div>
+  </PageHero>
+
+  <!-- Canal propio vs escaparate compartido -->
+  <section class="sec bg-light is-light">
+    <div class="wrap">
+      <p class="eyebrow reveal">Por qué tu propia página</p>
+      <h2 class="h2 balance mt-2 reveal cmp__h">Tus clientes reservan en tu página, <span class="gold-ink">no en un directorio.</span></h2>
+      <div class="cmp mt-4 reveal" role="table" aria-label="Directorio de negocios frente a tu propia página de reservas">
+        <div class="cmp__row cmp__head" role="row"><span role="columnheader"></span><span role="columnheader">En un directorio de negocios</span><span role="columnheader">En tu página con Omyra</span></div>
+        <div class="cmp__row" role="row"><span role="rowheader">Qué ve tu cliente</span><span role="cell">Tu negocio junto a otros que ofrecen lo mismo</span><span role="cell">Solo tu negocio: tus servicios y tu equipo</span></div>
+        <div class="cmp__row" role="row"><span role="rowheader">De quién es la marca</span><span role="cell">La de la plataforma, con tu ficha dentro</span><span role="cell">La tuya: tu logo, tus colores, tus fotos</span></div>
+        <div class="cmp__row" role="row"><span role="rowheader">Dónde empieza la relación</span><span role="cell">En un listado, comparando opciones</span><span role="cell">En tu enlace, directamente contigo</span></div>
+        <div class="cmp__row" role="row"><span role="rowheader">Dónde lo compartes</span><span role="cell">Dentro de la plataforma</span><span role="cell">Instagram, WhatsApp, Google o tu web</span></div>
+      </div>
+      <div class="claim mt-4 reveal">
+        <p class="claim__a">Omyra pone la tecnología de reservas.</p>
+        <p class="claim__b">El protagonismo es <span class="swipe" style="--swipe:var(--lilac)">de tu negocio.</span></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recorrido del cliente -->
+  <section class="sec bg-green is-dark journey">
+    <div class="wrap">
+      <p class="eyebrow reveal">El recorrido de tu cliente</p>
+      <h2 class="h2 balance mt-2 reveal">Del enlace a la cita, <span class="gold">en un minuto.</span></h2>
+      <ol class="journey__list mt-4" role="list">
+        {steps.map((s, i) => (
+          <li class="reveal" style={`--d:${(i % 3) * 0.08}s`}>
+            <Phone src={s.img} alt={`Paso ${i + 1}: ${s.t}`} width="200px" />
+            <div><span class="journey__n">{String(i + 1).padStart(2, '0')}</span><b>{s.t}</b><p>{s.d}</p></div>
+          </li>
+        ))}
+      </ol>
+    </div>
+  </section>
+
+  <!-- Identidad y reglas -->
+  <section class="sec bg-cream is-light">
+    <div class="wrap rules">
+      <article class="rule reveal"><p class="eyebrow">Tu identidad</p><h3 class="h3 mt-1">Se ve como tu negocio.</h3><p class="mt-1 text-2">Tu logo, tus colores, las fotos y las descripciones de tus servicios. Cada negocio con su propio estilo.</p></article>
+      <article class="rule rule--green reveal" style="--d:.08s"><p class="eyebrow">Tus reglas</p><h3 class="h3 mt-1">Reservan lo que tú decides.</h3><p class="mt-1">Qué servicios se reservan online, con qué duración y precio, quién los realiza y cada cuántos minutos empiezan las citas.</p></article>
+      <article class="rule reveal" style="--d:.16s"><p class="eyebrow">Primera valoración</p><h3 class="h3 mt-1">Para trabajos que necesitan hablarse antes.</h3><p class="mt-1 text-2">Ofrece una cita de valoración, gratuita o de pago, como un servicio más.</p></article>
+      <article class="rule rule--gold reveal" style="--d:.24s"><p class="eyebrow">Señales</p><h3 class="h3 mt-1">Asegura las citas que lo necesitan.</h3><p class="mt-1">Pago manual por Bizum o transferencia, que confirmas al recibirlo, o pago con tarjeta mediante Stripe, que se activa para tu negocio.</p></article>
+    </div>
+  </section>
+
+  <!-- Confirmación y avisos -->
+  <section class="sec bg-deep is-dark">
+    <div class="wrap split split--wide-r">
+      <div class="reveal"><LockScreen /></div>
+      <div>
+        <p class="eyebrow reveal">Después de reservar</p>
+        <h2 class="h2 balance mt-2 reveal">Todos saben lo que <span class="gold">tienen que saber.</span></h2>
+        <ul class="ring-list mt-3">
+          <li class="reveal">Tu cliente recibe el correo de confirmación con el nombre de tu negocio.</li>
+          <li class="reveal">Si el servicio tiene indicaciones previas, le llegan para que venga preparado.</li>
+          <li class="reveal">Un recordatorio por correo antes de la cita, con la antelación que elijas.</li>
+          <li class="reveal">Tú recibes el aviso de nueva reserva en el móvil, aunque no estés dentro de Omyra.</li>
+          <li class="reveal">Y la cita aparece en tu agenda y, si lo conectas, en el Google Calendar del profesional.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-light is-light">
+    <div class="wrap split split--wide-r faqs">
+      <div><p class="eyebrow">Preguntas frecuentes</p><h2 class="h2 balance mt-2">Sobre las <span class="gold-ink">reservas online.</span></h2></div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <FinalCta title="Tu marca. Tus reservas.<br /><span class='gold'>Tus clientes.</span>" />
+</Base>
+
+<style>
+  .rh { display: grid; justify-items: center; gap: 1rem; }
+  .rh .caption { color: var(--on-dark); }
+  .cmp__h { max-width: 16em; color: var(--green); }
+  .cmp { border-radius: var(--r-lg); overflow: hidden; background: var(--white); box-shadow: 0 20px 50px -30px rgb(10 43 32 / .35); }
+  .cmp__row { display: grid; grid-template-columns: .8fr 1fr 1fr; }
+  .cmp__row > * { padding: 1.2rem 1.4rem; border-top: 1px solid var(--line); }
+  .cmp__row > :nth-child(1) { font-weight: 600; color: var(--green); }
+  .cmp__row > :nth-child(2) { color: var(--muted); }
+  .cmp__row > :nth-child(3) { background: var(--green); color: var(--cream-l); border-top-color: var(--line-dark); font-weight: 500; }
+  .cmp__head > * { border-top: 0; font: 500 .75rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; }
+  .cmp__head > :nth-child(3) { color: var(--gold); }
+  .journey__list { list-style: none; display: grid; grid-template-columns: repeat(3, 1fr); gap: 3rem 2rem; }
+  .journey__list li { display: grid; gap: 1.2rem; justify-items: start; }
+  .journey__n { display: block; font: 600 .85rem/1 var(--mono); color: var(--gold); margin-bottom: .5rem; }
+  .journey__list b { font-size: 1.3rem; letter-spacing: -.02em; }
+  .journey__list p { color: var(--on-dark); margin-top: .3rem; }
+  .journey .caption { color: var(--on-dark); }
+  .rules { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.1rem; }
+  .rule { border-radius: var(--r-lg); padding: clamp(1.6rem, 1rem + 2vw, 2.6rem); background: var(--cream-l); }
+  .rule--green { background: var(--green); color: var(--cream-l); --eyebrow: var(--gold); }
+  .rule--gold { background: var(--gold); color: var(--deep); --eyebrow: var(--deep); }
+  .faqs { align-items: start; }
+  @media (max-width: 900px) {
+    .journey__list { grid-template-columns: 1fr 1fr; gap: 2.5rem 1rem; } .journey__list :global(.phone) { --pw: 100%; }
+    .rules { grid-template-columns: 1fr; }
+    .cmp__row { grid-template-columns: 1fr 1fr; } .cmp__row > :nth-child(1) { grid-column: 1 / -1; background: var(--cream); }
+    .cmp__head > :nth-child(1) { display: none; }
+  }
+  .claim { position: relative; background: var(--lime); color: var(--deep); border-radius: 32px; padding: clamp(1.6rem, 1rem + 3vw, 3rem) clamp(1.4rem, 1rem + 3vw, 3.2rem); overflow: hidden; rotate: -1deg; }
+  .claim::after { content: '✦'; position: absolute; right: clamp(1rem, 4vw, 3rem); top: 50%; translate: 0 -50%; font-size: clamp(3rem, 2rem + 6vw, 8rem); line-height: 1; color: var(--deep); opacity: .9; animation: claim-spin 14s linear infinite; }
+  @keyframes claim-spin { to { rotate: 360deg; } }
+  .claim__a { font-size: clamp(1.05rem, .9rem + .7vw, 1.5rem); font-weight: 500; max-width: 80%; }
+  .claim__b { font-size: clamp(2rem, 1rem + 4.2vw, 4.6rem); font-weight: 600; line-height: .98; letter-spacing: -.05em; margin-top: .4rem; max-width: 82%; }
+  @media (prefers-reduced-motion: reduce) { .claim::after { animation: none; } }
+</style>

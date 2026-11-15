@@ -1,0 +1,61 @@
+---
+// Recreación de los avisos reales que recibe el negocio en el móvil aunque no esté dentro de Omyra.
+// Textos con la misma estructura que el aviso real; el nombre del cliente es ficticio.
+import { Image } from 'astro:assets';
+import lunaLogo from '../assets/luna/luna-logo.png';
+const notes = [
+  { when: 'lun, 16 nov, 18:00', what: 'Lifting de pestañas · Lucía Fernandez', who: 'Marta Ruiz' },
+  { when: 'mié, 18 nov, 11:30', what: 'Manicura semipermanente · Lidia Romero', who: 'Sara Molina' },
+  { when: 'vie, 20 nov, 17:00', what: 'Corte mujer + lavado + peinado · Laura Martinez', who: 'Nuria Vega' },
+];
+---
+<figure class="lock" aria-label="Recreación de un aviso de nueva reserva en la pantalla de bloqueo del móvil del negocio">
+  <div class="lock__screen">
+    <p class="lock__date">lunes, 16 de noviembre</p>
+    <p class="lock__time">9:41</p>
+    <div class="lock__stack">
+      {notes.map((n, i) => (
+        <div class="note" style={`--n:${i}`}>
+          <span class="note__app"><Image src={lunaLogo} alt="" width={64} height={64} /></span>
+          <div class="note__body">
+            <p class="note__top"><b>Nueva reserva online</b><span>ahora</span></p>
+            <p class="note__from">from Luna</p>
+            <p>{n.when}</p>
+            <p>{n.what}</p>
+            <p>Cliente: {n.who}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</figure>
+<style>
+  .lock { display: grid; justify-items: center; gap: 1rem; }
+  .lock .caption { color: rgb(10 43 32 / .7); }
+  .lock__screen { width: min(320px, 82vw); aspect-ratio: 375 / 640; border-radius: 46px; padding: 3.2rem .9rem 1rem; position: relative; overflow: hidden; color: var(--deep); text-align: center;
+    background: radial-gradient(90% 60% at 20% 15%, #ffffff 0%, transparent 60%), radial-gradient(80% 70% at 90% 90%, var(--lime) 0%, transparent 60%), linear-gradient(160deg, #EDE6FF 0%, var(--lilac) 55%, #b9e7c9 100%);
+    box-shadow: 0 40px 80px -30px rgb(10 43 32 / .55), 0 0 0 9px var(--deep), 0 0 0 10px rgb(255 255 255 / .2); }
+  .lock__screen::before { content: ''; position: absolute; top: 14px; left: 50%; translate: -50% 0; width: 30%; height: 22px; border-radius: 14px; background: #0b1712; }
+  .lock__date { font-size: .92rem; font-weight: 600; opacity: .75; }
+  .lock__time { font-size: 4.6rem; line-height: 1; font-weight: 600; letter-spacing: -.04em; }
+  .lock__stack { position: relative; margin-top: 1.6rem; height: 250px; }
+  .note { position: absolute; inset: 0 0 auto; display: flex; gap: .7rem; text-align: left; padding: .8rem .9rem; border-radius: 22px; background: rgb(255 255 255 / .72); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); box-shadow: 0 12px 30px -16px rgb(10 43 32 / .45), inset 0 0 0 1px rgb(255 255 255 / .6); color: var(--ink); font-size: .8rem; line-height: 1.3; opacity: 0; animation: note 12s calc(var(--n) * 4s) var(--ease) infinite; }
+  .note__app { flex: none; width: 38px; height: 38px; border-radius: 10px; background: #fff; display: grid; place-items: center; overflow: hidden; }
+  .note__app :global(img) { width: 34px; height: 34px; object-fit: contain; }
+  .note__body { min-width: 0; flex: 1; }
+  .note__top { display: flex; justify-content: space-between; gap: .5rem; }
+  .note__top span { opacity: .7; font-size: .74rem; }
+  .note__from { font-weight: 600; }
+  .note p:not(.note__top):not(.note__from) { opacity: .92; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  /* Cada aviso entra desde arriba, se queda y baja a la pila */
+  @keyframes note {
+    0% { opacity: 0; transform: translateY(-40px) scale(.96); }
+    5%, 30% { opacity: 1; transform: none; }
+    36%, 60% { opacity: .7; transform: translateY(118px) scale(.94); }
+    66%, 100% { opacity: 0; transform: translateY(150px) scale(.9); }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .note { animation: none; opacity: 1; }
+    .note:not(:first-child) { display: none; }
+  }
+</style>

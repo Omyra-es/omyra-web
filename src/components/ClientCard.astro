@@ -1,0 +1,69 @@
+---
+// Bloques animados (sin capturas) reutilizables.
+---
+<div class="sx cx" data-in aria-label="Ficha de una clienta en Omyra: historial, notas, fotos y consentimiento firmado por enlace">
+  <div class="sx__t cx__head" style="--k:0">
+    <span class="cx__av">EP</span>
+    <div><b class="cx__name">Eva Prado</b><span class="cx__tags"><em>Habitual</em><em class="cx__t2">Alto gasto</em></span></div>
+    <ul class="cx__kpi" role="list"><li><b>2</b>citas</li><li><b>300 €</b>gastado</li><li><b>3 sem.</b>frecuencia</li></ul>
+  </div>
+  <div class="sx__t cx__hist" style="--k:1">
+    <p class="sx__h">Historial</p>
+    <ol role="list">
+      <li><i></i><span><b>07/11</b>Lifting de pestañas · Lucía</span></li>
+      <li><i></i><span><b>20/10</b>Primera valoración</span></li>
+    </ol>
+  </div>
+  <div class="sx__t cx__note" style="--k:2">
+    <p class="sx__h">Notas internas</p>
+    <p class="cx__txt">Evaluación realizada el 20/10. Presupuesto personalizado <mark>aceptado: 300 €</mark>.</p>
+    <span class="cx__files"><b>JPG</b><b>JPG</b><b>PDF</b> 3 archivos</span>
+  </div>
+  <div class="sx__t cx__doc" style="--k:3">
+    <span class="cx__ico" aria-hidden="true">PDF</span>
+    <div><b>Consentimiento informado</b><small>Versión 2 · caduca el 20/10/2027</small></div>
+    <span class="cx__st"><span class="cx__s1">Enviado por enlace</span><span class="cx__s2">✓ Firmado</span></span>
+  </div>
+</div>
+<style>
+  .sx { display: grid; grid-template-columns: repeat(6, 1fr); gap: .8rem; }
+  .sx__t { border-radius: 22px; padding: 1.1rem 1.2rem; background: var(--white); box-shadow: 0 20px 40px -26px rgb(10 43 32 / .45); display: grid; gap: .45rem; align-content: start; opacity: 0; translate: 0 30px; transition: opacity .7s var(--ease), translate .7s var(--ease); transition-delay: calc(var(--k) * .12s); }
+  .sx:global(.is-in) .sx__t { opacity: 1; translate: 0 0; }
+  .sx__h { font: 600 .72rem/1 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+  .sx__t small { color: var(--muted); font-size: .85rem; }
+  .sx__av { width: 28px; height: 28px; border-radius: 9px; display: grid; place-items: center; background: var(--green); color: var(--lime); font-weight: 700; font-size: .8rem; }
+  .sx__av--2 { background: var(--lilac); color: var(--deep); } .sx__av--3 { background: var(--cream); color: var(--green); font-size: .7rem; }
+  .cx__head { grid-column: 1 / 7; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; background: var(--cream-l); }
+  .cx__av { width: 54px; height: 54px; border-radius: 16px; display: grid; place-items: center; background: var(--lilac); color: var(--deep); font-weight: 700; rotate: -5deg; }
+  .cx__name { display: block; font-size: 1.25rem; color: var(--green); letter-spacing: -.02em; }
+  .cx__tags { display: flex; gap: .35rem; margin-top: .3rem; }
+  .cx__tags em { font-style: normal; font-size: .76rem; font-weight: 700; padding: .3em .7em; border-radius: 99px; background: var(--lime); color: var(--deep); }
+  .cx__tags .cx__t2 { background: var(--lilac); }
+  .cx__kpi { list-style: none; display: flex; gap: 1.1rem; }
+  .cx__kpi li { display: grid; font-size: .75rem; color: var(--muted); text-align: center; }
+  .cx__kpi b { font-size: 1.35rem; color: var(--green); letter-spacing: -.03em; }
+  .cx__hist { grid-column: 1 / 4; }
+  .cx__hist ol { list-style: none; display: grid; gap: .7rem; position: relative; }
+  .cx__hist ol::before { content: ''; position: absolute; left: 6px; top: 6px; bottom: 6px; width: 2px; background: rgb(15 61 46 / .12); }
+  .cx__hist li { display: flex; gap: .8rem; align-items: flex-start; font-size: .88rem; color: var(--muted); }
+  .cx__hist li i { flex: none; width: 14px; height: 14px; border-radius: 4px; rotate: 45deg; background: var(--green); margin-top: .2rem; position: relative; }
+  .cx__hist li:nth-child(2) i { background: var(--lilac); }
+  .cx__hist b { display: block; color: var(--green); font-size: .95rem; }
+  .cx__note { grid-column: 4 / 7; background: var(--lime); } .cx__note .sx__h { color: var(--deep); }
+  .cx__txt { color: var(--deep); font-weight: 500; line-height: 1.4; }
+  .cx__txt mark { background: var(--deep); color: var(--lime); padding: 0 .25em; border-radius: 4px; }
+  .cx__files { display: flex; gap: .3rem; align-items: center; font-size: .8rem; font-weight: 600; color: var(--deep); }
+  .cx__files b { font: 700 .62rem/1 var(--mono); background: var(--cream-l); padding: .55em .5em; border-radius: 6px; }
+  .cx__doc { grid-column: 1 / 7; grid-template-columns: auto 1fr auto; align-items: center; gap: 1rem; }
+  .cx__ico { width: 46px; height: 54px; border-radius: 8px 16px 8px 8px; display: grid; place-items: end center; padding-bottom: 8px; background: var(--green); color: var(--lime); font: 700 .7rem/1 var(--mono); }
+  .cx__doc b { display: block; color: var(--green); }
+  .cx__st { position: relative; display: grid; font-weight: 700; font-size: .85rem; }
+  .cx__st > span { grid-area: 1 / 1; padding: .55em 1em; border-radius: 99px; text-align: center; white-space: nowrap; }
+  .cx__s1 { background: var(--cream); color: var(--green); animation: cx-a 6s infinite; }
+  .cx__s2 { background: var(--lime); color: var(--deep); opacity: 0; animation: cx-b 6s infinite; }
+  @keyframes cx-a { 0%, 45% { opacity: 1; } 52%, 95% { opacity: 0; } 100% { opacity: 1; } }
+  @keyframes cx-b { 0%, 45% { opacity: 0; transform: scale(1.3) rotate(-6deg); } 52%, 95% { opacity: 1; transform: scale(1) rotate(-3deg); } 100% { opacity: 0; } }
+  @media (max-width: 640px) { .cx__head, .cx__doc { grid-template-columns: auto 1fr; } .cx__kpi, .cx__st { grid-column: 1 / -1; } .cx__kpi { justify-content: space-between; } }
+  @media (max-width: 640px) { .sx { grid-template-columns: 1fr; } .sx__t { grid-column: 1 / -1 !important; } }
+  @media (prefers-reduced-motion: reduce) { .sx__t { opacity: 1; translate: none; } .cx__s1 { display: none; } .cx__s2 { opacity: 1; animation: none; } }
+</style>

@@ -1,0 +1,137 @@
+---
+import Base from '../layouts/Base.astro';
+import { site, hubspot } from '../content/site';
+const types = ['Centro de estética', 'Peluquería o barbería', 'Spa o centro de bienestar', 'Fisioterapia', 'Masajes', 'Estudio de tatuaje', 'Cuidado de mascotas', 'Uñas, pestañas o cejas', 'Otro negocio con citas'];
+const connected = Boolean(hubspot.portalId && hubspot.formId);
+---
+<Base title="Solicitar una demo · Contacto | Omyra" description={`Solicita una demo de Omyra y te enseñamos cómo funciona con tu negocio. ${site.contact.email} · ${site.contact.phone} · ${site.contact.location}.`}>
+  <section class="ct bg-green is-dark">
+    <div class="wrap ct__in">
+      <div class="ct__info">
+        <p class="eyebrow">Contacto</p>
+        <h1 class="h1 balance">Te enseñamos Omyra <span class="gold">con tu negocio.</span></h1>
+        <p class="lead">Escríbenos, llámanos o envíanos un WhatsApp. O cuéntanos aquí qué tipo de negocio tienes y te contactamos para organizar una demo, sin compromiso.</p>
+        <div class="quick"><a href={`mailto:${site.contact.email}`}>Escríbenos</a><a href={site.contact.phoneHref}>Llámanos</a><a href={site.contact.whatsappHref} class="quick--wa">WhatsApp</a></div>
+        <ol class="next" role="list">
+          <li><i>1</i><span><b>Te contactamos</b>Por teléfono o correo, en el horario que nos indiques.</span></li>
+          <li><i>2</i><span><b>Vemos tu caso</b>Tus servicios, tu equipo y cómo reservan hoy tus clientes.</span></li>
+          <li><i>3</i><span><b>Demo de Omyra</b>Te lo enseñamos funcionando con un negocio de ejemplo.</span></li>
+        </ol>
+        <ul class="direct" role="list">
+          <li><span class="caption">Correo</span><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+          <li><span class="caption">Teléfono</span><a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
+          <li><span class="caption">WhatsApp</span><a href={site.contact.whatsappHref}>{site.contact.phone}</a></li>
+          <li><span class="caption">Dónde estamos</span>{site.contact.location}</li>
+        </ul>
+      </div>
+
+      <form class="form" id="demo-form" novalidate data-connected={connected ? 'true' : 'false'} data-portal={hubspot.portalId ?? ''} data-form={hubspot.formId ?? ''} data-endpoint={hubspot.endpoint}>
+        <h2 class="h3">Solicitar una demo</h2>
+        <div class="f2">
+          <div class="field"><label for="f-nombre">Nombre</label><input id="f-nombre" name="firstname" autocomplete="given-name" required aria-describedby="e-nombre" /><p class="err" id="e-nombre" role="alert"></p></div>
+          <div class="field"><label for="f-negocio">Nombre del negocio</label><input id="f-negocio" name="company" autocomplete="organization" required aria-describedby="e-negocio" /><p class="err" id="e-negocio" role="alert"></p></div>
+        </div>
+        <div class="f2">
+          <div class="field"><label for="f-email">Correo electrónico</label><input id="f-email" name="email" type="email" autocomplete="email" required aria-describedby="e-email" /><p class="err" id="e-email" role="alert"></p></div>
+          <div class="field"><label for="f-tel">Teléfono</label><input id="f-tel" name="phone" type="tel" autocomplete="tel" inputmode="tel" required aria-describedby="e-tel" /><p class="err" id="e-tel" role="alert"></p></div>
+        </div>
+        <div class="field"><label for="f-tipo">Tipo de negocio</label>
+          <select id="f-tipo" name="industry" required aria-describedby="e-tipo"><option value="">Selecciona una opción</option>{types.map((t) => <option>{t}</option>)}</select><p class="err" id="e-tipo" role="alert"></p></div>
+        <div class="field"><label for="f-msg">Mensaje <span class="opt">(opcional)</span></label><textarea id="f-msg" name="message" rows="4" placeholder="Por ejemplo: somos 3 profesionales y ahora reservamos por WhatsApp."></textarea></div>
+        <div class="hp" aria-hidden="true"><label for="f-web">No rellenes este campo</label><input id="f-web" name="website" tabindex="-1" autocomplete="off" /></div>
+        <div class="field field--check"><input id="f-ok" name="consent" type="checkbox" required aria-describedby="e-ok" /><label for="f-ok">He leído la <a href="/privacidad">política de privacidad</a> y acepto que Omyra use estos datos para contactarme sobre mi solicitud.</label><p class="err" id="e-ok" role="alert"></p></div>
+        <p class="rgpd"><b>Protección de datos.</b> Responsable: Sergio Lozano Trujillo (Omyra). Finalidad: atender tu solicitud y organizar la demo. Base jurídica: tu consentimiento. Destinatarios: HubSpot, nuestra herramienta de contactos (centro de datos en la UE); no se ceden datos a terceros salvo obligación legal. Derechos: acceso, rectificación, supresión y otros, en hola@omyra.es. Más información en la <a href="/privacidad">política de privacidad</a>.</p>
+        <button class="submit" type="submit">Solicitar una demo <span aria-hidden="true">→</span></button>
+        <div class="status" id="f-status" role="status" aria-live="polite" tabindex="-1"></div>
+      </form>
+    </div>
+  </section>
+</Base>
+
+<script>
+  const form = document.getElementById('demo-form') as HTMLFormElement;
+  const status = document.getElementById('f-status')!;
+  const started = Date.now();
+  const msgs: Record<string, string> = { firstname: 'Escribe tu nombre.', company: 'Escribe el nombre de tu negocio.', email: 'Escribe un correo válido, por ejemplo nombre@negocio.es.', phone: 'Escribe un teléfono válido.', industry: 'Elige el tipo de negocio.', consent: 'Necesitamos tu consentimiento para contactarte.' };
+  const fieldErr = (el: HTMLInputElement | HTMLSelectElement) => {
+    const id = el.getAttribute('aria-describedby'); const box = id ? document.getElementById(id) : null;
+    let bad = !el.checkValidity();
+    if (el.name === 'phone' && !bad) bad = el.value.replace(/[^\d]/g, '').length < 9;
+    el.setAttribute('aria-invalid', String(bad)); if (box) box.textContent = bad ? msgs[el.name] ?? 'Revisa este campo.' : '';
+    return !bad;
+  };
+  form.querySelectorAll<HTMLInputElement>('[required]').forEach((el) => el.addEventListener('blur', () => fieldErr(el)));
+  const show = (html: string, kind: 'ok' | 'warn' | 'err') => { status.className = `status status--${kind}`; status.innerHTML = html; status.focus(); };
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const req = [...form.querySelectorAll<HTMLInputElement>('[required]')];
+    const valid = req.map(fieldErr).every(Boolean);
+    if (!valid) { req.find((r) => r.getAttribute('aria-invalid') === 'true')?.focus(); return; }
+    const data = new FormData(form);
+    if (data.get('website') || Date.now() - started < 3000) { show('No hemos podido enviar la solicitud. Inténtalo de nuevo en unos segundos.', 'err'); return; }
+
+    const fields = ['firstname', 'company', 'email', 'phone', 'industry', 'message'].map((n) => ({ name: n, value: String(data.get(n) ?? '') })).filter((f) => f.value);
+    const mail = `mailto:hola@omyra.es?subject=${encodeURIComponent('Solicitud de demo · ' + data.get('company'))}&body=${encodeURIComponent(fields.map((f) => `${f.name}: ${f.value}`).join('\n'))}`;
+
+    if (form.dataset.connected !== 'true') {
+      show(`<b>El formulario todavía no está conectado</b>, así que tu solicitud no se ha enviado. Escríbenos a <a href="mailto:hola@omyra.es">hola@omyra.es</a>, llámanos o envíanos un WhatsApp al <a href="https://wa.me/34624270477">+34 624 27 04 77</a>. También puedes <a href="${mail}">enviarla por correo con tus datos ya escritos</a>.`, 'warn');
+      return;
+    }
+    const btn = form.querySelector<HTMLButtonElement>('.submit')!; btn.disabled = true; btn.textContent = 'Enviando…';
+    try {
+      const res = await fetch(`${form.dataset.endpoint}/${form.dataset.portal}/${form.dataset.form}`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fields, context: { pageUri: location.href, pageName: document.title }, legalConsentOptions: { consent: { consentToProcess: true, text: 'Acepto que Omyra use estos datos para contactarme sobre mi solicitud.' } } }),
+      });
+      if (!res.ok) throw new Error(String(res.status));
+      form.reset(); show('<b>¡Solicitud enviada!</b> Te contactaremos pronto para organizar la demo.', 'ok');
+    } catch {
+      show(`No hemos podido enviar la solicitud. Escríbenos a <a href="mailto:hola@omyra.es">hola@omyra.es</a> o llama al <a href="tel:+34624270477">+34 624 27 04 77</a>, o <a href="${mail}">envíala por correo</a>.`, 'err');
+    } finally { btn.disabled = false; btn.innerHTML = 'Solicitar una demo <span aria-hidden="true">→</span>'; }
+  });
+</script>
+
+<style>
+  .ct { padding: calc(var(--header-h) + clamp(3rem, 2rem + 4vw, 6rem)) 0 clamp(4rem, 3rem + 5vw, 7rem); background: radial-gradient(110% 90% at 90% 0%, var(--green-2), var(--green) 45%, var(--deep)); }
+  .ct__in { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
+  .ct__info { display: grid; gap: 1.6rem; }
+  .next { list-style: none; display: grid; gap: 1rem; margin-top: .5rem; }
+  .next li { display: flex; gap: 1rem; }
+  .next i { flex: none; width: 38px; height: 38px; border-radius: 11px; transform: rotate(-6deg); display: grid; place-items: center; font-style: normal; font-weight: 600; background: var(--lilac); color: var(--deep); }
+  .next b { display: block; color: var(--cream-l); } .next span { color: var(--on-dark); }
+  .quick { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .quick a { text-decoration: none; font-weight: 700; padding: .75rem 1.2rem; border-radius: 99px; background: rgb(247 245 241 / .1); color: var(--cream-l); transition: transform .25s var(--ease); }
+  .quick a:hover { transform: translateY(-2px) rotate(-1deg); }
+  .quick a:first-child { background: var(--lime); color: var(--deep); } .quick--wa { background: var(--lilac) !important; color: var(--deep) !important; }
+  .direct { list-style: none; display: grid; gap: 1rem; padding-top: 1.6rem; border-top: 1px solid var(--line-dark); }
+  .direct li { display: grid; gap: .2rem; font-size: 1.15rem; } .direct .caption { color: var(--gold); }
+  .direct a { text-decoration: none; } .direct a:hover { text-decoration: underline; }
+  .form { background: var(--cream-l); color: var(--ink); border-radius: var(--r-xl); padding: clamp(1.5rem, 1rem + 2.5vw, 3rem); display: grid; gap: 1.1rem; box-shadow: var(--shadow); }
+  .form h2 { color: var(--green); }
+  .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .field { display: grid; gap: .4rem; }
+  .field label { font-weight: 600; font-size: .95rem; color: var(--green); }
+  .opt { font-weight: 400; color: var(--muted); }
+  input, select, textarea { width: 100%; border: 1.5px solid rgb(15 61 46 / .2); background: #fff; border-radius: 14px; padding: .85rem 1rem; font-size: 1rem; transition: border-color .2s, box-shadow .2s; }
+  input:focus, select:focus, textarea:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgb(215 243 107 / .35); }
+  [aria-invalid='true'] { border-color: #A23B2C; }
+  .err { color: #A23B2C; font-size: .88rem; min-height: 0; }
+  .err:empty { display: none; }
+  .field--check { grid-template-columns: auto 1fr; align-items: start; gap: .3rem .8rem; }
+  .field--check input { width: 22px; height: 22px; margin-top: .15rem; accent-color: var(--green); }
+  .field--check label { font-weight: 400; color: var(--muted); }
+  .field--check .err { grid-column: 2; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+  .submit { border: 0; cursor: pointer; background: var(--green); color: var(--cream-l); font-weight: 600; font-size: 1.05rem; padding: 1.05rem 1.6rem; border-radius: 99px; transition: background-color .2s, transform .2s; }
+  .submit:hover { background: var(--deep); transform: translateY(-2px); }
+  .submit:disabled { opacity: .6; cursor: wait; }
+  .status:empty { display: none; }
+  .status { border-radius: 14px; padding: 1rem 1.2rem; font-size: .97rem; }
+  .status--warn { background: var(--cream); border: 1.5px solid var(--gold); }
+  .status--ok { background: #E4ECE7; border: 1.5px solid var(--green); }
+  .status--err { background: #FBEDEA; border: 1.5px solid #A23B2C; }
+  @media (max-width: 900px) { .ct__in { grid-template-columns: 1fr; } }
+  @media (max-width: 560px) { .f2 { grid-template-columns: 1fr; } }
+  .rgpd { font-size: .78rem; line-height: 1.5; color: var(--muted); }
+</style>

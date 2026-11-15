@@ -1,0 +1,69 @@
+---
+import Legal from '../layouts/Legal.astro';
+import { site } from '../content/site';
+---
+<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="15 de noviembre de 2026">
+  <p>Esta política explica cómo trata Omyra los datos personales, de acuerdo con el Reglamento (UE) 2016/679, General de Protección de Datos (RGPD), y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
+
+  <div class="box">
+    <p><b>Lo más importante.</b> Omyra trata los datos de dos maneras distintas:</p>
+    <ul>
+      <li><b>Como responsable</b>, cuando nos escribes, pides una demo o contratas Omyra. Esos datos los decidimos y gestionamos nosotros.</li>
+      <li><b>Como encargado</b>, con los datos de los clientes de cada negocio que usa Omyra (citas, fichas, documentos y mensajes). <b>Esos datos son del negocio</b>: el negocio es el responsable y decide sobre ellos, y Omyra solo los trata por su cuenta y siguiendo sus instrucciones.</li>
+    </ul>
+  </div>
+
+  <h2>1. Responsable del tratamiento</h2>
+  <ul>
+    <li><b>Responsable:</b> Sergio Lozano Trujillo (Omyra)</li>
+    <li><b>NIF:</b> 05445200L</li>
+    <li><b>Domicilio:</b> calle Pilar Bardem 1B, 28521 Rivas-Vaciamadrid (Madrid), España</li>
+    <li><b>Contacto:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> · <a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
+  </ul>
+
+  <h2>2. Datos que tratamos como responsables</h2>
+  <div class="tbl"><table>
+    <thead><tr><th>Para qué</th><th>Qué datos</th><th>Base jurídica</th><th>Cuánto tiempo</th></tr></thead>
+    <tbody>
+      <tr><td>Atender tu solicitud de demo o tu consulta (formulario, correo, teléfono o WhatsApp)</td><td>Nombre, negocio, correo, teléfono, tipo de negocio y lo que nos cuentes</td><td>Tu solicitud y tu consentimiento (art. 6.1.a y 6.1.b RGPD)</td><td>El tiempo necesario para atenderte y, si no llegas a contratar, hasta 12 meses desde el último contacto</td></tr>
+      <tr><td>Prestar el servicio contratado y darte soporte</td><td>Datos de la cuenta, del negocio y de las personas de contacto</td><td>Ejecución del contrato (art. 6.1.b RGPD)</td><td>Mientras dure el contrato y, después, durante los plazos de prescripción de las acciones legales</td></tr>
+      <tr><td>Facturación y obligaciones fiscales y contables</td><td>Datos fiscales y de facturación</td><td>Obligación legal (art. 6.1.c RGPD)</td><td>Los plazos que exige la normativa fiscal y mercantil (con carácter general, hasta 6 años)</td></tr>
+    </tbody>
+  </table></div>
+  <p>No tomamos decisiones automatizadas ni elaboramos perfiles con estos datos, y no los usamos para enviarte publicidad sin tu consentimiento.</p>
+
+  <h2>3. Datos que los negocios gestionan en Omyra</h2>
+  <p>Cada negocio que usa Omyra gestiona en la plataforma los datos de sus propios clientes: reservas, fichas, historial, notas, documentos, consentimientos firmados, cobros y mensajes.</p>
+  <ul>
+    <li><b>El negocio es el responsable del tratamiento</b> y el dueño de esa información. Decide qué datos recoge, para qué y durante cuánto tiempo, y debe informar a sus clientes.</li>
+    <li><b>Omyra es el encargado del tratamiento</b> (art. 28 RGPD). Trata esos datos solo para prestar el servicio al negocio y siguiendo sus instrucciones. No los utiliza para fines propios, no los vende y no los cede a terceros.</li>
+    <li>La relación entre el negocio y Omyra se regula mediante un contrato de encargo del tratamiento.</li>
+    <li>Al terminar el servicio, Omyra suprime o devuelve esos datos según lo que indique el negocio, salvo que una ley obligue a conservarlos.</li>
+  </ul>
+  <p>Si eres cliente de un negocio que usa Omyra y quieres ejercer tus derechos, dirígete a ese negocio. Si nos escribes a nosotros, le haremos llegar tu solicitud.</p>
+
+  <h2>4. Con quién compartimos los datos</h2>
+  <p>No vendemos datos personales. Para funcionar, nos apoyamos en proveedores que tratan datos por nuestra cuenta, con contrato y garantías de confidencialidad y seguridad:</p>
+  <ul>
+    <li><b>HubSpot</b>, para gestionar las solicitudes de demo y los contactos comerciales. Nuestra cuenta está alojada en su centro de datos de la Unión Europea.</li>
+    <li>Proveedores de alojamiento web, infraestructura de la plataforma, correo electrónico y notificaciones.</li>
+  </ul>
+  <p>Algunas funciones de la plataforma conectan con servicios de terceros solo si el negocio las activa: Stripe (pagos con tarjeta), Meta (WhatsApp Business) y Google (Google Calendar). En esos casos, el tercero trata los datos según sus propias condiciones con el negocio.</p>
+  <p>También podemos comunicar datos a las administraciones públicas, jueces y tribunales cuando una ley lo exija.</p>
+
+  <h2>5. Transferencias internacionales</h2>
+  <p>Priorizamos proveedores que tratan los datos dentro del Espacio Económico Europeo. Si algún proveedor accede a datos desde fuera, lo hace con las garantías del RGPD, como una decisión de adecuación (por ejemplo, el Marco de Privacidad de Datos UE-EE. UU.) o las cláusulas contractuales tipo de la Comisión Europea.</p>
+
+  <h2>6. Tus derechos</h2>
+  <p>Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento sin que ello afecte a los tratamientos anteriores. Escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> indicando qué derecho quieres ejercer.</p>
+  <p>Si consideras que no hemos atendido bien tu solicitud, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
+
+  <h2>7. Seguridad</h2>
+  <p>Aplicamos medidas técnicas y organizativas adecuadas para proteger los datos frente a pérdidas, accesos no autorizados o usos indebidos, como el cifrado de las comunicaciones y el control de accesos.</p>
+
+  <h2>8. Menores de edad</h2>
+  <p>Este sitio está dirigido a negocios y profesionales. No recogemos de forma consciente datos de menores de 14 años a través del sitio.</p>
+
+  <h2>9. Cambios en esta política</h2>
+  <p>Podemos actualizar esta política para adaptarla a cambios legales o del servicio. La versión vigente es siempre la publicada en esta página, con su fecha de actualización.</p>
+</Legal>

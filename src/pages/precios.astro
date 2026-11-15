@@ -1,0 +1,67 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Faq from '../components/Faq.astro';
+import FinalCta from '../components/FinalCta.astro';
+import { cta, site } from '../content/site';
+import { pricing } from '../content/pricing';
+import { pick } from '../content/faq';
+const faqs = pick('precio', 'comisiones', 'profesionales', 'permanencia', 'pagos', 'whatsapp');
+const notCharged = ['Comisiones por reserva', 'Comisiones por pago', 'Coste por profesional', 'Coste de implementación', 'Permanencia', 'Paquetes o excesos de mensajes'];
+const all = ['Agenda diaria, semanal y mensual', 'Página de reservas con tu marca', 'Servicios, instrucciones y valoraciones previas', 'Equipo, turnos y ausencias', 'Clientes, historial y notas', 'Documentos y consentimientos con firma', 'Registro de cobros y pago manual', 'Integración con Stripe (se activa)', 'Bonos y códigos promocionales', 'Facturación con VERI*FACTU', 'Informe diario y resúmenes por correo', 'Avisos de nuevas reservas en el móvil', 'Asistente de WhatsApp y Google Calendar'];
+const jsonld = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) }];
+---
+<Base title={`Precio de Omyra · ${pricing.full} · Un único plan`} description={`Un único plan con todas las funcionalidades por ${pricing.full}. Profesionales ilimitados, sin comisiones por reserva, sin coste de implementación y sin permanencia.`} jsonld={jsonld}>
+  <PageHero eyebrow="Precios" title="Un precio. <span class='gold'>Todo incluido.</span>" lead="Sin planes que comparar ni funciones que desbloquear. Una sola cuota mensual para todo tu negocio.">
+    <div class="pcard reveal">
+      <p class="eyebrow">Plan único</p>
+      <p class="pcard__big">{pricing.amount}<sup>€</sup></p>
+      <p class="pcard__per">{pricing.tax} {pricing.period}</p>
+      <ul class="ring-list">{pricing.included.slice(0, 5).map((i) => <li>{i}</li>)}</ul>
+      <Button href={cta.demo.href} size="lg" arrow class="pcard__btn">{cta.demo.label}</Button>
+    </div>
+  </PageHero>
+
+  <section class="sec bg-light is-light">
+    <div class="wrap split">
+      <div>
+        <p class="eyebrow reveal">Qué incluye</p>
+        <h2 class="h2 balance mt-2 reveal">Todas las funcionalidades, <span class="gold-ink">para todo tu equipo.</span></h2>
+        <ul class="ring-list mt-3 incl">{all.map((a) => <li class="reveal">{a}</li>)}</ul>
+      </div>
+      <div class="nope reveal">
+        <p class="eyebrow">Lo que Omyra no te cobra</p>
+        <ul role="list">{notCharged.map((n, k) => <li style={`--k:${k}`}><span class="nope__z" aria-hidden="true">0<small>€</small></span><span>{n}</span></li>)}</ul>
+        <p class="nope__third">{pricing.thirdParty} Omyra no añade recargos sobre ellas.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-light is-light">
+    <div class="wrap split split--wide-r faqs">
+      <div><p class="eyebrow">Preguntas frecuentes</p><h2 class="h2 balance mt-2">Sobre el <span class="gold-ink">precio.</span></h2><p class="mt-2 text-2">¿Dudas? Escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>, llámanos al <a href={site.contact.phoneHref}>{site.contact.phone}</a> o envíanos un <a href={site.contact.whatsappHref} target="_blank" rel="noopener">WhatsApp</a>.</p></div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+  <FinalCta />
+</Base>
+<style>
+  .pcard { background: var(--cream-l); color: var(--green); border-radius: var(--r-xl); padding: clamp(1.8rem, 1rem + 3vw, 3rem); box-shadow: var(--shadow); display: grid; gap: 1rem; --eyebrow: var(--gold-ink); --rule: var(--line); }
+  .pcard__big { font-size: clamp(5rem, 3rem + 7vw, 9rem); line-height: .85; letter-spacing: -.07em; font-weight: 600; }
+  .pcard__big sup { font-size: .3em; color: var(--gold-ink); vertical-align: top; position: relative; top: .2em; }
+  .pcard__per { color: var(--muted); font-size: 1.15rem; }
+  .pcard :global(.pcard__btn) { margin-top: .5rem; }
+  .incl { display: grid; grid-template-columns: 1fr 1fr; column-gap: 2rem; }
+  .nope { background: var(--green); color: var(--cream-l); border-radius: var(--r-xl); padding: clamp(1.8rem, 1rem + 3vw, 3rem); --eyebrow: var(--gold); }
+  .nope ul { list-style: none; display: grid; gap: .55rem; margin-top: 1.4rem; }
+  .nope li { display: grid; grid-template-columns: 5.2rem 1fr; align-items: center; gap: 1rem; padding: .55rem .9rem .55rem .6rem; border-radius: 18px; background: rgb(247 245 241 / .06); font-size: 1.15rem; font-weight: 600; opacity: 0; translate: -20px 0; transition: opacity .6s var(--ease), translate .6s var(--ease); transition-delay: calc(var(--k) * .09s); }
+  .nope:global(.is-in) li { opacity: 1; translate: 0 0; }
+  .nope__z { display: flex; align-items: baseline; justify-content: center; gap: .1em; background: var(--lime); color: var(--deep); border-radius: 14px; padding: .25rem .4rem; font-size: 2.1rem; font-weight: 700; letter-spacing: -.05em; line-height: 1; rotate: -4deg; }
+  .nope li:nth-child(even) .nope__z { background: var(--lilac); rotate: 3deg; }
+  .nope__z small { font-size: .5em; letter-spacing: 0; }
+  .nope__third { margin-top: 1.4rem; font-size: .88rem; color: var(--on-dark); }
+  @media (prefers-reduced-motion: reduce) { .nope li { opacity: 1; translate: none; } }
+  .faqs { align-items: start; }
+  @media (max-width: 640px) { .incl { grid-template-columns: 1fr; } }
+</style>

@@ -1,0 +1,45 @@
+---
+// Equipo: turnos, ausencias, festivos y disponibilidad (bloques animados, sin capturas).
+---
+<div class="tm" data-in aria-label="Equipo en Omyra: turnos, ausencias, festivos y disponibilidad por fechas">
+  <div class="tm__t" style="--k:0">
+    <span class="tm__av">L</span>
+    <div><b>Laura</b><small>Peluquería · Color</small></div>
+    <span class="tm__chips"><em>10:00–14:00</em><em>16:00–20:00</em></span>
+  </div>
+  <div class="tm__t tm__t--off" style="--k:1">
+    <span class="tm__av tm__av--2">V</span>
+    <div><b>Valeria</b><small>Pestañas · Cejas</small></div>
+    <span class="tm__chips"><em class="tm__abs">Vacaciones · 1–7 dic</em></span>
+  </div>
+  <div class="tm__t" style="--k:2">
+    <span class="tm__av tm__av--3">C</span>
+    <div><b>Carla</b><small>Manicura</small></div>
+    <span class="tm__chips"><em class="tm__date">Disponible del 9 al 31 dic</em></span>
+  </div>
+  <div class="tm__row">
+    <div class="tm__t tm__fest" style="--k:3"><b>8 dic</b><small>Festivo local</small></div>
+    <div class="tm__t tm__add" style="--k:4"><b>+ Añadir profesional</b><small>Sin límite de profesionales</small></div>
+  </div>
+</div>
+<style>
+  .tm { display: grid; gap: .7rem; }
+  .tm__t { display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: .9rem; background: var(--white); border-radius: 20px; padding: .9rem 1.1rem; box-shadow: 0 20px 40px -26px rgb(10 43 32 / .45); opacity: 0; translate: 0 26px; transition: opacity .7s var(--ease), translate .7s var(--ease); transition-delay: calc(var(--k) * .12s); }
+  .tm:global(.is-in) .tm__t { opacity: 1; translate: 0 0; }
+  .tm__t b { display: block; color: var(--green); font-size: 1.02rem; }
+  .tm__t small { color: var(--muted); font-size: .8rem; }
+  .tm__av { width: 40px; height: 40px; border-radius: 13px; display: grid; place-items: center; font-weight: 700; background: var(--green); color: var(--lime); rotate: -5deg; }
+  .tm__av--2 { background: var(--lilac); color: var(--deep); } .tm__av--3 { background: var(--lime); color: var(--deep); }
+  .tm__chips { display: flex; flex-wrap: wrap; gap: .35rem; justify-content: flex-end; }
+  .tm__chips em { font-style: normal; font-size: .8rem; font-weight: 700; padding: .35em .7em; border-radius: 9px; background: rgb(15 61 46 / .07); color: var(--green); }
+  .tm__chips .tm__abs { background: var(--lilac); color: var(--deep); animation: tm-pulse 3s infinite; }
+  .tm__chips .tm__date { background: var(--cream); }
+  @keyframes tm-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgb(200 182 255 / 0); } 50% { box-shadow: 0 0 0 5px rgb(200 182 255 / .5); } }
+  .tm__t--off { background: var(--cream-l); }
+  .tm__row { display: grid; grid-template-columns: 1fr 1fr; gap: .7rem; }
+  .tm__row .tm__t { grid-template-columns: 1fr; gap: .15rem; }
+  .tm__fest { background: var(--lime); } .tm__fest b { font-size: 1.6rem; color: var(--deep); letter-spacing: -.03em; } .tm__fest small { color: var(--deep); }
+  .tm__add { background: var(--lilac); } .tm__add b { color: var(--deep); } .tm__add small { color: var(--deep); }
+  @media (max-width: 520px) { .tm__t { grid-template-columns: auto 1fr; } .tm__chips { grid-column: 1 / -1; justify-content: flex-start; } }
+  @media (prefers-reduced-motion: reduce) { .tm__t { opacity: 1; translate: none; } .tm__chips .tm__abs { animation: none; } }
+</style>

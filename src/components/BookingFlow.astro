@@ -1,0 +1,68 @@
+---
+// Móvil que recorre en bucle los pasos reales de la reserva en la página de Luna.
+import { Image } from 'astro:assets';
+import reservaPaso1 from '../assets/luna/reserva-paso1.jpg';
+import reservaProf from '../assets/luna/reserva-3-profesional.jpg';
+import reservaFecha from '../assets/luna/reserva-4-fecha.jpg';
+import reservaOk from '../assets/luna/reserva-7-confirmada.jpg';
+interface Props { plain?: boolean }
+const { plain = false } = Astro.props;
+---
+<div class:list={['bk', { 'bk--plain': plain }]} aria-label="Así reserva un cliente en la página de Luna Studio: servicio, profesional, fecha y hora, y reserva confirmada">
+  <span class="bk__band" aria-hidden="true"></span>
+  <ol class="bk__rail" role="list" aria-hidden="true">
+    <li style="--i:0"><i>1</i>Servicio</li>
+    <li style="--i:1"><i>2</i>Profesional</li>
+    <li style="--i:2"><i>3</i>Fecha y hora</li>
+    <li style="--i:3"><i>✓</i>¡Reservado!</li>
+  </ol>
+  <div class="bk__phone">
+    <div class="bk__screen">
+      {[reservaPaso1, reservaProf, reservaFecha, reservaOk].map((img, i) => (
+        <Image src={img} alt={['Paso 1: servicio con foto, descripción, duración y precio', 'Paso 2: elegir profesional o «Cualquiera»', 'Paso 3: fecha y hora con los huecos libres', 'Reserva confirmada'][i]} widths={[320, 560]} sizes="270px" format="webp" quality={82} style={`--i:${i}`} class="bk__img" />
+      ))}
+    </div>
+  </div>
+  <div class="bk__toast" aria-hidden="true"><span>+</span><b>Nueva reserva online</b><small>Lifting de pestañas · lun 16 nov · 18:00</small></div>
+</div>
+<style>
+  /* Reservas: un móvil que recorre los pasos en bucle */
+  .bk { --c: 12s; position: relative; display: grid; grid-template-columns: auto auto; justify-content: center; align-items: center; gap: clamp(1rem, 3vw, 2.6rem); background: var(--lilac); border-radius: 40px; padding: clamp(1.6rem, 3vw, 2.6rem); overflow: hidden; }
+  .bk__band { position: absolute; left: -10%; right: -10%; top: 60%; height: 110px; background: var(--lime); rotate: -8deg; }
+  .bk__rail { position: relative; z-index: 1; list-style: none; display: grid; gap: .6rem; }
+  .bk__rail li { display: flex; align-items: center; gap: .7rem; padding: .6rem 1rem .6rem .6rem; border-radius: 16px; background: rgb(255 255 255 / .45); color: var(--deep); font-weight: 600; white-space: nowrap; animation: bk-rail var(--c) calc(var(--c) / 4 * var(--i)) infinite; }
+  .bk__rail i { font-style: normal; width: 30px; height: 30px; border-radius: 9px; display: grid; place-items: center; background: var(--deep); color: var(--lime); font-size: .85rem; rotate: -6deg; }
+  @keyframes bk-rail { 0%, 24% { background: var(--deep); color: var(--cream-l); transform: translateX(10px) scale(1.04); } 26%, 100% { background: rgb(255 255 255 / .45); color: var(--deep); transform: none; } }
+  .bk__phone { position: relative; z-index: 1; width: 270px; aspect-ratio: 375 / 780; padding: 9px; border-radius: 44px; background: #0b1712; box-shadow: 0 40px 70px -26px rgb(10 43 32 / .6); rotate: 3deg; }
+  .bk__phone::before { content: ''; position: absolute; z-index: 3; top: 16px; left: 50%; translate: -50% 0; width: 26%; height: 16px; border-radius: 12px; background: #0b1712; }
+  .bk__screen { position: relative; width: 100%; height: 100%; border-radius: 35px; overflow: hidden; background: #fff; }
+  .bk__screen :global(.bk__img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; animation: bk-shot var(--c) calc(var(--c) / 4 * var(--i)) infinite; }
+  @keyframes bk-shot { 0% { opacity: 0; transform: translateX(14%); } 3%, 24% { opacity: 1; transform: none; } 27%, 100% { opacity: 0; transform: translateX(-10%); } }
+  .bk__toast { position: absolute; z-index: 4; right: clamp(.8rem, 4%, 2.5rem); top: 1.4rem; display: grid; grid-template-columns: auto 1fr; column-gap: .7rem; align-items: center; background: var(--cream-l); border-radius: 18px; padding: .7rem 1rem .7rem .7rem; box-shadow: 0 20px 40px -18px rgb(10 43 32 / .55); opacity: 0; animation: bk-toast var(--c) calc(var(--c) * .75) infinite; }
+  .bk__toast span { grid-row: span 2; width: 36px; height: 36px; border-radius: 11px; display: grid; place-items: center; background: var(--lime); color: var(--deep); font-weight: 800; rotate: -6deg; }
+  .bk__toast b { font-size: .9rem; color: var(--ink); } .bk__toast small { font-size: .76rem; color: var(--muted); }
+  @keyframes bk-toast { 0%, 4% { opacity: 0; transform: translateY(-14px) scale(.95); } 8%, 22% { opacity: 1; transform: none; } 26%, 100% { opacity: 0; transform: translateY(-8px); } }
+  @media (max-width: 900px) {
+    .bk { margin-top: 2rem; grid-template-columns: 1fr; justify-items: center; border-radius: 28px; padding-top: 6.4rem; }
+    .bk__rail { grid-template-columns: repeat(4, auto); gap: .35rem; }
+    .bk__rail li { font-size: 0; padding: .35rem; gap: 0; } .bk__rail i { width: 34px; height: 34px; font-size: .9rem; }
+    @keyframes bk-rail { 0%, 24% { background: var(--deep); transform: translateY(-4px); } 26%, 100% { background: rgb(255 255 255 / .45); transform: none; } }
+    .bk__phone { width: min(250px, 66vw); rotate: 0deg; }
+    .bk__toast { left: 50%; right: auto; translate: -50% 0; top: 1rem; width: max-content; max-width: 92%; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .bk__rail li, .bk__screen :global(.bk__img), .bk__toast { animation: none; }
+    .bk__screen :global(.bk__img:first-child) { opacity: 1; }
+  }
+
+  /* Variante sin panel (sobre fondo oscuro) */
+  .bk--plain { background: none; padding: 0; border-radius: 0; overflow: visible; }
+  .bk--plain .bk__band { display: none; }
+  .bk--plain .bk__rail li { background: rgb(247 245 241 / .08); color: var(--cream-l); }
+  .bk--plain .bk__rail i { background: var(--lime); color: var(--deep); }
+  @keyframes bk-rail-plain { 0%, 24% { background: var(--lime); color: var(--deep); transform: translateX(10px) scale(1.04); } 26%, 100% { background: rgb(247 245 241 / .08); color: var(--cream-l); transform: none; } }
+  .bk--plain .bk__rail li { animation-name: bk-rail-plain; }
+  .bk--plain .bk__rail li i { transition: none; }
+  .bk--plain .bk__toast { top: -.5rem; right: -1rem; }
+  @media (max-width: 900px) { .bk--plain { margin-top: 1.5rem; padding-top: 6.6rem; } .bk--plain .bk__toast { right: auto; top: 0; } }
+</style>

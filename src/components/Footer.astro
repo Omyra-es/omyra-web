@@ -1,0 +1,46 @@
+---
+import Logo from './Logo.astro';
+import { nav, legal, site, cta } from '../content/site';
+import { pricing } from '../content/pricing';
+const year = new Date().getFullYear();
+---
+<footer class="ftr bg-deep is-dark">
+  <div class="wrap">
+    <div class="ftr__top">
+      <div>
+        <Logo width={140} />
+        <p class="ftr__claim">Tú trabajas.<br /><span class="gold">Tus clientes reservan.</span></p>
+        <p class="ftr__sign">Hecho con cuidado para negocios que cuidan.</p>
+      </div>
+      <nav aria-label="Pie de página" class="ftr__cols">
+        <div><p class="eyebrow">Omyra</p><ul role="list">{nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul></div>
+        <div><p class="eyebrow">Contacto</p><ul role="list">
+          <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
+          <li><a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
+          <li><a href={site.contact.whatsappHref}>WhatsApp</a></li>
+          <li>{site.contact.location}</li>
+          <li><a href={cta.demo.href} class="gold">{cta.demo.label} →</a></li>
+        </ul></div>
+      </nav>
+    </div>
+    <div class="ftr__bottom">
+      <p>© {year} Omyra · {pricing.amount} € {pricing.tax} {pricing.period}</p>
+      <ul role="list">{legal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+    </div>
+  </div>
+</footer>
+<style>
+  .ftr { padding: 5rem 0 2rem; }
+  .ftr__top { display: grid; grid-template-columns: 1.2fr 1fr; gap: 3rem; padding-bottom: 3rem; border-bottom: 1px solid var(--line-dark); }
+  .ftr__claim { font-size: clamp(1.8rem, 1.2rem + 2vw, 2.8rem); line-height: 1; letter-spacing: -.04em; font-weight: 600; margin-top: 2rem; }
+  .ftr__sign { margin-top: 1.4rem; display: inline-flex; align-items: center; gap: .6rem; font-size: 1.05rem; color: var(--lilac); font-style: italic; }
+  .ftr__sign::before { content: '✦'; font-style: normal; color: var(--lime); animation: ftr-spin 10s linear infinite; display: inline-block; }
+  @keyframes ftr-spin { to { rotate: 360deg; } }
+  @media (prefers-reduced-motion: reduce) { .ftr__sign::before { animation: none; } }
+  .ftr__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .ftr ul { display: grid; gap: .55rem; margin-top: 1rem; color: var(--on-dark); }
+  .ftr a { text-decoration: none; } .ftr a:hover { color: var(--cream-l); text-decoration: underline; text-underline-offset: 4px; }
+  .ftr__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.5rem; font-size: .88rem; color: var(--on-dark); }
+  .ftr__bottom ul { display: flex; gap: 1.4rem; margin: 0; }
+  @media (max-width: 760px) { .ftr__top { grid-template-columns: 1fr; } }
+</style>

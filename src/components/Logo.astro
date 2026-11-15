@@ -1,0 +1,18 @@
+---
+// Logotipo oficial. Versión crema (corte de la O transparente) para fondos verdes,
+// y original para fondos claros. Los archivos originales no se modifican.
+import crema from '../assets/brand/omyra-logo-crema.svg?raw';
+import original from '../assets/brand/omyra-logo.svg?raw';
+interface Props { variant?: 'crema' | 'verde'; width?: number; class?: string }
+const { variant = 'crema', width = 124, class: cls } = Astro.props;
+let svg = variant === 'crema' ? crema : original
+  .replace(/viewBox="[^"]*"/, 'viewBox="178 512 1146 446"')
+  .replace(/fill="#ffffff"/gi, 'fill="var(--logo-cut, #F7F5F1)"');
+svg = svg.replace(/<\?xml[^>]*>/, '').replace(/\s(width|height)="[^"]*"/g, (m, _a, off) => (off < 300 ? '' : m))
+  .replace('<svg', '<svg role="img" aria-label="Omyra" focusable="false"');
+---
+<span class:list={['logo', cls]} style={`width:${width}px`} set:html={svg} />
+<style>
+  .logo { display: inline-block; line-height: 0; aspect-ratio: 1146 / 446; }
+  .logo :global(svg) { width: 100%; height: 100%; }
+</style>
