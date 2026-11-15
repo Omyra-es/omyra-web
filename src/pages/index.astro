@@ -68,7 +68,7 @@ const problems = [
 
   <!-- 1 · HERO -->
   <section class="hero is-dark">
-    <h1 class="hero__h1">
+    <h1 class="wrap hero__h1">
       <span class="hero__l"><span class="w" style="--i:0">Tú</span> <span class="w" style="--i:1">trabajas.</span></span>
       <span class="hero__l hero__l--2"><span class="w" style="--i:2">Tus</span> <span class="w" style="--i:3">clientes</span> <span class="w hero__res" style="--i:4">reservan.</span></span>
     </h1>
@@ -486,9 +486,9 @@ const problems = [
 <style>
   /* HERO · tipografía gigante + collage */
   .hero { position: relative; overflow: hidden; color: var(--cream-l); background: radial-gradient(110% 80% at 90% 0%, var(--green-2) 0%, var(--green) 50%, var(--deep) 100%); padding: calc(var(--header-h) + clamp(1.5rem, 1rem + 3vw, 3.5rem)) 0 clamp(4.5rem, 3rem + 4vw, 7rem); }
-  .hero__h1 { font-size: clamp(3.4rem, .6rem + 10vw, 11.5rem); line-height: .82; letter-spacing: -.065em; font-weight: 600; padding-inline: var(--gutter); }
+  .hero__h1 { font-size: clamp(2.9rem, 1rem + 5.4vw, 7rem); line-height: .9; letter-spacing: -.055em; font-weight: 600; }
   .hero__l { display: block; }
-  .hero__l--2 { padding-left: 11vw; }
+  .hero__l--2 { padding-left: 0; }
   .hero__h1 .w { display: inline-block; animation: word .9s calc(var(--i) * .11s + .1s) var(--ease) both; }
   .hero__res { color: var(--lime); position: relative; }
   @keyframes word { from { opacity: 0; transform: translateY(.4em) rotate(2deg); } }
