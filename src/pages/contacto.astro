@@ -174,7 +174,13 @@ const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&em
   .status--warn { background: var(--cream); border: 1.5px solid var(--gold); }
   .status--ok { background: #E4ECE7; border: 1.5px solid var(--green); }
   .status--err { background: #FBEDEA; border: 1.5px solid #A23B2C; }
-  @media (max-width: 900px) { .ct__in { grid-template-columns: 1fr; } }
+  @media (max-width: 900px) {
+    .ct__in { grid-template-columns: 1fr; gap: 1.6rem; }
+    /* En móvil, el calendario va justo después de los botones de contacto */
+    .ct__info { display: contents; }
+    .box { order: 1; margin-block: .4rem 1rem; }
+    .next, .direct { order: 2; }
+  }
   @media (max-width: 560px) { .f2 { grid-template-columns: 1fr; } }
   .rgpd { font-size: .78rem; line-height: 1.5; color: var(--muted); }
 </style>
