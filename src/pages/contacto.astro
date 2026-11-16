@@ -4,7 +4,7 @@ import { site, hubspot, calendly } from '../content/site';
 const types = ['Centro de estética', 'Peluquería o barbería', 'Spa o centro de bienestar', 'Fisioterapia', 'Masajes', 'Estudio de tatuaje', 'Cuidado de mascotas', 'Uñas, pestañas o cejas', 'Otro negocio con citas'];
 const connected = Boolean(hubspot.portalId && hubspot.formId);
 const cal = calendly.url;
-const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&embed_domain=omyra.es&hide_gdpr_banner=1&primary_color=0f3d2e` : '';
+const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&embed_domain=omyra.es&primary_color=0f3d2e` : '';
 ---
 <Base title="Solicitar una demo · Contacto | Omyra" description={`Solicita una demo de Omyra y te enseñamos cómo funciona con tu negocio. ${site.contact.email} · ${site.contact.phone} · ${site.contact.location}.`}>
   <section class="ct bg-green is-dark">
@@ -36,17 +36,10 @@ const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&em
         )}
         {cal && (
           <div class="pane" id="p-cal" role="tabpanel" aria-labelledby="t-cal" data-pane="cal">
-            <div class="calbox" id="calbox" data-src={calSrc}>
-              <div class="gate">
-                <h2 class="h3">Elige día y hora para tu demo</h2>
-                <p>El calendario lo muestra <b>Calendly</b>, nuestra herramienta de reservas. Al cargarlo, Calendly usará sus propias cookies.</p>
-                <div class="gate__b">
-                  <button type="button" class="submit" id="cal-load">Ver calendario</button>
-                  <a class="gate__alt" href={cal} target="_blank" rel="noopener">Abrir en calendly.com ↗</a>
-                </div>
-                <p class="rgpd">Si reservas, Calendly recibe tus datos por cuenta de Omyra para gestionar la cita. Más información en la <a href="/privacidad">política de privacidad</a> y la <a href="/cookies">política de cookies</a>.</p>
-              </div>
+            <div class="calbox is-on" id="calbox">
+              <iframe src={calSrc} title="Calendario para reservar una demo de Omyra"></iframe>
             </div>
+            <p class="calnote">Calendario de <b>Calendly</b>, nuestra herramienta de reservas. Si reservas, Calendly recibe tus datos por cuenta de Omyra para gestionar la cita. Más información en la <a href="/privacidad">política de privacidad</a> y la <a href="/cookies">política de cookies</a>. ¿No se ve? <a href={cal} target="_blank" rel="noopener">Ábrelo en calendly.com ↗</a></p>
           </div>
         )}
         <div class="pane" id="p-form" role="tabpanel" aria-labelledby="t-form" data-pane="form" hidden={Boolean(cal)}>
@@ -80,11 +73,12 @@ const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&em
     document.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((x) => x.setAttribute('aria-selected', String(x === t)));
     document.querySelectorAll<HTMLElement>('[data-pane]').forEach((p) => (p.hidden = p.dataset.pane !== t.dataset.tab));
   }));
-  document.getElementById('cal-load')?.addEventListener('click', () => {
-    const box = document.getElementById('calbox')!;
-    const f = document.createElement('iframe');
-    f.src = box.dataset.src!; f.title = 'Calendario para reservar una demo de Omyra'; f.loading = 'eager';
-    box.replaceChildren(f); box.classList.add('is-on');
+  // Calendly avisa de la altura de su contenido: el calendario se ajusta para que no quede cortado.
+  window.addEventListener('message', (e) => {
+    if (!/^https:\/\/([a-z0-9-]+\.)*calendly\.com$/.test(e.origin) || e.data?.event !== 'calendly.page_height') return;
+    const h = parseInt(e.data.payload?.height, 10);
+    const f = document.querySelector<HTMLIFrameElement>('#calbox iframe');
+    if (f && h > 300) f.style.height = `${h + 10}px`;
   });
 
   const form = document.getElementById('demo-form') as HTMLFormElement;
@@ -137,12 +131,10 @@ const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&em
   .tabs button[aria-selected='true'] { background: var(--lime); color: var(--deep); }
   .calbox { background: var(--cream-l); color: var(--ink); border-radius: var(--r-xl); box-shadow: var(--shadow); overflow: hidden; }
   .calbox.is-on { background: #fff; }
-  .calbox :global(iframe) { display: block; width: 100%; height: 720px; border: 0; }
-  .gate { padding: clamp(1.5rem, 1rem + 2.5vw, 3rem); display: grid; gap: 1rem; }
-  .gate h2 { color: var(--green); }
-  .gate__b { display: flex; flex-wrap: wrap; align-items: center; gap: 1rem 1.4rem; }
-  .gate__alt { color: var(--green); font-weight: 600; }
-  @media (max-width: 560px) { .calbox :global(iframe) { height: 980px; } }
+  .calnote { font-size: .8rem; line-height: 1.5; color: var(--on-dark); }
+  .calnote a { color: var(--cream-l); }
+  .calbox :global(iframe) { display: block; width: 100%; height: 1000px; border: 0; transition: height .3s; }
+  @media (max-width: 560px) { .calbox :global(iframe) { height: 1100px; } }
 
   .ct { padding: calc(var(--header-h) + clamp(3rem, 2rem + 4vw, 6rem)) 0 clamp(4rem, 3rem + 5vw, 7rem); background: radial-gradient(110% 90% at 90% 0%, var(--green-2), var(--green) 45%, var(--deep)); }
   .ct__in { display: grid; grid-template-columns: .95fr 1.05fr; gap: clamp(2rem, 5vw, 5rem); align-items: start; }
