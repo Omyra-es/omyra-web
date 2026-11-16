@@ -40,3 +40,9 @@ export const hubspot = {
   formId: 'a18c31d2-a5aa-46a0-a8ea-9c0f17253cc3' as string | null, // «Solicitud de demo · Web»
   endpoint: 'https://api-eu1.hsforms.com/submissions/v3/integration/submit',
 };
+
+// Calendly (plan gratuito): enlace público del evento de demo, por ejemplo 'https://calendly.com/omyra/demo'.
+// Mientras sea null, la página de contacto muestra solo el formulario.
+export const calendly = {
+  url: 'https://calendly.com/reuniones-omyra/30min' as string | null,
+};
