@@ -9,13 +9,14 @@ const { eyebrow, title, lead, compact = false } = Astro.props;
       <p class="eyebrow">{eyebrow}</p>
       <h1 class="phero__h balance"><Fragment set:html={title} /></h1>
       {lead && <p class="lead">{lead}</p>}
-      <slot name="actions" />
+      {Astro.slots.has('actions') && <div class="phero__ctas"><slot name="actions" /></div>}
     </div>
     <slot />
   </div>
   <div class="ribbon phero__ribbon" aria-hidden="true"><div class="ribbon__track">{[0,1].map(() => <><span>Agenda</span><span>Reservas online</span><span>Clientes</span><span>Bonos y promociones</span><span>Facturación</span><span>Pagos</span></>)}</div></div>
 </section>
 <style>
+  .phero__ctas { display: flex; flex-wrap: wrap; gap: .8rem; }
   .phero__ribbon { bottom: 1.6rem; }
   .phero { position: relative; overflow: hidden; padding: calc(var(--header-h) + clamp(3.5rem, 2rem + 6vw, 7rem)) 0 clamp(7rem, 5rem + 5vw, 10rem); background: radial-gradient(110% 90% at 90% 0%, var(--green-2) 0%, var(--green) 45%, var(--deep) 100%); }
   .phero--compact { padding-bottom: clamp(3rem, 2rem + 3vw, 5rem); }

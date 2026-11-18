@@ -4,7 +4,8 @@ import sitemap from '@astrojs/sitemap';
 import { fileURLToPath } from 'node:url';
 
 // Dominio previsto (solo para URL canónicas y sitemap). Este proyecto no despliega nada.
-const NOINDEX = ['/404'];
+// Páginas fuera del sitemap (y con noindex en la propia página).
+const NOINDEX = ['/404', '/empieza', '/gracias'];
 
 export default defineConfig({
   site: 'https://omyra.es',

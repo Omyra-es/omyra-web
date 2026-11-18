@@ -1,0 +1,108 @@
+---
+// Condiciones generales de contratación (versión signup.termsVersion). Incluyen el encargo del tratamiento (art. 28 RGPD).
+import Legal from '../layouts/Legal.astro';
+import { site, signup } from '../content/site';
+import { pricing } from '../content/pricing';
+const eur = (n: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: pricing.currencyCode }).format(n);
+const vat = Math.round(pricing.amountNumber * pricing.taxRate * 100) / 100;
+const total = eur(Math.round((pricing.amountNumber + vat) * 100) / 100);
+const ivaPct = Math.round(pricing.taxRate * 100);
+const support = site.contact.supportEmail;
+---
+<Legal title="Condiciones de contratación" description="Condiciones generales de contratación de Omyra: qué se contrata, precio, cobro mensual, cancelación sin permanencia y tratamiento de datos." updated="19 de noviembre de 2026">
+  <p>Estas condiciones regulan la contratación y el uso de Omyra. Al marcar la casilla de aceptación y completar el pago, las aceptas y se celebra el contrato. Versión {signup.termsVersion}. Puedes guardarlas o imprimirlas desde esta página.</p>
+
+  <h2>1. Quién presta el servicio</h2>
+  <ul>
+    <li><b>Prestador:</b> Sergio Lozano Trujillo, profesional autónomo que presta sus servicios con el nombre comercial Omyra.</li>
+    <li><b>NIF:</b> 05445200L</li>
+    <li><b>Domicilio:</b> calle Pilar Bardem 1B, 28521 Rivas-Vaciamadrid (Madrid), España.</li>
+    <li><b>Contacto:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>, <a href={site.contact.phoneHref}>{site.contact.phone}</a>. Si ya eres cliente: <a href={`mailto:${support}`}>{support}</a>.</li>
+  </ul>
+
+  <h2>2. A quién se dirige</h2>
+  <p>Omyra es un servicio para negocios y profesionales. Al contratar declaras que lo haces en el ámbito de tu actividad empresarial o profesional, que eres mayor de edad y que tienes capacidad para obligarte en nombre propio o en el del negocio que indicas. Por ser una contratación entre empresas, no se aplica el derecho de desistimiento previsto para consumidores.</p>
+
+  <h2>3. Qué se contrata</h2>
+  <ul>
+    <li>Una suscripción mensual a Omyra, software de reservas online y gestión de citas al que se accede por internet, con todas las funcionalidades disponibles en cada momento y profesionales ilimitados.</li>
+    <li>Omyra puede mejorar, cambiar o retirar funcionalidades para mantener y hacer evolucionar el servicio. Si un cambio te afecta de forma importante, te avisaremos con antelación.</li>
+    <li>Algunas funciones conectan con servicios de terceros que tú decides activar (por ejemplo, Stripe, WhatsApp de Meta o Google Calendar). Esos terceros aplican sus propias condiciones y tarifas. {pricing.thirdParty}</li>
+  </ul>
+
+  <h2>4. Alta y acceso</h2>
+  <ul>
+    <li>El alta se hace en <a href="/empieza">omyra.es/empieza</a>. Los datos que facilites deben ser veraces y tenerse al día.</li>
+    <li>Tras el pago se crea tu cuenta y te damos acceso. Lo primero que harás será elegir tu contraseña.</li>
+    <li>Eres responsable de custodiar tus credenciales y del uso que se haga de tu cuenta y de las de las personas de tu equipo a las que des acceso. Si sospechas de un uso no autorizado, avísanos cuanto antes.</li>
+  </ul>
+
+  <h2>5. Precio, impuestos y cobro</h2>
+  <ul>
+    <li><b>Precio:</b> {pricing.amount} {pricing.currency} {pricing.tax} {pricing.period}, es decir, {total} al mes con el IVA del {ivaPct} %.</li>
+    <li><b>Cobro:</b> el primer cobro se hace al contratar y los siguientes, de forma automática, cada mes en la misma fecha, con el medio de pago que indicaste.</li>
+    <li>El pago lo procesa Stripe. Omyra no ve ni guarda los datos de tu tarjeta.</li>
+    <li>Recibirás la factura de cada cobro.</li>
+    <li>El precio incluye el uso del servicio. No incluye las tarifas que puedan cobrar terceros por servicios que actives tú.</li>
+  </ul>
+
+  <h2>6. Duración, renovación y cancelación</h2>
+  <ul>
+    <li>La suscripción es mensual, <b>sin permanencia</b>, y se renueva automáticamente cada mes mientras no la canceles.</li>
+    <li>Puedes cancelarla cuando quieras escribiendo a <a href={`mailto:${support}`}>{support}</a> desde el correo de tu cuenta, o desde la propia plataforma cuando esa opción esté disponible.</li>
+    <li>La cancelación evita los cobros siguientes. Mantienes el acceso hasta el final del mes ya pagado.</li>
+    <li>No se devuelven los importes de meses ya empezados, salvo que la ley lo exija o el servicio no se haya podido prestar por causa imputable a Omyra.</li>
+  </ul>
+
+  <h2>7. Cobros fallidos</h2>
+  <p>Si un cobro no se puede realizar, te avisaremos por correo para que actualices tu medio de pago. Si sigue pendiente pasados 15 días desde el aviso, podremos suspender el acceso hasta que se regularice, sin perder tus datos durante los 30 días siguientes. Pasado ese plazo sin pago, podremos dar de baja la cuenta conforme al apartado 12.</p>
+
+  <h2>8. Uso correcto del servicio</h2>
+  <p>Te comprometes a usar Omyra de forma lícita y conforme a estas condiciones. En particular, no debes:</p>
+  <ul>
+    <li>enviar comunicaciones comerciales no solicitadas ni usar Omyra para fines ilícitos o fraudulentos;</li>
+    <li>introducir datos de personas sin una base legal para tratarlos;</li>
+    <li>intentar acceder a cuentas o sistemas ajenos, ni interferir en el funcionamiento o la seguridad del servicio;</li>
+    <li>copiar, revender o explotar el software sin autorización.</li>
+  </ul>
+  <p>Si se incumple de forma grave, podremos suspender el acceso, avisándote salvo urgencia.</p>
+
+  <h2>9. Datos de tus clientes: encargo del tratamiento</h2>
+  <p>Este apartado es el contrato de encargo del tratamiento previsto en el artículo 28 del Reglamento (UE) 2016/679 (RGPD).</p>
+  <ul>
+    <li><b>Papeles:</b> tú eres el <b>responsable</b> de los datos de tus clientes y de tu equipo que gestionas en Omyra; Omyra es el <b>encargado</b> y los trata solo por tu cuenta.</li>
+    <li><b>Objeto y duración:</b> prestar el servicio (agenda, reservas, fichas, documentos, cobros y comunicaciones) mientras dure el contrato.</li>
+    <li><b>Datos y personas:</b> datos identificativos y de contacto, citas e historial, notas, documentos y consentimientos, datos de cobro y comunicaciones de tus clientes y de tu equipo. Si gestionas datos de salud u otras categorías especiales, eres tú quien debe contar con la base legal para hacerlo.</li>
+    <li><b>Instrucciones:</b> Omyra trata los datos solo siguiendo tus instrucciones documentadas, que son estas condiciones y el uso que haces de la plataforma. No los usa para fines propios, no los vende y no los cede, salvo obligación legal.</li>
+    <li><b>Confidencialidad y seguridad:</b> las personas autorizadas a tratar los datos están obligadas a guardar secreto. Omyra aplica medidas técnicas y organizativas adecuadas al riesgo, como el acceso con credenciales personales y la conexión cifrada.</li>
+    <li><b>Subencargados:</b> nos apoyamos en proveedores de alojamiento e infraestructura, correo electrónico y notificaciones, con contratos que les imponen las mismas obligaciones. Nos autorizas a usarlos. Te informaremos de cambios relevantes y podrás oponerte de forma justificada.</li>
+    <li><b>Ayuda:</b> te ayudaremos a atender los derechos de las personas y a cumplir tus obligaciones de seguridad, notificación de brechas y evaluaciones de impacto. Te avisaremos sin dilación indebida de cualquier brecha de seguridad que afecte a tus datos.</li>
+    <li><b>Fin del servicio:</b> antes de la baja puedes pedirnos una copia de tus datos. Después, los suprimiremos, salvo que una ley obligue a conservarlos.</li>
+    <li><b>Información y auditoría:</b> pondremos a tu disposición la información necesaria para demostrar el cumplimiento de estas obligaciones.</li>
+  </ul>
+  <p>Los datos de tu propia cuenta como cliente de Omyra se tratan como se explica en la <a href="/privacidad">política de privacidad</a>.</p>
+
+  <h2>10. Disponibilidad y soporte</h2>
+  <p>Trabajamos para que Omyra esté disponible de forma continuada, pero puede haber interrupciones por mantenimiento, actualizaciones o causas ajenas, como fallos de proveedores o de conexión. Intentaremos avisar de las paradas programadas y resolver las incidencias lo antes posible. El soporte se presta por correo, WhatsApp y teléfono.</p>
+
+  <h2>11. Responsabilidad</h2>
+  <ul>
+    <li>Omyra responde de prestar el servicio con la diligencia de un profesional. No responde del contenido que introduces, del uso que haces del servicio ni de los servicios de terceros que actives.</li>
+    <li>Salvo dolo o culpa grave, la responsabilidad de Omyra queda limitada a la cantidad que hayas pagado en los 12 meses anteriores al hecho que la origine, y no incluye el lucro cesante ni los daños indirectos.</li>
+  </ul>
+
+  <h2>12. Baja por parte de Omyra</h2>
+  <p>Omyra puede terminar el contrato avisándote con 30 días de antelación, o de inmediato si se incumplen gravemente estas condiciones o hay impago según el apartado 7. Si la baja es por decisión de Omyra sin incumplimiento tuyo, te devolveremos la parte proporcional del mes pagado y no disfrutado.</p>
+
+  <h2>13. Propiedad intelectual</h2>
+  <p>El software, la marca y los contenidos de Omyra son de su titular. El contrato te da un derecho de uso no exclusivo e intransferible mientras esté vigente. Los datos y contenidos que introduces son tuyos.</p>
+
+  <h2>14. Cambios en estas condiciones o en el precio</h2>
+  <p>Te avisaremos por correo con al menos 30 días de antelación de cualquier cambio en estas condiciones o en el precio. Si no estás de acuerdo, puedes cancelar antes de que entre en vigor, sin coste. Si sigues usando Omyra después, se entenderá que lo aceptas.</p>
+
+  <h2>15. Comunicaciones</h2>
+  <p>Las comunicaciones del contrato se harán por correo electrónico a la dirección de tu cuenta. Puedes escribirnos a <a href={`mailto:${support}`}>{support}</a>.</p>
+
+  <h2>16. Ley aplicable y tribunales</h2>
+  <p>Estas condiciones se rigen por la ley española. Para cualquier conflicto, las partes se someten a los juzgados y tribunales de Madrid, salvo que una norma imperativa establezca otro fuero.</p>
+</Legal>

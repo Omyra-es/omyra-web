@@ -1,0 +1,92 @@
+---
+// Vuelta de Stripe tras pagar: omyra.es/gracias?session_id={CHECKOUT_SESSION_ID}
+// Da las gracias con la marca de Omyra y lleva al cliente a su cuenta (signup.appWelcomeUrl).
+import Base from '../layouts/Base.astro';
+import { site, signup, hubspot, hubspotSignup } from '../content/site';
+
+const cfg = {
+  app: signup.appWelcomeUrl && /^https:\/\//.test(signup.appWelcomeUrl) ? signup.appWelcomeUrl : null,
+  hs: hubspot.portalId && hubspotSignup.formId ? `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${hubspot.portalId}/${hubspotSignup.formId}` : null,
+};
+---
+<Base title="¡Gracias! · Omyra" description="Tu alta en Omyra se ha completado." noindex>
+  <div class="shell bg-green is-dark">
+    <section class="wrap ty">
+      <p class="eyebrow">Alta completada</p>
+      <h1 class="ty__h"><span id="tyName">¡Gracias</span><span class="firma">!</span></h1>
+      <p class="ty__lead">Tu pago se ha completado y ya estamos preparando tu Omyra.</p>
+
+      <div class="ty__card" id="tyGo">
+        <div class="ty__spin" aria-hidden="true">✦</div>
+        <div>
+          <p class="ty__t">Te llevamos a tu cuenta en <b id="tyCount">5</b> s</p>
+          <p class="ty__s">Al entrar, lo primero será elegir tu contraseña. Después, Omyra te guía paso a paso para dejarlo todo listo.</p>
+        </div>
+        <a class="ty__btn" id="tyBtn" href="#">Ir a mi cuenta ahora <span aria-hidden="true">→</span></a>
+      </div>
+
+
+      <p class="ty__help">¿Alguna duda? Ya eres cliente: escríbenos a <a href={`mailto:${site.contact.supportEmail}`}>{site.contact.supportEmail}</a>, por <a href={site.contact.whatsappHref}>WhatsApp</a> o llámanos al <a href={site.contact.phoneHref}>{site.contact.phone}</a>.</p>
+    </section>
+  </div>
+  <script is:inline type="application/json" id="ty-cfg" set:html={JSON.stringify(cfg)} />
+</Base>
+
+<script>
+  const cfg = JSON.parse(document.getElementById('ty-cfg')!.textContent || '{}') as { app: string | null; hs: string | null };
+  const params = new URLSearchParams(location.search);
+  const sessionId = params.get('session_id') || '';
+
+  // Datos del alta que quedaron en el navegador (misma visita): nombre para saludar y aviso a HubSpot.
+  let data: Record<string, string> = {};
+  try { data = JSON.parse(sessionStorage.getItem('omyra-alta') || '{}').data || {}; } catch { /* sin datos */ }
+  if (data.firstName) document.getElementById('tyName')!.textContent = `¡Gracias, ${data.firstName}`;
+
+  if (cfg.hs && data.email) {
+    fetch(cfg.hs, {
+      method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
+      body: JSON.stringify({ fields: [{ name: 'email', value: data.email.trim().toLowerCase() }, { name: 'paso_del_alta', value: '6 · Pagado' }], context: { pageUri: location.origin + location.pathname, pageName: 'Alta completada' } }),
+    }).catch(() => {});
+  }
+  // El alta ya está hecha: no hace falta conservar el formulario relleno.
+  try { sessionStorage.removeItem('omyra-alta'); } catch { /* sin almacenamiento */ }
+
+  // Siempre lleva a su cuenta. Mientras no esté configurada la dirección de la app, el botón no hace nada.
+  if (cfg.app) {
+    const url = new URL(cfg.app);
+    if (/^cs_[A-Za-z0-9_]+$/.test(sessionId)) url.searchParams.set('session_id', sessionId);
+    const btn = document.getElementById('tyBtn') as HTMLAnchorElement;
+    btn.href = url.href;
+    document.getElementById('tyGo')!.hidden = false;
+    let n = 5;
+    const count = document.getElementById('tyCount')!;
+    const t = setInterval(() => {
+      n -= 1;
+      count.textContent = String(Math.max(n, 0));
+      if (n <= 0) { clearInterval(t); location.href = url.href; }
+    }, 1000);
+  }
+</script>
+
+<style>
+  .shell { position: relative; overflow: hidden; padding-top: var(--header-h); min-height: 88vh; background: radial-gradient(110% 90% at 90% 0%, var(--green-2) 0%, var(--green) 45%, var(--deep) 100%); }
+  .shell::before { content: '✦'; position: absolute; right: -4rem; top: -6rem; font-size: 26rem; line-height: 1; color: rgb(184 150 85 / .07); pointer-events: none; }
+  .ty { position: relative; padding-block: clamp(3rem, 6vw, 6rem) 5rem; display: grid; gap: 1.3rem; max-width: 46rem; }
+  .ty__h { font-size: clamp(3rem, 1.6rem + 5vw, 6rem); line-height: .92; letter-spacing: -.055em; font-weight: 600; color: var(--cream-l); }
+  .firma { font-weight: 300; color: var(--lime); }
+  .firma::after { content: '✦'; display: inline-block; font-size: .4em; font-weight: 400; color: var(--brand-gold); vertical-align: 1.15em; margin-left: .14em; }
+  .ty__lead { font-size: clamp(1.1rem, 1rem + .5vw, 1.35rem); color: var(--on-dark); max-width: 36ch; }
+  .ty__card { margin-top: .8rem; background: var(--cream-l); color: var(--ink); border-radius: 28px; padding: clamp(1.3rem, 1rem + 1.5vw, 2rem); box-shadow: var(--shadow); display: grid; grid-template-columns: auto 1fr; gap: 1rem 1.1rem; align-items: start; }
+  .ty__card[hidden] { display: none; }
+  .ty__spin { width: 46px; height: 46px; border-radius: 14px; background: var(--green); color: var(--lime); display: grid; place-items: center; font-size: 1.3rem; }
+  @media (prefers-reduced-motion: no-preference) { .ty__spin { animation: ty-spin 3s linear infinite; } }
+  @keyframes ty-spin { to { rotate: 360deg; } }
+  .ty__t { font-size: 1.2rem; font-weight: 600; letter-spacing: -.02em; color: var(--green); }
+  .ty__t b { font-variant-numeric: tabular-nums; }
+  .ty__s { color: var(--muted); font-size: .95rem; margin-top: .3rem; }
+  .ty__btn { grid-column: 1 / -1; justify-self: start; display: inline-flex; gap: .6em; background: var(--lime); color: var(--deep); font-weight: 600; text-decoration: none; padding: 1rem 1.6rem; border-radius: 99px; }
+  .ty__btn:hover { background: #e3fa8c; }
+  .ty__help { color: var(--on-dark); font-size: .95rem; }
+  .ty__help a { color: var(--lime); font-weight: 600; }
+  @media (max-width: 560px) { .ty__btn { justify-self: stretch; justify-content: center; } }
+</style>

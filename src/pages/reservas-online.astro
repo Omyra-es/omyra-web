@@ -29,7 +29,7 @@ const faqs = pick('marketplace', 'personalizar', 'valoracion', 'pagos', 'comisio
 ---
 <Base title="Reservas online con tu propia página · Omyra" description="Tu propia página de reservas online, con tu marca. Tus clientes reservan contigo, no en un marketplace: servicio, profesional, fecha y hora, señales y confirmación por correo.">
   <PageHero eyebrow="Reservas online" title="Tu propio canal <span class='gold'>de reservas.</span>" lead="Una página de reservas con tu logo, tus colores y tus servicios. Tus clientes reservan contigo a cualquier hora, y la cita aparece directamente en tu agenda.">
-    <Fragment slot="actions"><Button href={cta.demo.href} size="lg" arrow>{cta.demo.label}</Button></Fragment>
+    <Fragment slot="actions"><Button href={cta.start.href} size="lg" arrow>{cta.start.label}</Button><Button href={cta.demo.href} variant="ghost" size="lg">{cta.demo.label}</Button></Fragment>
     <div class="rh"><BookingFlow plain /></div>
   </PageHero>
 

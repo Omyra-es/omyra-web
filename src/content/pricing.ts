@@ -5,6 +5,10 @@ export const pricing = {
   currency: '€',
   currencyCode: 'EUR',
   tax: '+ IVA',
+  taxRate: 0.21, // IVA general en España
+  get taxLabel() {
+    return `IVA (${Math.round(this.taxRate * 100)} %)`;
+  },
   period: 'al mes',
   get full() {
     return `${this.amount} ${this.currency} ${this.tax} ${this.period}`;

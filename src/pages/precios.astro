@@ -19,7 +19,8 @@ const jsonld = [{ '@context': 'https://schema.org', '@type': 'FAQPage', mainEnti
       <p class="pcard__big">{pricing.amount}<sup>€</sup></p>
       <p class="pcard__per">{pricing.tax} {pricing.period}</p>
       <ul class="ring-list">{pricing.included.slice(0, 5).map((i) => <li>{i}</li>)}</ul>
-      <Button href={cta.demo.href} size="lg" arrow class="pcard__btn">{cta.demo.label}</Button>
+      <Button href={cta.buy.href} variant="green" size="lg" arrow class="pcard__btn">{cta.buy.label}</Button>
+      <Button href={cta.demo.href} variant="ghost-dark" size="lg">{cta.demo.label}</Button>
     </div>
   </PageHero>
 

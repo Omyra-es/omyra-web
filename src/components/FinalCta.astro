@@ -19,8 +19,8 @@ const feed = [
     <h2 class="fcta__h reveal">{title ? <Fragment set:html={title} /> : <>Tú trabajas.<br />Tus clientes<br />reservan.</>}</h2>
     <p class="fcta__lead reveal">Te enseñamos Omyra en una demo y vemos juntos cómo encaja con tu forma de trabajar. Escríbenos, llámanos al <a href={site.contact.phoneHref}>{site.contact.phone}</a> o envíanos un WhatsApp.</p>
     <div class="fcta__ctas reveal">
-      <Button href={cta.demo.href} variant="dark" size="lg" arrow>{cta.demo.label}</Button>
-      <Button href={site.contact.whatsappHref} variant="ghost-dark" size="lg">Escríbenos por WhatsApp</Button>
+      <Button href={cta.start.href} variant="dark" size="lg" arrow>{cta.start.label}</Button>
+      <Button href={cta.demo.href} variant="ghost-dark" size="lg">{cta.demo.label}</Button>
     </div>
     <div class="feed" aria-hidden="true">
       {feed.map((f, i) => (

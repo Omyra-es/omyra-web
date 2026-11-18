@@ -1,9 +1,9 @@
 ---
 import Base from './Base.astro';
-interface Props { title: string; description: string; updated: string }
-const { title, description, updated } = Astro.props;
+interface Props { title: string; description: string; updated: string; noindex?: boolean }
+const { title, description, updated, noindex = false } = Astro.props;
 ---
-<Base title={`${title} · Omyra`} description={description}>
+<Base title={`${title} · Omyra`} description={description} noindex={noindex}>
   <section class="lh bg-green is-dark">
     <div class="wrap"><p class="eyebrow">Información legal</p><h1 class="h1">{title}</h1></div>
   </section>

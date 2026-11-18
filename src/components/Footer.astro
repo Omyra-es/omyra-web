@@ -3,6 +3,7 @@ import Logo from './Logo.astro';
 import { nav, legal, site, cta } from '../content/site';
 import { pricing } from '../content/pricing';
 const year = new Date().getFullYear();
+const onStart = [cta.start.href, '/gracias'].includes(Astro.url.pathname.replace(/\.html$/, ''));
 ---
 <footer class="ftr bg-deep is-dark">
   <div class="wrap">
@@ -11,6 +12,7 @@ const year = new Date().getFullYear();
         <Logo width={140} />
         <p class="ftr__claim">Tú trabajas.<br /><span class="gold">Tus clientes reservan.</span></p>
         <p class="ftr__sign">Hecho con cuidado para negocios que cuidan.</p>
+        {!onStart && <p><a href={cta.start.href} class="ftr__start">{cta.start.label} <span aria-hidden="true">→</span></a></p>}
       </div>
       <nav aria-label="Pie de página" class="ftr__cols">
         <div><p class="eyebrow">Omyra</p><ul role="list">{nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul></div>
@@ -19,7 +21,7 @@ const year = new Date().getFullYear();
           <li><a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
           <li><a href={site.contact.whatsappHref}>WhatsApp</a></li>
           <li>{site.contact.location}</li>
-          <li><a href={cta.demo.href} class="gold">{cta.demo.label} →</a></li>
+          <li><a href={cta.demo.href}>{cta.demo.label} →</a></li>
         </ul></div>
       </nav>
     </div>
@@ -37,6 +39,8 @@ const year = new Date().getFullYear();
   .ftr__sign::before { content: '✦'; font-style: normal; color: var(--lime); animation: ftr-spin 10s linear infinite; display: inline-block; }
   @keyframes ftr-spin { to { rotate: 360deg; } }
   @media (prefers-reduced-motion: reduce) { .ftr__sign::before { animation: none; } }
+  .ftr__start { display: inline-flex; gap: .6em; margin-top: 2rem; background: var(--lime); color: var(--deep) !important; font-weight: 600; padding: .95rem 1.5rem; border-radius: 99px; text-decoration: none !important; }
+  .ftr__start:hover { background: #e3fa8c; }
   .ftr__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
   .ftr ul { display: grid; gap: .55rem; margin-top: 1rem; color: var(--on-dark); }
   .ftr a { text-decoration: none; } .ftr a:hover { color: var(--cream-l); text-decoration: underline; text-underline-offset: 4px; }

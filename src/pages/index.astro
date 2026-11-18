@@ -77,8 +77,8 @@ const problems = [
         <p class="eyebrow hero__eb">Para negocios que trabajan con citas</p>
         <p class="lead hero__lead">Organiza tu agenda, gestiona tus servicios y deja que tus clientes reserven online. Todo tu negocio, más organizado.</p>
         <div class="hero__ctas">
-          <Button href={cta.demo.href} size="lg" arrow class="btn--block-sm">{cta.demo.label}</Button>
-          <Button href={cta.discover.href} variant="ghost" size="lg" class="btn--block-sm">{cta.discover.label}</Button>
+          <Button href={cta.start.href} size="lg" arrow class="btn--block-sm">{cta.start.label}</Button>
+          <Button href={cta.demo.href} variant="ghost" size="lg" class="btn--block-sm">{cta.demo.label}</Button>
         </div>
         <ul class="hero__trust" role="list">
           <li><b>{pricing.amount} €</b> {pricing.tax} {pricing.period}</li><li>Sin permanencia</li><li>Sin comisiones por reserva</li><li>Profesionales ilimitados sin coste adicional</li>
@@ -463,7 +463,7 @@ const problems = [
       <p class="price__big reveal" aria-label={`${pricing.amount} euros ${pricing.tax} ${pricing.period}`}>{pricing.amount}<sup>€</sup></p>
       <ul class="price__chips" role="list">{pricing.included.map((i, k) => <li class="reveal" style={`--d:${k * 0.04}s`}>{i}</li>)}</ul>
       <p class="price__note">{pricing.thirdParty}</p>
-      <div class="price__ctas mt-3"><Button href={cta.demo.href} size="lg" arrow>{cta.demo.label}</Button><a href="/precios" class="price__more">Ver todos los detalles →</a></div>
+      <div class="price__ctas mt-3"><Button href={cta.buy.href} size="lg" arrow>{cta.buy.label}</Button><Button href={cta.demo.href} variant="ghost" size="lg">{cta.demo.label}</Button><a href="/precios" class="price__more">Ver todos los detalles →</a></div>
     </div>
   </section>
 
