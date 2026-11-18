@@ -87,7 +87,7 @@ ul[role='list'], ol[role='list'] { list-style: none; }
 .lead { font-size: var(--fs-lead); line-height: 1.5; color: var(--text-2, var(--muted)); max-width: 36em; }
 .text-2 { color: var(--text-2, var(--muted)); }
 .gold { color: var(--gold); }
-.is-light .gold-ink, .gold-ink { color: var(--green); background: linear-gradient(transparent 64%, var(--lime) 64%, var(--lime) 92%, transparent 92%); -webkit-box-decoration-break: clone; box-decoration-break: clone; padding-inline: .04em; }
+/* (el resaltado de .gold-ink está en «Firma Omyra», más abajo) */
 .lilac { color: var(--lilac); }
 .balance { text-wrap: balance; }
 .mt-1 { margin-top: .75rem; } .mt-2 { margin-top: 1.25rem; } .mt-3 { margin-top: 2rem; } .mt-4 { margin-top: 3rem; } .mt-5 { margin-top: 4.5rem; }
@@ -108,11 +108,20 @@ ul[role='list'], ol[role='list'] { list-style: none; }
 .chip--gold { background: var(--lime); color: var(--deep); }
 .chip--lilac { background: var(--lilac); color: var(--deep); }
 .bg-lilac { background: var(--lilac); color: var(--deep); --tag: var(--deep); --ring: var(--deep); --text-2: rgb(10 43 32 / .78); }
-/* Marcador que se dibuja detrás de una palabra (sustituye a los aros) */
-.swipe { position: relative; z-index: 0; white-space: nowrap; }
-.swipe::before { content: ''; position: absolute; z-index: -1; left: -.06em; right: -.06em; top: 52%; bottom: .02em; background: var(--swipe, var(--lilac)); transform: skewX(-12deg) scaleX(0); transform-origin: left; transition: transform .9s .3s var(--ease); border-radius: 4px; }
-.is-in .swipe::before, .swipe.is-in::before { transform: skewX(-12deg) scaleX(1); }
-@media (prefers-reduced-motion: reduce) { .swipe::before { transform: skewX(-12deg); } }
+/* Firma Omyra: la palabra destacada pasa a trazo fino y termina con la estrella dorada del logo.
+   Sustituye al subrayado tipo rotulador. */
+.gold-ink, .swipe, :is(.display, .h1, .h2) .gold { font-weight: 300; letter-spacing: -.04em; }
+.gold-ink, .swipe { color: inherit; }
+.is-dark :is(.gold-ink, .swipe) { color: var(--lime); }
+.gold-ink::after, .swipe::after, :is(.display, .h1, .h2) .gold::after {
+  content: '✦'; display: inline-block; font-size: .4em; font-weight: 400; line-height: 1; letter-spacing: 0;
+  color: var(--omy-star, var(--brand-gold)); vertical-align: 1.15em; margin-left: .14em;
+  animation: omy-star 1s .45s var(--ease) both, omy-twinkle 6s 2s ease-in-out infinite;
+}
+.reveal:not(.is-in) :is(.gold-ink, .swipe, .gold)::after { animation: none; transform: scale(0) rotate(-140deg); }
+@keyframes omy-star { from { transform: scale(0) rotate(-140deg); } to { transform: scale(1) rotate(0); } }
+@keyframes omy-twinkle { 0%, 86%, 100% { transform: scale(1) rotate(0); } 92% { transform: scale(1.35) rotate(45deg); } }
+@media (prefers-reduced-motion: reduce) { .gold-ink::after, .swipe::after, :is(.display, .h1, .h2) .gold::after { animation: none; } }
 /* Cinta inclinada en movimiento */
 .ribbon { position: absolute; left: -5%; right: -5%; overflow: hidden; background: var(--lilac); color: var(--deep); transform: rotate(-3deg); padding: .7rem 0; z-index: 1; box-shadow: 0 12px 30px -16px rgb(0 0 0 / .45); }
 .ribbon__track { display: flex; width: max-content; animation: ribbon 28s linear infinite; font-weight: 600; letter-spacing: -.02em; font-size: clamp(1rem, .9rem + .6vw, 1.4rem); }

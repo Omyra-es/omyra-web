@@ -135,7 +135,7 @@ const faqs = pick('marketplace', 'personalizar', 'valoracion', 'pagos', 'comisio
     .cmp__row { grid-template-columns: 1fr 1fr; } .cmp__row > :nth-child(1) { grid-column: 1 / -1; background: var(--cream); }
     .cmp__head > :nth-child(1) { display: none; }
   }
-  .claim { position: relative; background: var(--lime); color: var(--deep); border-radius: 32px; padding: clamp(1.6rem, 1rem + 3vw, 3rem) clamp(1.4rem, 1rem + 3vw, 3.2rem); overflow: hidden; rotate: -1deg; }
+  .claim { --omy-star: var(--deep);  position: relative; background: var(--lime); color: var(--deep); border-radius: 32px; padding: clamp(1.6rem, 1rem + 3vw, 3rem) clamp(1.4rem, 1rem + 3vw, 3.2rem); overflow: hidden; rotate: -1deg; }
   .claim::after { content: '✦'; position: absolute; right: clamp(1rem, 4vw, 3rem); top: 50%; translate: 0 -50%; font-size: clamp(3rem, 2rem + 6vw, 8rem); line-height: 1; color: var(--deep); opacity: .9; animation: claim-spin 14s linear infinite; }
   @keyframes claim-spin { to { rotate: 360deg; } }
   .claim__a { font-size: clamp(1.05rem, .9rem + .7vw, 1.5rem); font-weight: 500; max-width: 80%; }
