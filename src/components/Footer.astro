@@ -2,6 +2,7 @@
 import Logo from './Logo.astro';
 import { nav, legal, site, cta } from '../content/site';
 import { pricing } from '../content/pricing';
+import { sectorPages } from "../content/sector-pages";
 const year = new Date().getFullYear();
 const onStart = [cta.start.href, '/gracias'].includes(Astro.url.pathname.replace(/\.html$/, ''));
 ---
@@ -16,6 +17,7 @@ const onStart = [cta.start.href, '/gracias'].includes(Astro.url.pathname.replace
       </div>
       <nav aria-label="Pie de página" class="ftr__cols">
         <div><p class="eyebrow">Omyra</p><ul role="list">{nav.map((n) => <li><a href={n.href}>{n.label}</a></li>)}</ul></div>
+        <div><p class="eyebrow">Sectores</p><ul role="list">{sectorPages.map((p) => <li><a href={`/${p.slug}`}>{p.name}</a></li>)}</ul></div>
         <div><p class="eyebrow">Contacto</p><ul role="list">
           <li><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
           <li><a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
@@ -41,10 +43,10 @@ const onStart = [cta.start.href, '/gracias'].includes(Astro.url.pathname.replace
   @media (prefers-reduced-motion: reduce) { .ftr__sign::before { animation: none; } }
   .ftr__start { display: inline-flex; gap: .6em; margin-top: 2rem; background: var(--lime); color: var(--deep) !important; font-weight: 600; padding: .95rem 1.5rem; border-radius: 99px; text-decoration: none !important; }
   .ftr__start:hover { background: #e3fa8c; }
-  .ftr__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .ftr__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
   .ftr ul { display: grid; gap: .55rem; margin-top: 1rem; color: var(--on-dark); }
   .ftr a { text-decoration: none; } .ftr a:hover { color: var(--cream-l); text-decoration: underline; text-underline-offset: 4px; }
   .ftr__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.5rem; font-size: .88rem; color: var(--on-dark); }
   .ftr__bottom ul { display: flex; gap: 1.4rem; margin: 0; }
-  @media (max-width: 760px) { .ftr__top { grid-template-columns: 1fr; } }
+  @media (max-width: 760px) { .ftr__top { grid-template-columns: 1fr; } .ftr__cols { grid-template-columns: 1fr 1fr; } }
 </style>

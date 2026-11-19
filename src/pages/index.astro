@@ -28,6 +28,7 @@ import fWa from '../assets/frag/whatsapp-atencion.jpg';
 import { cta, site } from '../content/site';
 import { pricing } from '../content/pricing';
 import { sectors } from '../content/sectors';
+import { sectorPages } from "../content/sector-pages";
 import { pick } from '../content/faq';
 
 import reservaServicio from '../assets/luna/reserva-2-servicio.jpg';
@@ -143,6 +144,7 @@ const problems = [
         <Photo id="spa" class="wa8 reveal" sizes="(min-width: 900px) 17vw, 46vw" />
         <a class="wa9 reveal" href="/contacto"><span>¿Tu negocio trabaja con citas?</span><span class="wa9__go" aria-hidden="true">→</span></a>
       </div>
+      <ul class="seclinks mt-4 reveal" role="list" aria-label="Omyra por sector">{sectorPages.map((p) => <li><a href={`/${p.slug}`}>{p.name} <span aria-hidden="true">→</span></a></li>)}</ul>
     </div>
   </section>
 
@@ -534,6 +536,9 @@ const problems = [
   .own__points b { display: block; font-size: 1.15rem; letter-spacing: -.02em; margin-bottom: .3rem; }
   .own__points span { color: rgb(10 43 32 / .8); }
 
+  .seclinks { list-style: none; display: flex; flex-wrap: wrap; gap: .6rem; }
+  .seclinks a { display: inline-flex; gap: .5em; padding: .7em 1.2em; border-radius: 99px; background: var(--white); color: var(--green); font-weight: 600; text-decoration: none; box-shadow: 0 0 0 1px var(--line); }
+  .seclinks a:hover { background: var(--green); color: var(--cream-l); }
   /* SECTORES · muro asimétrico */
   .wall { display: grid; grid-template-columns: repeat(12, 1fr); grid-auto-rows: clamp(90px, 8vw, 125px); gap: 12px; }
   .wall :global(.w1) { grid-column: 1 / 6; grid-row: 1 / 4; }

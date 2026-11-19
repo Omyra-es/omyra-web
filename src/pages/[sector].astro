@@ -1,0 +1,137 @@
+---
+// Páginas por sector: /software-para-peluquerias, /software-para-centros-de-estetica, …
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Photo from '../components/Photo.astro';
+import Shot from '../components/Shot.astro';
+import Faq from '../components/Faq.astro';
+import FinalCta from '../components/FinalCta.astro';
+import { cta } from '../content/site';
+import { pricing } from '../content/pricing';
+import { pick } from '../content/faq';
+import { sectorPages, type SectorPage } from '../content/sector-pages';
+
+export function getStaticPaths() {
+  return sectorPages.map((s) => ({ params: { sector: s.slug }, props: { s } }));
+}
+const { s } = Astro.props as { s: SectorPage };
+const faqs = pick(...s.faqs);
+const others = sectorPages.filter((o) => o.slug !== s.slug);
+const ld = [{
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: 'Omyra',
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Web',
+  url: `https://omyra.es/${s.slug}`,
+  description: s.description,
+  offers: { '@type': 'Offer', price: pricing.amountNumber.toFixed(2), priceCurrency: pricing.currencyCode },
+}, { "@context": "https://schema.org", "@type": "FAQPage", mainEntity: faqs.map((f) => ({ "@type": "Question", name: f.q, acceptedAnswer: { "@type": "Answer", text: f.a } })) }];
+---
+<Base title={s.title} description={s.description} jsonld={ld}>
+  <PageHero eyebrow={s.eyebrow} title={s.h1} lead={s.lead}>
+    <Fragment slot="actions"><Button href={cta.start.href} size="lg" arrow>{cta.start.label}</Button><Button href={cta.demo.href} variant="ghost" size="lg">{cta.demo.label}</Button></Fragment>
+    <div class="sh-photos">
+      <Photo id={s.photos[0]} class="sh-p1" eager sizes="(min-width: 900px) 26vw, 60vw" />
+      <Photo id={s.photos[1]} class="sh-p2" sizes="(min-width: 900px) 18vw, 40vw" caption={false} />
+    </div>
+  </PageHero>
+
+  <section class="sec bg-light is-light">
+    <div class="wrap">
+      <p class="eyebrow reveal">Lo que Omyra te resuelve</p>
+      <h2 class="h2 balance mt-2 reveal sp__h">Pensado para el día a día <span class="gold-ink">de tu negocio.</span></h2>
+      <div class="sp mt-4">
+        {s.points.map((p, i) => (
+          <article class="sp__card reveal" style={`--d:${(i % 3) * 0.08}s`}>
+            <p class="sp__pain">{p.pain}</p>
+            <h3 class="h3 mt-2">{p.t}</h3>
+            <p class="mt-1 text-2">{p.d}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-cream is-light">
+    <div class="wrap split split--wide-l">
+      <div class="reveal"><Shot src={s.shot.img} alt={s.shot.alt} /></div>
+      <div>
+        <p class="eyebrow reveal">{s.shot.eyebrow}</p>
+        <h2 class="h2 balance mt-2 reveal"><Fragment set:html={s.shot.h} /></h2>
+        <p class="lead mt-2 reveal">{s.shot.d}</p>
+        <ul class="ring-list mt-3">{s.shot.list.map((l) => <li class="reveal">{l}</li>)}</ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-green is-dark">
+    <div class="wrap split split--wide-r">
+      <div>
+        <p class="eyebrow reveal">Tu catálogo</p>
+        <h2 class="h2 balance mt-2 reveal">Tus servicios, <span class="gold">como los ofreces tú.</span></h2>
+        <p class="lead mt-2 reveal">Creas tu catálogo con tus servicios, cada uno con su duración, su precio, su foto y quién lo realiza. Por ejemplo:</p>
+        <ul class="tags mt-3 reveal" role="list">{s.services.map((t) => <li>{t}</li>)}</ul>
+      </div>
+      <div class="price reveal">
+        <p class="eyebrow">Un único plan</p>
+        <p class="price__n">{pricing.amount} € <small>{pricing.tax} {pricing.period}</small></p>
+        <ul class="ring-list mt-2">
+          <li>Todas las funcionalidades</li>
+          <li>Profesionales ilimitados</li>
+          <li>Sin comisiones por reserva</li>
+          <li>Sin permanencia</li>
+        </ul>
+        <div class="price__ctas mt-3"><Button href={cta.buy.href} variant="dark" arrow>{cta.buy.label}</Button><Button href="/precios" variant="ghost-dark">Ver precio</Button></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec bg-light is-light">
+    <div class="wrap split split--wide-r faqs">
+      <div><p class="eyebrow">Preguntas frecuentes</p><h2 class="h2 balance mt-2">Lo que suelen <span class="gold-ink">preguntarnos.</span></h2></div>
+      <Faq items={faqs} />
+    </div>
+  </section>
+
+  <section class="sec-s bg-cream is-light">
+    <div class="wrap others">
+      <p class="eyebrow">Omyra también es para</p>
+      <ul role="list">{others.map((o) => <li><a href={`/${o.slug}`}>{o.name} <span aria-hidden="true">→</span></a></li>)}</ul>
+      <p class="text-2">Y para cualquier negocio que trabaje con cita previa. <a href="/funcionalidades">Ver todas las funcionalidades</a>.</p>
+    </div>
+  </section>
+
+  <FinalCta />
+</Base>
+
+<style>
+  .sh-photos { position: relative; display: grid; grid-template-columns: 1fr; justify-items: end; }
+  .sh-photos :global(.sh-p1) { width: min(100%, 420px); aspect-ratio: 4 / 5; rotate: 2deg; }
+  .sh-photos :global(.sh-p2) { position: absolute; left: 0; bottom: -2rem; width: 46%; aspect-ratio: 1; rotate: -4deg; border: 6px solid var(--green); }
+  .sp__h { max-width: 15em; color: var(--green); }
+  .sp { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.1rem; }
+  .sp__card { border-radius: var(--r-lg); padding: clamp(1.4rem, 1rem + 1.5vw, 2.2rem); background: var(--cream-l); }
+  .sp__card:nth-child(3n + 2) { background: var(--green); color: var(--cream-l); --text-2: var(--on-dark); }
+  .sp__pain { font-style: italic; color: var(--muted); }
+  .sp__card:nth-child(3n + 2) .sp__pain { color: var(--lime); }
+  .tags { list-style: none; display: flex; flex-wrap: wrap; gap: .5rem; }
+  .tags li { padding: .5em 1em; border-radius: 99px; background: rgb(247 245 241 / .1); color: var(--cream-l); font-weight: 500; }
+  .price { background: var(--lime); color: var(--deep); border-radius: var(--r-lg); padding: clamp(1.6rem, 1rem + 2vw, 2.6rem); --eyebrow: var(--deep); --ring: var(--deep); --rule: rgb(10 43 32 / .15); }
+  .price__n { font-size: clamp(2.6rem, 1.6rem + 3vw, 4rem); font-weight: 600; letter-spacing: -.05em; line-height: 1; margin-top: .6rem; }
+  .price__n small { font-size: 1rem; font-weight: 500; letter-spacing: 0; }
+  .price__ctas { display: flex; flex-wrap: wrap; gap: .6rem; }
+  .faqs { align-items: start; }
+  .sec-s { padding: clamp(3rem, 2rem + 3vw, 4.5rem) 0; }
+  .others { display: grid; gap: 1rem; }
+  .others ul { list-style: none; display: flex; flex-wrap: wrap; gap: .6rem; }
+  .others ul a { display: inline-flex; gap: .5em; padding: .7em 1.2em; border-radius: 99px; background: var(--white); color: var(--green); font-weight: 600; text-decoration: none; box-shadow: 0 0 0 1px var(--line); }
+  .others ul a:hover { background: var(--green); color: var(--cream-l); }
+  .others > p a { color: var(--green); font-weight: 600; }
+  @media (max-width: 900px) {
+    .sp { grid-template-columns: 1fr; }
+    .sh-photos { margin-top: 1rem; padding-bottom: 2rem; }
+    .sh-photos :global(.sh-p1) { width: 72%; }
+  }
+</style>
