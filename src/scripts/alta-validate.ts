@@ -62,5 +62,5 @@ export const validators: Record<string, (v: string) => string> = {
   },
   billCity: req('Escribe la población.'),
   province: req('Elige la provincia.'),
-  terms: req('Para continuar, acepta las condiciones de contratación y la política de privacidad.'),
+  terms: req('Para continuar, acepta las condiciones de contratación, el encargo del tratamiento y la política de privacidad.'),
 };

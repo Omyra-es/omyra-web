@@ -2,7 +2,7 @@
 import Legal from '../layouts/Legal.astro';
 import { site } from '../content/site';
 ---
-<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="18 de noviembre de 2026">
+<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="19 de noviembre de 2026">
   <p>Esta política explica cómo trata Omyra los datos personales, de acuerdo con el Reglamento (UE) 2016/679, General de Protección de Datos (RGPD), y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
 
   <div class="box">
@@ -17,8 +17,8 @@ import { site } from '../content/site';
   <ul>
     <li><b>Responsable:</b> Sergio Lozano Trujillo (Omyra)</li>
     <li><b>NIF:</b> 05445200L</li>
-    <li><b>Domicilio:</b> calle Pilar Bardem 1B, 28521 Rivas-Vaciamadrid (Madrid), España</li>
-    <li><b>Contacto:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> · <a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
+    <li><b>Domicilio:</b> calle Pilar Bardem 1B, escalera 5, 2.º D, 28521 Rivas-Vaciamadrid (Madrid), España</li>
+    <li><b>Contacto:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> · <a href={site.contact.phoneHref}>{site.contact.phone}</a>. Si ya eres cliente: <a href={`mailto:${site.contact.supportEmail}`}>{site.contact.supportEmail}</a></li>
   </ul>
 
   <h2>2. Datos que tratamos como responsables</h2>
@@ -28,10 +28,14 @@ import { site } from '../content/site';
       <tr><td>Atender tu solicitud de demo o tu consulta (formulario, calendario de reservas, correo, teléfono o WhatsApp)</td><td>Nombre, negocio, correo, teléfono, tipo de negocio, día y hora de la demo y lo que nos cuentes</td><td>Tu solicitud y tu consentimiento (art. 6.1.a y 6.1.b RGPD)</td><td>El tiempo necesario para atenderte y, si no llegas a contratar, hasta 12 meses desde el último contacto</td></tr>
       <tr><td>Tramitar tu alta online y, si la empiezas pero no la terminas, poder ayudarte a completarla</td><td>Los datos que escribes en cada paso del alta (cuenta, negocio y facturación), el paso al que llegas y de dónde llega tu visita (por ejemplo, la campaña o red social)</td><td>Medidas precontractuales a tu petición (art. 6.1.b RGPD)</td><td>Si no llegas a contratar, hasta 12 meses desde el último contacto</td></tr>
       <tr><td>Prestar el servicio contratado y darte soporte</td><td>Datos de la cuenta, del negocio y de las personas de contacto</td><td>Ejecución del contrato (art. 6.1.b RGPD)</td><td>Mientras dure el contrato y, después, durante los plazos de prescripción de las acciones legales</td></tr>
-      <tr><td>Facturación y obligaciones fiscales y contables</td><td>Datos fiscales y de facturación</td><td>Obligación legal (art. 6.1.c RGPD)</td><td>Los plazos que exige la normativa fiscal y mercantil (con carácter general, hasta 6 años)</td></tr>
+      <tr><td>Cobrar y facturar la suscripción, y obligaciones fiscales y contables</td><td>Datos fiscales, referencias de cobro, impagos y rectificaciones</td><td>Ejecución del contrato y obligación legal (art. 6.1.b y 6.1.c RGPD)</td><td>Los plazos fiscales, contables y de reclamación aplicables</td></tr>
+      <tr><td>Seguridad y prevención de abuso</td><td>Eventos técnicos mínimos y evidencias de incidentes</td><td>Interés legítimo en proteger a las personas y el servicio (art. 6.1.f RGPD) y obligaciones legales cuando procedan</td><td>El necesario para cada incidencia, con acceso restringido</td></tr>
+      <tr><td>Identificar potenciales negocios clientes</td><td>Datos de contacto empresarial obtenidos de fichas empresariales y fuentes públicas (nombre del establecimiento, dirección, teléfono publicado, web y enlace de reservas)</td><td>Interés legítimo (art. 6.1.f RGPD), con derecho de oposición. No supone autorización para publicidad electrónica</td><td>12 meses desde su obtención si no hay interacción, o desde la última interacción relevante</td></tr>
+      <tr><td>Enviarte comunicaciones comerciales de Omyra</td><td>Contacto y preferencias</td><td>Tu consentimiento o, si ya eres cliente, la relación previa para servicios propios similares (LSSI), con posibilidad de oposición</td><td>Hasta que te opongas o retires el consentimiento; guardamos un registro mínimo para no volver a contactarte</td></tr>
+      <tr><td>Atender tus derechos y reclamaciones</td><td>Identidad necesaria, solicitud y respuesta</td><td>Obligación legal (art. 6.1.c RGPD)</td><td>El tiempo de atención y de defensa de responsabilidades</td></tr>
     </tbody>
   </table></div>
-  <p>No tomamos decisiones automatizadas ni elaboramos perfiles con estos datos, y no los usamos para enviarte publicidad sin tu consentimiento.</p>
+  <p>Los datos marcados como necesarios permiten responder, contratar, facturar o proteger el servicio; si no se facilitan, puede no ser posible hacer esa gestión. Las autorizaciones comerciales opcionales no condicionan el contrato. No tomamos decisiones exclusivamente automatizadas con efectos jurídicos sobre ti. El soporte se conserva 12 meses desde su resolución, salvo incidencia justificada.</p>
 
   <h2>3. Datos que los negocios gestionan en Omyra</h2>
   <p>Cada negocio que usa Omyra gestiona en la plataforma los datos de sus propios clientes: reservas, fichas, historial, notas, documentos, consentimientos firmados, cobros y mensajes.</p>
@@ -55,14 +59,14 @@ import { site } from '../content/site';
   <p>También podemos comunicar datos a las administraciones públicas, jueces y tribunales cuando una ley lo exija.</p>
 
   <h2>5. Transferencias internacionales</h2>
-  <p>Priorizamos proveedores que tratan los datos dentro del Espacio Económico Europeo. Si algún proveedor accede a datos desde fuera, lo hace con las garantías del RGPD, como una decisión de adecuación (por ejemplo, el Marco de Privacidad de Datos UE-EE. UU.) o las cláusulas contractuales tipo de la Comisión Europea.</p>
+  <p>El alojamiento principal de Omyra está en Alemania (Hetzner, Núremberg). Priorizamos proveedores que tratan los datos dentro del Espacio Económico Europeo. Si algún proveedor accede a datos desde fuera, lo hace con las garantías del RGPD, como una decisión de adecuación (por ejemplo, el Marco de Privacidad de Datos UE-EE. UU.) o las cláusulas contractuales tipo de la Comisión Europea.</p>
 
   <h2>6. Tus derechos</h2>
-  <p>Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento sin que ello afecte a los tratamientos anteriores. Escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> indicando qué derecho quieres ejercer.</p>
+  <p>Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento sin que ello afecte a los tratamientos anteriores. Escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> (o, si ya eres cliente, a <a href={`mailto:${site.contact.supportEmail}`}>{site.contact.supportEmail}</a>) indicando qué derecho quieres ejercer y un medio de respuesta. Solo pediremos información adicional de identidad cuando sea necesaria y proporcionada.</p>
   <p>Si consideras que no hemos atendido bien tu solicitud, puedes reclamar ante la Agencia Española de Protección de Datos (<a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>).</p>
 
   <h2>7. Seguridad</h2>
-  <p>Aplicamos medidas técnicas y organizativas adecuadas para proteger los datos frente a pérdidas, accesos no autorizados o usos indebidos, como el cifrado de las comunicaciones y el control de accesos.</p>
+  <p>Aplicamos medidas técnicas y organizativas adecuadas para proteger los datos frente a pérdidas, accesos no autorizados o usos indebidos, como la conexión cifrada y el control de accesos. Las copias de seguridad rotan cada siete días y no se usan para reanudar finalidades terminadas ni para eludir una supresión.</p>
 
   <h2>8. Menores de edad</h2>
   <p>Este sitio está dirigido a negocios y profesionales. No recogemos de forma consciente datos de menores de 14 años a través del sitio.</p>

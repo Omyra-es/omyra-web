@@ -1,0 +1,95 @@
+---
+// Contrato de encargado del tratamiento (art. 28 RGPD). Fuente: DOC-02 V2.2.1, con DOC-03 (medidas) y DOC-04 (proveedores) resumidos.
+import Legal from '../layouts/Legal.astro';
+import { site } from '../content/site';
+const s = site.contact.supportEmail;
+const mail = `mailto:${s}`;
+const groups = [
+  ['Clientes y personas que reservan', 'Identificación, contacto, preferencias, servicios, citas, historial, cobros, bonos y documentación necesaria para gestionar la relación con el Negocio.'],
+  ['Menores y representantes', 'Datos del menor estrictamente necesarios y datos de quien actúa por él, facultades o representación cuando deban acreditarse; nunca se presume representación por compartir teléfono.'],
+  ['Profesionales y usuarios del Negocio', 'Identidad profesional, disponibilidad, agenda, funciones y actividad necesaria para prestar el servicio; no se autoriza evaluación laboral automatizada.'],
+  ['Destinatarios de facturas y firmantes', 'Datos fiscales, operaciones, firma o evidencias de aceptación, formularios, documentos y referencias de representación.'],
+  ['Interlocutores de WhatsApp', 'Número, mensajes y contexto administrativo necesario, estados y preferencias comunicativas, cuando el módulo esté habilitado.'],
+  ['Personas con datos especiales', 'Salud u otras categorías especiales introducidas legítimamente en servicios, formularios, consentimientos, fotografías o documentos; solo con base y medidas previamente evaluadas.'],
+];
+const providers = [
+  ['Hetzner Online GmbH', 'Alojamiento de la aplicación, base de datos y copias de seguridad', 'Núremberg (Alemania)'],
+  ['Hostinger', 'Dominio, DNS, correo electrónico y envío de correos de citas', 'Espacio Económico Europeo'],
+  ['Stripe', 'Cobro de la suscripción de Omyra (Stripe Billing) y, si el Negocio lo conecta, cobros a sus clientes (Stripe Connect, bajo la relación directa del Negocio con Stripe)', 'Según la cuenta de Stripe'],
+  ['Bilbabit, S.L. (Verifacti)', 'Remisión de registros de facturación VERI*FACTU, cuando el módulo fiscal se habilite', 'Getxo (Bizkaia), España'],
+  ['Meta (WhatsApp Business Platform)', 'Canal de WhatsApp del Negocio, cuando lo conecte', 'Según los términos de Meta'],
+  ['Google (Google Calendar)', 'Sincronización opcional del calendario del Negocio', 'Según la cuenta de Google'],
+  ['OpenAI (API)', 'Interpretación administrativa de mensajes, solo si el módulo de IA está habilitado y autorizado para ese tratamiento', 'Según el acuerdo de tratamiento de OpenAI'],
+  ['Servicios de notificaciones push', 'Entrega de avisos en el navegador o el móvil', 'Según el navegador o dispositivo'],
+];
+---
+<Legal title="Encargo del tratamiento" description="Contrato de encargado del tratamiento de datos (art. 28 RGPD) entre los negocios que usan Omyra y Omyra." updated="19 de noviembre de 2026">
+  <p>Acuerdo general de encargo de tratamiento (artículo 28 del Reglamento (UE) 2016/679), común a los negocios que contratan Omyra. Las partes son el <b>Negocio</b> que contrata (responsable del tratamiento) y <b>Sergio Lozano Trujillo</b>, NIF 05445200L, marca Omyra (encargado del tratamiento). Se incorpora a las <a href="/condiciones-de-contratacion">condiciones de contratación</a> mediante aceptación electrónica, sin rellenar ni firmar manualmente un ejemplar por negocio. Versión V2.2.1.</p>
+
+  <h2>1. Objeto y duración</h2>
+  <p>El Negocio encarga a Omyra los tratamientos necesarios para prestar las funcionalidades contratadas de gestión de negocio, agenda y reservas, documentación, cobros, facturación y comunicaciones, dentro del alcance realmente habilitado. El encargo comienza al existir acceso legítimo a los datos y dura mientras Omyra los trate por cuenta del Negocio, incluidos devolución, conservación transitoria y eliminación posteriores a la baja. La terminación comercial no extingue anticipadamente estas obligaciones.</p>
+
+  <h2>2. Operaciones y categorías</h2>
+  <p>Las operaciones autorizadas son recogida por formularios o integraciones habilitadas, registro, estructuración, consulta, actualización, almacenamiento, generación de documentos, transmisión a destinatarios autorizados, exportación, limitación y supresión. No se autoriza reutilización para finalidades propias ajenas al servicio ni comunicación a otros negocios.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Grupo de interesados</th><th>Datos y finalidad dentro del encargo</th></tr></thead>
+    <tbody>{groups.map(([g, d]) => <tr><td>{g}</td><td>{d}</td></tr>)}</tbody>
+  </table></div>
+  <p>Las fotografías y firmas no se consideran automáticamente datos biométricos destinados a identificación unívoca. El análisis biométrico, diagnóstico, triaje o elaboración de perfiles sensibles no forma parte de las instrucciones ordinarias. Los campos libres pueden contener datos especiales: no se presumirá que son inocuos por ser texto administrativo.</p>
+
+  <h2>3. Instrucciones documentadas</h2>
+  <p>Constituyen instrucciones este contrato, los módulos activados, la configuración elegida por usuarios facultados y las solicitudes legítimas cursadas por <a href={mail}>{s}</a>. Omyra registrará las instrucciones relevantes, su autor y alcance. No obedecerá instrucciones de personas sin facultades acreditadas.</p>
+  <p>El encargo autoriza las intervenciones técnicas necesarias para soporte, mantenimiento, seguridad, recuperación y resolución de errores, con acceso mínimo y trazable. No se exige autorización individual por cada intervención comprendida en este ámbito. Un acceso excepcional que exceda las instrucciones deberá justificarse y autorizarse previamente, salvo obligación del Derecho de la Unión o de un Estado miembro aplicable al encargado. Una urgencia no constituye por sí sola una autorización para tratar fuera del encargo; las medidas urgentes de seguridad comprendidas en las instrucciones se documentarán y comunicarán sin demora.</p>
+  <p>Si Omyra considera que una instrucción vulnera la normativa de protección de datos, lo comunicará inmediatamente al Negocio y detendrá la operación afectada mientras se aclara, sin bloquear innecesariamente el resto del servicio. Si una norma obliga a tratar de otra forma, informará de esa exigencia antes del tratamiento, salvo prohibición legal.</p>
+
+  <h2>4. Obligaciones del Negocio</h2>
+  <p>El Negocio determina y documenta las finalidades y bases de los tratamientos, facilita información a los interesados, atiende sus derechos y verifica la exactitud y proporcionalidad de los datos introducidos. Distinguirá el consentimiento asistencial del consentimiento de protección de datos y de las autorizaciones comerciales o de WhatsApp.</p>
+  <p>Para salud u otras categorías especiales identificará tanto la base general como la excepción que permita tratarlas y las condiciones de secreto o habilitación profesional. Para menores verificará capacidad y representación según la finalidad y normativa aplicable. La edad para consentir ciertos tratamientos no resuelve por sí sola la capacidad para contratar servicios o prestar consentimiento sanitario.</p>
+  <p>Evaluará si necesita una evaluación de impacto o un delegado de protección de datos, con asistencia de Omyra en el ámbito de su servicio. No utilizará una función no apta para el riesgo de su tratamiento mientras no existan las garantías necesarias. Ello no libera a Omyra de evaluar y corregir sus propios riesgos.</p>
+
+  <h2>5. Finalidad y confidencialidad</h2>
+  <p>Omyra solo utilizará los datos del encargo para ejecutar las instrucciones y obligaciones pactadas. No los venderá, no los usará para publicidad propia y no los incorporará a entrenamiento compartido. No extraerá perfiles de clientes para su explotación independiente.</p>
+  <p>Las personas autorizadas estarán sujetas a confidencialidad y accederán únicamente en la medida necesaria para sus funciones. Omyra mantendrá instrucciones internas y formación adecuadas, retirará accesos cuando dejen de ser necesarios y conservará evidencia de las autorizaciones. Los accesos técnicos no facultan para consultar expedientes por curiosidad o para finalidades ajenas al encargo.</p>
+
+  <h2>6. Seguridad</h2>
+  <p>Omyra aplicará medidas adecuadas a los riesgos de pérdida, alteración, acceso o divulgación, considerando categorías, volumen y contexto. La aplicación y su base de datos se alojan en servidores de Hetzner en Núremberg (Alemania), con espacios separados por negocio, acceso mediante credenciales y copias de seguridad automáticas diarias con una rotación de siete días. La obligación de seguridad no se agota en esta descripción ni permite rebajar una medida necesaria por no aparecer en ella.</p>
+  <p>No se prometen certificaciones no acreditadas, cifrado universal de extremo a extremo, residencia europea de todos los tratamientos ni recuperación en un plazo fijo. El acceso a copias, documentos y exportaciones se restringirá y se revisará periódicamente. Los entornos de demostración y desarrollo utilizarán datos sintéticos; no se autoriza copiar datos reales del Negocio para demostraciones.</p>
+
+  <h2>7. Subencargados y servicios conectados</h2>
+  <p>El Negocio otorga autorización general para las actividades de subencargo identificadas a continuación. Los servicios que contrata directamente el Negocio y los responsables independientes se identifican separadamente según su función.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Proveedor</th><th>Actividad</th><th>Ubicación</th></tr></thead>
+    <tbody>{providers.map(([p, a, u]) => <tr><td>{p}</td><td>{a}</td><td>{u}</td></tr>)}</tbody>
+  </table></div>
+  <p>Antes de incorporar o sustituir un subencargado, Omyra informará de identidad, función, datos, localización y garantías por correo al contacto contractual o de protección de datos designado, con al menos quince días naturales de antelación, dando oportunidad efectiva de objeción fundada en protección de datos. Las partes buscarán una alternativa proporcionada. Si no puede resolverse una objeción legítima, se suspenderá o terminará el tratamiento afectado con devolución de datos y sin imponer un proveedor no autorizado.</p>
+  <p>Omyra formalizará obligaciones equivalentes con los subencargados y responderá frente al Negocio de su cumplimiento en los términos legales. La autorización general no elimina la obligación de evaluar idoneidad ni permite cadenas no identificadas. Las medidas urgentes deberán ajustarse al alcance autorizado, documentarse y comunicarse sin demora.</p>
+
+  <h2>8. Transferencias internacionales</h2>
+  <p>Omyra no realizará transferencias o accesos desde terceros países por mera conveniencia sin identificar su fundamento y garantías. Para cada destino se identificará el mecanismo aplicable, la evaluación cuando proceda y las medidas complementarias. La existencia de un contrato o una marca europea no demuestra ausencia de transferencias.</p>
+  <p>El Negocio recibirá información suficiente para evaluar la transferencia y obtener las garantías pertinentes, que puede solicitar en <a href={mail}>{s}</a>. No se utilizará un consentimiento genérico de contratación para sustituir mecanismos exigibles. Las condiciones de Meta, Google y OpenAI deben verificarse según servicio y cuenta efectivamente utilizados.</p>
+
+  <h2>9. Derechos e información</h2>
+  <p>Si Omyra recibe una solicitud relativa a datos cuyo responsable sea el Negocio, la remitirá sin demora injustificada al contacto de protección de datos designado por el Negocio o, en su defecto, a su correo contractual registrado, conservará la evidencia mínima y no decidirá sobre el fondo salvo instrucción o exigencia legal. Facilitará herramientas y asistencia razonable para localizar, exportar, rectificar, limitar o suprimir información dentro de los plazos aplicables.</p>
+  <p>La identidad se verificará de manera proporcionada, evitando solicitar documentación completa cuando exista una alternativa suficiente. Cuando existan varios responsables o datos de terceros, se delimitará la entrega. La exportación contractual de un negocio y la portabilidad de un interesado son procedimientos distintos.</p>
+
+  <h2>10. Incidentes</h2>
+  <p>Omyra notificará al Negocio sin dilación indebida las violaciones de seguridad de los datos del encargo de las que tenga conocimiento, mediante el contacto de incidentes que designe el Negocio o, en su defecto, su correo contractual registrado. No esperará a disponer de todas las conclusiones para una primera comunicación útil. El contacto de Omyra para el seguimiento es <a href={mail}>{s}</a>.</p>
+  <p>La comunicación recogerá, según la información disponible, naturaleza, categorías y volumen aproximado afectados, consecuencias previsibles, medidas adoptadas o propuestas y contacto de seguimiento. Se aportarán ampliaciones cuando se obtengan nuevos datos, se preservarán evidencias y se coordinará la contención.</p>
+  <p>El Negocio decide las comunicaciones a autoridades e interesados que le correspondan; Omyra le presta asistencia. Las obligaciones propias de Omyra como responsable se atienden separadamente. Ninguna parte impedirá notificaciones obligatorias ni exigirá autorización contractual para cumplirlas.</p>
+
+  <h2>11. Asistencia y auditoría</h2>
+  <p>Omyra aportará información pertinente para verificar el encargo, seguridad, evaluaciones de impacto y consultas previas. Permitirá auditorías razonables, incluida inspección por el Negocio o auditor sujeto a confidencialidad, acordando alcance y organización que protejan otros negocios y secretos legítimos, sin convertir estas cautelas en una negativa general.</p>
+  <p>Podrá comenzar con documentación y evidencias, pero no excluirá inspecciones necesarias ni actuaciones de autoridades. Se dará prioridad a riesgos graves e incidentes. Cualquier coste extraordinario de una auditoría solicitada deberá ser proporcionado y acordado previamente, en la medida legalmente permitida; no se cobrará por corregir incumplimientos propios ni se condicionará la información legalmente exigible a tarifas disuasorias.</p>
+
+  <h2>12. Devolución y eliminación</h2>
+  <p>Al finalizar los servicios de tratamiento, el Negocio elegirá entre la devolución o la supresión de todos los datos personales del encargo. Omyra atenderá esa elección y suprimirá las copias existentes, salvo conservación exigida por el Derecho de la Unión o de un Estado miembro aplicable. La devolución no autoriza a mantener indefinidamente copias adicionales. El procedimiento ordinario gratuito permite solicitar exportación durante el servicio y treinta días desde la baja efectiva, y descargar el paquete siete días desde su puesta a disposición. No requiere recontratación ni pago de deuda. Una solicitud en plazo preservará los datos necesarios hasta su atención completa.</p>
+  <p>La ventana ordinaria de treinta días no impide una supresión anterior válidamente instruida, ni extingue los derechos de los interesados o las obligaciones legales de devolución. Se resolverán separadamente las categorías con conservación legal justificada.</p>
+  <p>Concluido el periodo operativo, Omyra eliminará las copias activas que ya no deba conservar. Los datos conservados por obligación legal quedarán separados o sometidos a restricción efectiva, con finalidad, fundamento, categoría y vencimiento documentados. La seudonimización o la mera desactivación de una cuenta no se presentarán como supresión. Solo una anonimización irreversible, evaluada frente a medios razonables de reidentificación, podrá excluir datos del régimen personal.</p>
+  <p>Las copias de seguridad se purgarán por rotación (siete copias diarias). Mientras existan, se restringirá su uso a contingencias legítimas; una restauración deberá reaplicar el registro de supresiones antes de abrir el servicio. Omyra acreditará las operaciones realizadas sin incluir el contenido eliminado en los justificantes.</p>
+  <p>No se eliminarán cuentas externas, calendarios, pagos o documentación pertenecientes al Negocio sin instrucción y facultades suficientes. Se revocarán los accesos de Omyra que dejen de ser necesarios y se tramitarán las solicitudes a proveedores dentro de su ámbito de control.</p>
+
+  <h2>13. Conservaciones específicas y responsabilidad</h2>
+  <p>La conversación de WhatsApp y sus copias sujetas a esa finalidad se eliminan a los siete días desde la última actividad comunicativa, sin borrar citas legítimamente generadas. Las evidencias de autorización y seguridad tendrán su propio plazo. El enlace público al consentimiento firmado caduca a los treinta días desde la firma; un nuevo enlace autorizado tendrá otros treinta días desde su emisión. La baja revocará los enlaces ordinarios afectados; el documento tendrá la conservación que corresponda por su finalidad.</p>
+  <p>La información fiscal y sanitaria se conserva según su categoría, territorio y rol, sin extender a todo el negocio una excepción legal. El Negocio deberá asegurar la custodia legal de su documentación; Omyra no podrá destruirla contraviniendo instrucciones legítimas u obligaciones propias.</p>
+  <p>Cada parte conserva las responsabilidades legales de su rol. Si Omyra determina finalidades propias fuera del encargo deberá asumir el régimen correspondiente, sin convertir esa desviación en una autorización tácita. La aceptación de este contrato se documentará junto con las condiciones de contratación y las instrucciones particulares.</p>
+</Legal>

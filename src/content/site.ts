@@ -7,7 +7,7 @@ export const site = {
   locale: 'es_ES',
   contact: {
     email: 'hola@omyra.es',
-    supportEmail: 'serviciocliente@omyra.es', // solo para clientes ya dados de alta
+    supportEmail: 'servicioclientes@omyra.es', // solo para clientes ya dados de alta
     phone: '+34 624 27 04 77',
     phoneHref: 'tel:+34624270477',
     whatsappHref: 'https://wa.me/34624270477',
@@ -36,6 +36,7 @@ export const legal = [
   { label: 'Privacidad', href: '/privacidad' },
   { label: 'Cookies', href: '/cookies' },
   { label: 'Condiciones de contratación', href: '/condiciones-de-contratacion' },
+  { label: 'Encargo del tratamiento', href: '/encargo-del-tratamiento' },
 ];
 
 // Formulario de demo. Conexión con HubSpot pendiente de revisar el portal.

@@ -2,19 +2,22 @@
 import Legal from '../layouts/Legal.astro';
 import { site } from '../content/site';
 ---
-<Legal title="Aviso legal" description="Aviso legal del sitio web de Omyra: datos del titular, condiciones de uso, propiedad intelectual y legislación aplicable." updated="15 de noviembre de 2026">
+<Legal title="Aviso legal" description="Aviso legal del sitio web de Omyra: datos del titular, condiciones de uso, propiedad intelectual y legislación aplicable." updated="19 de noviembre de 2026">
   <h2>1. Datos del titular</h2>
   <p>En cumplimiento del artículo 10 de la Ley 34/2002, de 11 de julio, de servicios de la sociedad de la información y de comercio electrónico (LSSI-CE), se facilitan los datos del titular de este sitio web:</p>
   <ul>
     <li><b>Titular:</b> Sergio Lozano Trujillo, profesional autónomo que presta sus servicios con el nombre comercial Omyra.</li>
     <li><b>NIF:</b> 05445200L</li>
-    <li><b>Domicilio:</b> calle Pilar Bardem 1B, 28521 Rivas-Vaciamadrid (Madrid), España.</li>
+    <li><b>Domicilio:</b> calle Pilar Bardem 1B, escalera 5, 2.º D, 28521 Rivas-Vaciamadrid (Madrid), España.</li>
     <li><b>Correo electrónico:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></li>
     <li><b>Teléfono:</b> <a href={site.contact.phoneHref}>{site.contact.phone}</a></li>
   </ul>
 
+  <p>El acceso al servicio contratado se ofrece en <a href="https://clientes.omyra.es/">clientes.omyra.es</a>. La dirección demo.omyra.es corresponde a demostración y no debe utilizarse para introducir datos personales reales.</p>
+
   <h2>2. Objeto del sitio web</h2>
-  <p>Este sitio web informa sobre Omyra, un software de reservas online y gestión de citas para negocios que trabajan con cita previa, permite solicitar una demostración y contratar el servicio online. La contratación online se rige por las <a href="/condiciones-de-contratacion">condiciones de contratación</a>.</p>
+  <p>Omyra informa sobre una plataforma de gestión dirigida a profesionales y empresas que trabajan con cita previa, y permite solicitar una demostración y contratar el servicio online. La contratación se rige por las <a href="/condiciones-de-contratacion">condiciones de contratación</a> y el <a href="/encargo-del-tratamiento">encargo del tratamiento</a>, puestos a disposición antes de aceptar. La visita a la web no equivale a contratar una suscripción ni a autorizar comunicaciones comerciales.</p>
+  <p>Los servicios profesionales reservados a través de un negocio corresponden a ese negocio, que debe identificarse en su página y facilitar sus condiciones. Omyra presta la tecnología en el alcance contratado y conserva las responsabilidades que le correspondan por sus propias actuaciones.</p>
 
   <h2>3. Condiciones de uso</h2>
   <p>El acceso a este sitio web es gratuito y atribuye la condición de usuario a quien lo visita. El usuario se compromete a utilizar el sitio y sus contenidos de forma lícita, conforme a la buena fe y sin dañar el sitio, sus sistemas ni los derechos de terceros.</p>
@@ -24,15 +27,16 @@ import { site } from '../content/site';
   <p>Los textos, el diseño, la marca y el logotipo de Omyra y el resto de contenidos propios de este sitio pertenecen a su titular o se utilizan con autorización. No se permite reproducirlos, distribuirlos ni transformarlos con fines comerciales sin autorización previa por escrito.</p>
   <p>Las imágenes de producto muestran un negocio de ejemplo con datos ficticios. Las fotografías de ambiente proceden de bancos de imágenes y se utilizan conforme a sus licencias.</p>
 
-  <h2>5. Responsabilidad</h2>
-  <p>Omyra procura que la información del sitio sea correcta y esté actualizada, pero no garantiza la ausencia de errores ni la disponibilidad ininterrumpida del sitio. Las condiciones aplicables al servicio son las <a href="/condiciones-de-contratacion">condiciones de contratación</a> o, en su caso, las del contrato que se firme.</p>
+  <h2>5. Funcionamiento y responsabilidad</h2>
+  <p>La información comercial describe las funciones disponibles y sus límites. Las menciones a desarrollos futuros no constituyen disponibilidad inmediata. Los errores relevantes se corregirán con diligencia; este aviso no permite desconocer compromisos válidamente asumidos ni excluir la responsabilidad legal del titular.</p>
+  <p>Pueden producirse interrupciones por mantenimiento, incidencias o dependencias externas. Omyra actuará con la diligencia exigible para mantener el servicio y corregir errores propios. No se garantiza disponibilidad absoluta ni ausencia total de riesgos.</p>
 
   <h2>6. Enlaces a sitios de terceros</h2>
-  <p>Este sitio incluye enlaces a servicios de terceros, como WhatsApp. Omyra no controla esos sitios y no se responsabiliza de sus contenidos ni de sus políticas de privacidad o cookies.</p>
+  <p>Los enlaces a servicios de terceros, como WhatsApp o Calendly, permiten acceder a información o funciones sujetas a sus condiciones. Su presencia no implica que Omyra controle todos sus contenidos ni elimina las obligaciones que le correspondan por su selección, integración o conocimiento de contenidos ilícitos.</p>
 
   <h2>7. Protección de datos y cookies</h2>
   <p>El tratamiento de datos personales se explica en la <a href="/privacidad">política de privacidad</a> y el uso de cookies, en la <a href="/cookies">política de cookies</a>.</p>
 
   <h2>8. Legislación aplicable y jurisdicción</h2>
-  <p>Este aviso legal se rige por la legislación española. Para cualquier controversia, serán competentes los juzgados y tribunales que correspondan conforme a la normativa aplicable. Si el usuario tiene la condición de consumidor, serán competentes los de su domicilio.</p>
+  <p>Puedes comunicar incidencias o reclamaciones a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> o, si ya eres cliente, a <a href={`mailto:${site.contact.supportEmail}`}>{site.contact.supportEmail}</a>. Se aplica el Derecho español y las normas imperativas que correspondan. La competencia judicial se determina conforme a la legislación aplicable, sin imponer mediante este aviso una sumisión territorial incompatible con ella.</p>
 </Legal>
