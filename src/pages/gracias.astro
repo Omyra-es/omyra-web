@@ -2,10 +2,11 @@
 // Vuelta de Stripe tras pagar: omyra.es/gracias?session_id={CHECKOUT_SESSION_ID}
 // Da las gracias con la marca de Omyra y lleva al cliente a su cuenta (signup.appWelcomeUrl).
 import Base from '../layouts/Base.astro';
-import { site, signup, hubspot, hubspotSignup } from '../content/site';
+import { site, signup, internalSignup, hubspot, hubspotSignup } from '../content/site';
 
 const cfg = {
   app: signup.appWelcomeUrl && /^https:\/\//.test(signup.appWelcomeUrl) ? signup.appWelcomeUrl : null,
+  internalDomains: internalSignup.domains,
   hs: hubspot.portalId && hubspotSignup.formId ? `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${hubspot.portalId}/${hubspotSignup.formId}` : null,
 };
 ---
@@ -33,7 +34,8 @@ const cfg = {
 </Base>
 
 <script>
-  const cfg = JSON.parse(document.getElementById('ty-cfg')!.textContent || '{}') as { app: string | null; hs: string | null };
+  import { isInternalEmail } from '../scripts/alta-validate';
+  const cfg = JSON.parse(document.getElementById('ty-cfg')!.textContent || '{}') as { app: string | null; internalDomains: string[]; hs: string | null };
   const params = new URLSearchParams(location.search);
   const sessionId = params.get('session_id') || '';
 
@@ -42,7 +44,7 @@ const cfg = {
   try { data = JSON.parse(sessionStorage.getItem('omyra-alta') || '{}').data || {}; } catch { /* sin datos */ }
   if (data.firstName) document.getElementById('tyName')!.textContent = `¡Gracias, ${data.firstName}`;
 
-  if (cfg.hs && data.email) {
+  if (cfg.hs && data.email && !isInternalEmail(data.email, cfg.internalDomains || [])) {
     fetch(cfg.hs, {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
       body: JSON.stringify({ fields: [{ name: 'email', value: data.email.trim().toLowerCase() }, { name: 'paso_del_alta', value: '6 · Pagado' }], context: { pageUri: location.origin + location.pathname, pageName: 'Alta completada' } }),

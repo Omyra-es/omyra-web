@@ -1,7 +1,7 @@
 ---
 // Alta online. Contrato con la app: docs/alta-autonoma/ALTA-ONLINE.md (la web no cobra ni crea cuentas).
 import Base from '../layouts/Base.astro';
-import { site, cta, signup, hubspot, hubspotSignup } from '../content/site';
+import { site, cta, signup, internalSignup, hubspot, hubspotSignup } from '../content/site';
 import { pricing } from '../content/pricing';
 
 const eur = (n: number) => new Intl.NumberFormat('es-ES', { style: 'currency', currency: pricing.currencyCode }).format(n);
@@ -20,6 +20,11 @@ const cfg = {
   plan: signup.plan,
   loginUrl: signup.loginUrl,
   payLink: signup.paymentLink && /^https:\/\/buy\.stripe\.com\//.test(signup.paymentLink) ? signup.paymentLink : null,
+  internal: {
+    domains: internalSignup.domains,
+    endpoint: internalSignup.endpoint && /^https:\/\//.test(internalSignup.endpoint) ? internalSignup.endpoint : null,
+    loginUrl: internalSignup.loginUrl,
+  },
   hs: hubspot.portalId && hubspotSignup.formId ? `https://api-eu1.hsforms.com/submissions/v3/integration/submit/${hubspot.portalId}/${hubspotSignup.formId}` : null,
   total: price.total,
   email: site.contact.email,
@@ -141,9 +146,9 @@ const cfg = {
 </Base>
 
 <script>
-  import { validators, normalize } from '../scripts/alta-validate';
+  import { validators, normalize, isInternalEmail } from '../scripts/alta-validate';
 
-  type Cfg = { endpoint: string | null; termsVersion: string; plan: string; loginUrl: string | null; payLink: string | null; hs: string | null; total: string; email: string; wa: string; phone: string; phoneHref: string };
+  type Cfg = { endpoint: string | null; termsVersion: string; plan: string; loginUrl: string | null; payLink: string | null; internal: { domains: string[]; endpoint: string | null; loginUrl: string }; hs: string | null; total: string; email: string; wa: string; phone: string; phoneHref: string };
   const cfg: Cfg = JSON.parse(document.getElementById('alta-cfg')!.textContent || '{}');
   const form = document.getElementById('alta') as HTMLFormElement;
   const steps = [...form.querySelectorAll<HTMLFieldSetElement>('[data-step]')];
@@ -297,8 +302,9 @@ const cfg = {
 
   // ---------- Altas a medias (HubSpot) ----------
   const STEP_NAMES = ['', 'Tu cuenta', 'Tu negocio', 'Facturación', 'Revisa y paga', 'Ir al pago'];
+  const internal = () => isInternalEmail(valueOf('email'), cfg.internal.domains);
   function track(reached: number) {
-    if (!cfg.hs || valueOf('website')) return;
+    if (!cfg.hs || valueOf('website') || internal()) return; // las altas del equipo no son clientes
     const src = source();
     const origin = [src.utm_source, src.utm_medium, src.utm_campaign, src.utm_content, src.ref && `ref:${src.ref}`, src.referrer].filter(Boolean).join(' · ') || 'directo';
     const fields = [
@@ -335,7 +341,11 @@ const cfg = {
     if (!check('terms')) { focusField('terms'); return; }
     if (valueOf('website')) return; // robot
     track(5);
-    if (!cfg.endpoint) {
+    // Correo del equipo: alta en DEMO con pago de prueba. Nunca cae al pago real, aunque DEMO no esté configurado.
+    const isTeam = internal();
+    const endpoint = isTeam ? cfg.internal.endpoint : cfg.endpoint;
+    if (!endpoint) {
+      if (isTeam) { showNote('fallo'); return; }
       if (!cfg.payLink) { showNote('pronto'); return; }
       // Enlace de pago de Stripe: se abre con el correo ya puesto y en español.
       pay.disabled = true;
@@ -347,16 +357,16 @@ const cfg = {
       return;
     }
     pay.disabled = true;
-    pay.textContent = 'Preparando el pago…';
+    pay.textContent = isTeam ? 'Preparando el pago de prueba (DEMO)…' : 'Preparando el pago…';
     try {
-      const res = await fetch(cfg.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload()) });
+      const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload()) });
       const body = await res.json().catch(() => ({}));
       if (res.ok && typeof body.checkoutUrl === 'string' && body.checkoutUrl.startsWith('https://')) {
         location.href = body.checkoutUrl;
         return;
       }
       if (res.status === 409) {
-        const login = [body.loginUrl, cfg.loginUrl].find((u) => typeof u === 'string' && u.startsWith('https://'));
+        const login = [body.loginUrl, isTeam ? cfg.internal.loginUrl : cfg.loginUrl].find((u) => typeof u === 'string' && u.startsWith('https://'));
         showNote('existe', login ? `Si es tuya, <a href="${esc(login)}">entra en Omyra</a>. Si no, cambia el correo en el paso 1.` : `Si es tuya, entra en Omyra con ese correo. Si no, cambia el correo en el paso 1.`);
       } else if (res.status === 422 && body.errors && typeof body.errors === 'object') {
         const keys = Object.keys(body.errors).filter((k) => FIELD_MAP[k]);

@@ -9,6 +9,13 @@ export const normalize = {
   phone: (v: string) => v.replace(/[\s().-]/g, '').replace(/^(\+34|0034)/, ''),
 };
 
+/** Correo del equipo (dominio exacto, sin subdominios): su alta va a DEMO y no se registra en HubSpot. */
+export function isInternalEmail(raw: string, domains: readonly string[]): boolean {
+  const email = normalize.email(raw || '');
+  const at = email.lastIndexOf('@');
+  return at > 0 && domains.map((d) => d.toLowerCase()).includes(email.slice(at + 1));
+}
+
 /** NIF (DNI), NIE o CIF con su letra o dígito de control. */
 export function isValidTaxId(raw: string): boolean {
   const v = normalize.taxId(raw);
