@@ -7,6 +7,7 @@ const { eyebrow, title, lead, compact = false } = Astro.props;
   <div class="wrap phero__in">
     <div class="phero__text">
       <p class="eyebrow">{eyebrow}</p>
+      {Astro.slots.has('pre') && <slot name="pre" />}
       <h1 class="phero__h balance"><Fragment set:html={title} /></h1>
       {lead && <p class="lead">{lead}</p>}
       {Astro.slots.has('actions') && <div class="phero__ctas"><slot name="actions" /></div>}

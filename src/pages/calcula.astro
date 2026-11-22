@@ -1,0 +1,5 @@
+---
+// Dirección corta para TikTok (se escribe a mano): abre la calculadora en modo promoción con el origen de TikTok.
+import Redirect from '../components/Redirect.astro';
+---
+<Redirect to="/calculadora" params={{ modo: 'promocion', utm_source: 'tiktok', utm_medium: 'social', utm_campaign: 'black-friday' }} />

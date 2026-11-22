@@ -1,0 +1,605 @@
+---
+// Calculadora de rentabilidad y promociones. Todo se calcula en el navegador:
+// sin servidor, sin registro, sin cookies ni scripts de seguimiento.
+import Base from '../layouts/Base.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Shot from '../components/Shot.astro';
+import agendaShot from '../assets/producto/agenda-dia-v2.jpg';
+import Logo from '../components/Logo.astro';
+import { cta } from '../content/site';
+import { pricing } from '../content/pricing';
+import { Image } from 'astro:assets';
+import omxServicio from '../assets/producto/movil-reservas-v2.jpg';
+import omxPanel from '../assets/producto/movil-informes-v2.jpg';
+import omxCodigo from '../assets/producto/movil-promocion-v2.jpg';
+import omxAgenda from '../assets/producto/movil-agenda-v2.jpg';
+
+// Móvil «En Omyra»: una pantalla por paso de la calculadora (capturas reales del producto).
+const omx = [
+  { step: 1, img: omxServicio, t: 'Tu página de reservas, con tu marca', d: 'Tus clientas eligen servicio, profesional, fecha y hora, y reservan solas a cualquier hora.', alt: 'Página de reservas de un negocio en Omyra, en el móvil, con las categorías de servicios' },
+  { step: 2, img: omxPanel, t: 'Cómo va tu negocio', d: 'Ingresos registrados, citas, valor medio por cita y clientes atendidos, en tu móvil.', alt: 'Informes de Omyra en el móvil con los ingresos, las citas, el valor medio por cita y los clientes atendidos' },
+  { step: 3, img: omxCodigo, t: 'Tu promoción, en un minuto', d: 'Un código de descuento con fechas, servicios y límite de usos. Tus clientas lo escriben al reservar.', alt: 'Formulario de Omyra en el móvil para crear una promoción con código, servicios, descuento y fechas' },
+  { step: 4, img: omxAgenda, t: 'Y cada cita, en tu agenda', d: 'Las reservas entran solas en la agenda de cada profesional y te avisan en el móvil.', alt: 'Agenda del día de Omyra en el móvil con las citas de cada profesional' },
+];
+import { BF_END, DEFAULTS } from '../scripts/calculadora/config';
+
+const showBf = Date.now() < BF_END.getTime(); // el script lo vuelve a comprobar en el navegador
+type F = { key: string; label: string; unit: string; hint?: string; mode?: 'decimal' | 'numeric'; ph?: string };
+const times: F[] = [
+  { key: 'prepMin', label: 'Preparación', unit: 'min', mode: 'numeric' },
+  { key: 'serviceMin', label: 'Servicio', unit: 'min', mode: 'numeric' },
+  { key: 'cleanMin', label: 'Limpieza', unit: 'min', mode: 'numeric' },
+  { key: 'adminMin', label: 'Gestión posterior', unit: 'min', mode: 'numeric', hint: 'Mensajes, cobro, ficha' },
+];
+const costs: F[] = [
+  { key: 'materials', label: 'Materiales y productos por servicio', unit: '€', hint: 'Esmaltes, tintes, pestañas…' },
+  { key: 'consumables', label: 'Consumibles por servicio', unit: '€', hint: 'Guantes, limas, algodón…' },
+  { key: 'otherVariable', label: 'Otros costes variables por servicio', unit: '€', hint: 'Comisión del datáfono, lavandería…' },
+  { key: 'fixedMonthly', label: 'Gastos fijos mensuales', unit: '€', hint: 'Alquiler, luz, programas, cuota de autónomos…' },
+  { key: 'servicesPerMonth', label: 'Servicios que haces al mes (aprox.)', unit: 'servicios', mode: 'numeric', hint: 'Contando todos tus servicios' },
+  { key: 'hourlyTarget', label: '¿Cuánto quieres ganar por cada hora de trabajo?', unit: '€/h', hint: 'Lo que vale tu tiempo, aparte de los costes' },
+];
+const v = (k: string) => String((DEFAULTS as Record<string, unknown>)[k]).replace('.', ',');
+---
+<Base title="Calculadora de rentabilidad y promociones para salones · Omyra" description="Descubre cuánto vale tu trabajo, cuánto puedes descontar sin perder y qué promociones te convienen. Gratis y sin registrarte.">
+  <PageHero eyebrow="Herramienta gratuita" title="¿Cuánto puedes descontar <span class='gold'>sin regalar tu trabajo?</span>" lead="Descubre cuánto vale realmente cada servicio. Calcula tus costes, valora tu tiempo y crea promociones que tengan sentido para tu negocio.">
+    {showBf && <p slot="pre" class="bfline" data-bf>✦ Prepara tu Black Friday</p>}
+    <Fragment slot="actions"><Button href="#modo" size="lg" arrow>Empezar a calcular</Button></Fragment>
+    <div class="hv">
+      <p class="hv__tag">Así es Omyra por dentro</p>
+      <Shot src={agendaShot} alt="Agenda del día en Omyra con las citas de cada profesional y el aviso de una nueva reserva online" eager class="hv__shot" />
+      <div class="teaser" aria-hidden="true">
+        <p class="teaser__k">Ejemplo · Manicura semipermanente</p>
+        <p class="teaser__big">Puedes descontar hasta un <b>11&nbsp;%</b></p>
+        <p class="teaser__s">sin bajar de tu objetivo de 15&nbsp;€/h</p>
+        <div class="teaser__bar"><i style="width:73%"></i></div>
+        <p class="teaser__s">Precio mínimo: <b>35,50&nbsp;€</b> sin IVA</p>
+      </div>
+    </div>
+  </PageHero>
+
+  <section class="calc-sec" id="calculadora" data-mode="promocion">
+    <div class="wrap">
+      <form class="calc" id="calc" novalidate onsubmit="return false" autocomplete="off">
+        <!-- Modo -->
+        <fieldset class="modes" id="modo">
+          <legend class="sr-only">¿Qué quieres hacer?</legend>
+          <label class="mode">
+            <input type="radio" name="mode" value="promocion" checked />
+            <span class="mode__in"><span class="mode__t">Quiero preparar una promoción</span><span class="mode__d">Black Friday, Navidad, San Valentín, rebajas… Simula descuentos y descubre cuánto puedes bajar sin perder.</span></span>
+          </label>
+          <label class="mode">
+            <input type="radio" name="mode" value="precios" />
+            <span class="mode__in"><span class="mode__t">Quiero revisar mis precios</span><span class="mode__d">Conoce tus costes, valora tu tiempo y calcula tu precio mínimo.</span></span>
+          </label>
+        </fieldset>
+
+        <!-- Paso 1 -->
+        <section class="step" aria-labelledby="s1" data-step="1">
+          <h2 class="step__h" id="s1"><span class="step__n">1</span>Tu servicio</h2>
+          <div class="field">
+            <label for="f-name">Nombre del servicio <span class="opt">(opcional)</span></label>
+            <input id="f-name" data-key="name" type="text" maxlength="60" placeholder="Manicura semipermanente" />
+          </div>
+          <div class="field">
+            <label for="f-price">Precio habitual</label>
+            <div class="inp"><input id="f-price" data-key="price" inputmode="decimal" value={v('price')} aria-describedby="e-price" /><span class="unit">€</span></div>
+            <p class="err" id="e-price" hidden></p>
+          </div>
+          <div class="row2">
+            <div class="field">
+              <span class="lbl" id="l-vat">¿El precio incluye IVA?</span>
+              <button type="button" class="switch" role="switch" aria-checked="true" aria-labelledby="l-vat" id="f-incvat"><span class="switch__k"></span><span class="switch__on">Sí</span><span class="switch__off">No</span></button>
+            </div>
+            <div class="field">
+              <label for="f-vat">Tipo de IVA</label>
+              <div class="vatrow">
+                <div class="chips" role="group" aria-label="Tipos de IVA habituales">
+                  <button type="button" class="chip-b" data-vat="21">21 %</button><button type="button" class="chip-b" data-vat="10">10 %</button><button type="button" class="chip-b" data-vat="0">0 %</button>
+                </div>
+                <div class="inp inp--s"><input id="f-vat" data-key="vatPct" inputmode="decimal" value={v('vatPct')} aria-describedby="e-vatPct" /><span class="unit">%</span></div>
+              </div>
+              <p class="err" id="e-vatPct" hidden></p>
+            </div>
+          </div>
+          <div class="sub">
+            <p class="sub__h">¿Cuánto tiempo dedicas realmente?</p>
+            <p class="hint">No solo cuenta el tiempo que estás con la clienta.</p>
+            <div class="grid2 mt-s">
+              {times.map((f) => (
+                <div class="field">
+                  <label for={`f-${f.key}`}>{f.label}</label>
+                  <div class="inp"><input id={`f-${f.key}`} data-key={f.key} inputmode="numeric" value={v(f.key)} aria-describedby={`e-${f.key}`} /><span class="unit">{f.unit}</span></div>
+                  {f.hint && <p class="hint">{f.hint}</p>}
+                  <p class="err" id={`e-${f.key}`} hidden></p>
+                </div>
+              ))}
+            </div>
+            <p class="sum">Tiempo total de trabajo: <b data-r="totalTime">1 h 30 min</b></p>
+            <p class="tip" data-r="timeTip" hidden>Muchas profesionales creen que un servicio les ocupa una hora, cuando realmente les consume una hora y media.</p>
+          </div>
+        </section>
+
+        <aside class="omx-inline" data-omx-inline="1" aria-label="Así lo haces con Omyra">
+          <Image src={omx[0].img} alt={omx[0].alt} widths={[240]} sizes="96px" loading="lazy" format="webp" quality={78} class="omx-inline__img" />
+          <div><p class="omx__k">Con Omyra</p><p class="omx__t">{omx[0].t}</p><p class="omx__d">{omx[0].d}</p></div>
+        </aside>
+
+        <!-- Paso 2 -->
+        <section class="step" aria-labelledby="s2" data-step="2">
+          <h2 class="step__h" id="s2"><span class="step__n">2</span>Tus costes <span class="step__tag">sin IVA</span></h2>
+          <div class="grid2">
+            {costs.map((f) => (
+              <div class="field">
+                <label for={`f-${f.key}`}>{f.label}</label>
+                <div class="inp"><input id={`f-${f.key}`} data-key={f.key} inputmode={f.mode ?? 'decimal'} value={v(f.key)} aria-describedby={`e-${f.key}`} /><span class="unit">{f.unit}</span></div>
+                {f.hint && <p class="hint">{f.hint}</p>}
+                <p class="err" id={`e-${f.key}`} hidden></p>
+              </div>
+            ))}
+          </div>
+          <dl class="sumlist">
+            <div><dt>Coste directo por servicio</dt><dd data-r="cv">8,00 €</dd></div>
+            <div><dt>Gastos fijos asignados por servicio</dt><dd data-r="gf">5,00 €</dd></div>
+            <div class="sumlist__t"><dt>Coste total asignado <span>(antes de pagar tu tiempo)</span></dt><dd data-r="ca">13,00 €</dd></div>
+          </dl>
+        </section>
+
+        <aside class="omx-inline" data-omx-inline="2" aria-label="Así lo haces con Omyra">
+          <Image src={omx[1].img} alt={omx[1].alt} widths={[240]} sizes="96px" loading="lazy" format="webp" quality={78} class="omx-inline__img" />
+          <div><p class="omx__k">Con Omyra</p><p class="omx__t">{omx[1].t}</p><p class="omx__d">{omx[1].d}</p></div>
+        </aside>
+
+        <!-- Paso 3 · promoción -->
+        <section class="step" aria-labelledby="s3p" data-only="promocion" data-step="3">
+          <h2 class="step__h" id="s3p"><span class="step__n">3</span>Tu promoción</h2>
+          <div class="tabs" role="tablist" aria-label="Tipo de promoción">
+            <button type="button" role="tab" id="t-pct" aria-selected="true" aria-controls="p-pct" data-promo="pct">Descuento en %</button>
+            <button type="button" role="tab" id="t-eur" aria-selected="false" aria-controls="p-eur" data-promo="eur" tabindex="-1">Descuento en €</button>
+            <button type="button" role="tab" id="t-fixed" aria-selected="false" aria-controls="p-fixed" data-promo="fixed" tabindex="-1">Precio cerrado</button>
+          </div>
+          <div role="tabpanel" id="p-pct" aria-labelledby="t-pct" class="panel">
+            <div class="pctrow">
+              <input type="range" id="f-range" min="0" max="60" step="5" value="20" aria-label="Descuento en porcentaje" />
+              <div class="inp inp--s"><input id="f-pct" data-key="pct" inputmode="decimal" value="20" aria-label="Descuento en %" aria-describedby="e-pct" /><span class="unit">%</span></div>
+            </div>
+            <div class="chips" role="group" aria-label="Descuentos rápidos">
+              {[10, 15, 20, 30].map((n) => <button type="button" class="chip-b" data-pct={n}>{n} %</button>)}
+            </div>
+            <p class="err" id="e-pct" hidden></p>
+          </div>
+          <div role="tabpanel" id="p-eur" aria-labelledby="t-eur" class="panel" hidden>
+            <div class="field">
+              <label for="f-eur">Descuento en euros <span class="opt" data-r="vatNote">(con IVA)</span></label>
+              <div class="inp"><input id="f-eur" data-key="eur" inputmode="decimal" value="8" aria-describedby="e-eur" /><span class="unit">€</span></div>
+              <p class="err" id="e-eur" hidden></p>
+            </div>
+          </div>
+          <div role="tabpanel" id="p-fixed" aria-labelledby="t-fixed" class="panel" hidden>
+            <div class="field">
+              <label for="f-fixed">Precio promocional <span class="opt" data-r="vatNote">(con IVA)</span></label>
+              <div class="inp"><input id="f-fixed" data-key="fixed" inputmode="decimal" value="32" aria-describedby="e-fixed" /><span class="unit">€</span></div>
+              <p class="err" id="e-fixed" hidden></p>
+            </div>
+          </div>
+        </section>
+
+        <!-- Paso 3 · precios -->
+        <section class="step" aria-labelledby="s3r" data-only="precios" hidden data-step="3">
+          <h2 class="step__h" id="s3r"><span class="step__n">3</span>Tu objetivo mensual</h2>
+          <div class="field">
+            <label for="f-monthly">¿Cuánto quieres que te quede al mes por tu trabajo?</label>
+            <div class="inp"><input id="f-monthly" data-key="monthly" inputmode="decimal" value="1.500" aria-describedby="e-monthly" /><span class="unit">€</span></div>
+            <p class="err" id="e-monthly" hidden></p>
+          </div>
+        </section>
+
+        <aside class="omx-inline" data-omx-inline="3" aria-label="Así lo haces con Omyra">
+          <Image src={omx[2].img} alt={omx[2].alt} widths={[240]} sizes="96px" loading="lazy" format="webp" quality={78} class="omx-inline__img" />
+          <div><p class="omx__k">Con Omyra</p><p class="omx__t">{omx[2].t}</p><p class="omx__d">{omx[2].d}</p></div>
+        </aside>
+
+        <!-- Móvil «En Omyra» (escritorio ancho: columna central fija) -->
+        <aside class="omx-side" aria-label="Así lo haces con Omyra">
+          <p class="omx__k">Así lo haces con Omyra</p>
+          <div class="omx-phone">
+            <div class="omx-phone__screen">
+              {omx.map((o, i) => <Image src={o.img} alt={o.alt} widths={[300, 600]} sizes="240px" loading={i === 0 ? 'eager' : 'lazy'} format="webp" quality={80} data-omx={o.step} class:list={[{ on: i === 0 }]} />)}
+            </div>
+          </div>
+          {omx.map((o, i) => <div class:list={['omx__txt', { on: i === 0 }]} data-omx-t={o.step}><p class="omx__t">{o.t}</p><p class="omx__d">{o.d}</p></div>)}
+          <ol class="omx__dots" aria-hidden="true">{omx.map((o, i) => <li class:list={[{ on: i === 0 }]} data-omx-d={o.step}></li>)}</ol>
+        </aside>
+
+        <!-- Resultados (en escritorio, columna derecha fija) -->
+        <aside class="res" id="resultados" aria-live="polite" aria-label="Resultados">
+          <div data-only="promocion">
+            <p class="res__k">Tu promoción</p>
+            <div class="prices">
+              <div><span class="res__l">Precio habitual</span><b data-r="priceShown">48,40 €</b><small data-r="priceNet"></small></div>
+              <span class="prices__arr" aria-hidden="true">→</span>
+              <div><span class="res__l">Precio promocional</span><b class="lime" data-r="promoShown">38,72 €</b><small data-r="promoNet"></small></div>
+            </div>
+            <div class="kpis">
+              <div><span class="res__l">Disponible por servicio</span><b data-r="available">—</b><small>después de costes asignados</small></div>
+              <div><span class="res__l">Disponible por hora</span><b class="lime" data-r="perHour">—</b><small data-r="targetLabel">objetivo 15 €/h</small></div>
+            </div>
+            <p class="status" data-r="status" data-s="below">Por debajo de tu objetivo</p>
+            <p class="res__msg" data-r="diffMsg"></p>
+            <div class="res__block">
+              <p class="res__l">¿Cuántas citas más necesitarías?</p>
+              <p data-r="extra"></p>
+            </div>
+            <p class="key" data-r="maxMsg"></p>
+            <div class="res__block">
+              <p data-r="slot"></p>
+              <p class="small">No siempre se habría vendido esa cita: tómalo como una oportunidad, no como dinero perdido.</p>
+            </div>
+          </div>
+          <div data-only="precios" hidden>
+            <p class="res__k">Tu precio</p>
+            <div class="kpis">
+              <div><span class="res__l">Remuneración por hora</span><b class="lime" data-r="perHourP">—</b><small data-r="targetLabelP">objetivo 15 €/h</small></div>
+              <div><span class="res__l">Disponible por servicio</span><b data-r="availableP">—</b><small>después de costes asignados</small></div>
+            </div>
+            <div class="res__block">
+              <p class="res__l">Precio mínimo orientativo</p>
+              <p class="big"><b class="lime" data-r="minNet">—</b> sin IVA · <b data-r="minGross">—</b> con IVA</p>
+            </div>
+            <div class="kpis">
+              <div><span class="res__l">Citas al mes para tu objetivo</span><b data-r="goalAppts">—</b></div>
+              <div><span class="res__l">Horas de trabajo</span><b data-r="goalHours">—</b></div>
+            </div>
+            <p class="res__msg" data-r="hoursWarn" hidden>Con este precio necesitarías trabajar más de 40 horas a la semana solo en este servicio. Puede que tu precio esté bajo.</p>
+            <p class="res__msg" data-r="surplusMsg"></p>
+          </div>
+          <p class="legal">Simulación orientativa. No representa beneficio neto ni incluye impuestos sobre beneficios u otros costes que no se hayan introducido.</p>
+        </aside>
+
+        <!-- Paso 4 · informe -->
+        <section class="step step--report" aria-labelledby="s4" id="informe" data-step="4">
+          <h2 class="step__h" id="s4"><span class="step__n">4</span>Tu informe</h2>
+          <article class="report" id="report">
+            <div class="report__head">
+              <div class="print-only report__brand"><Logo variant="verde" width={120} /><span data-r="date"></span></div>
+              <p class="report__t">Tu análisis de rentabilidad</p>
+              <p class="report__s" data-r="reportSub">TU SERVICIO · PROMOCIÓN DEL 20 %</p>
+            </div>
+            <dl class="report__rows">
+              <div><dt>Tiempo invertido</dt><dd data-r="rTime">—</dd></div>
+              <div><dt>Precio habitual</dt><dd data-r="rPrice">—</dd></div>
+              <div data-only="promocion"><dt>Precio promocional</dt><dd data-r="rPromo">—</dd></div>
+              <div><dt>Objetivo de remuneración</dt><dd data-r="rTarget">—</dd></div>
+              <div><dt>Remuneración efectiva estimada</dt><dd data-r="rEffective">—</dd></div>
+              <div data-only="promocion"><dt>Descuento máximo orientativo</dt><dd data-r="rMax">—</dd></div>
+            </dl>
+            <div class="report__hl">
+              <p>Tu precio mínimo orientativo: <b data-r="rMinNet">—</b> sin IVA (<b data-r="rMinGross">—</b> con IVA)</p>
+              <p class="small">Antes de IVA y sin incluir un beneficio adicional para el negocio, según los costes y objetivos que has introducido.</p>
+            </div>
+            <div class="report__mean">
+              <p class="report__l">¿Qué significa para ti?</p>
+              <p data-r="meaning"></p>
+            </div>
+            <div class="report__mean" data-only="promocion">
+              <p class="report__l">Antes de lanzar tu promoción, piensa en esto</p>
+              <ul class="checks">
+                <li>¿Tienes huecos libres suficientes?</li>
+                <li>¿La promoción atraerá clientas nuevas?</li>
+                <li>¿Es probable que vuelvan después a tu precio habitual?</li>
+              </ul>
+            </div>
+            <p class="legal legal--light">Simulación orientativa. No representa beneficio neto ni incluye impuestos sobre beneficios u otros costes que no se hayan introducido.</p>
+            <p class="print-only report__src">Calculado con la herramienta gratuita de Omyra · <b>omyra.es/calculadora</b></p>
+            <section class="print-only omy" aria-hidden="true">
+              <p class="omy__k">Cómo te ayuda Omyra</p>
+              <h3 class="omy__h">Lleva tu promoción a tu agenda, <span>sin perseguir mensajes.</span></h3>
+              <ol class="omy__steps">
+                <li><b>Crea tu promoción.</b> Un código de descuento con fechas, servicios y límite de usos: plazas contadas, como en el cálculo que acabas de hacer.</li>
+                <li><b>Compártela con tu enlace de reservas.</b> Tus clientas reservan solas desde Instagram, WhatsApp o Google, en tu página con tu marca. Solo ven los huecos que tú habilitas y escriben el código al reservar.</li>
+                <li><b>Omyra hace el resto.</b> Tu clienta recibe la confirmación y el recordatorio por correo, tú el aviso en el móvil, y la cita entra directa en tu agenda.</li>
+                <li><b>Y después, vuelve a tu precio.</b> El código deja de aplicarse en la fecha de fin que pongas, y la ficha de cada clienta guarda su historial y tus notas.</li>
+              </ol>
+              <figure class="omy__shot"><Image src={agendaShot} alt="" widths={[1200]} sizes="700px" loading="eager" format="webp" quality={82} /><figcaption>La agenda de Omyra: cada reserva entra sola, con su profesional y su servicio.</figcaption></figure>
+              <div class="omy__cta">
+                <p><b>Pruébalo en omyra.es/empieza</b></p>
+                <p>{pricing.full} · todas las funcionalidades · profesionales ilimitados · sin permanencia</p>
+              </div>
+            </section>
+          </article>
+          <div class="report__btns">
+            <button type="button" class="btn-x btn-x--green" id="copyReport">Copiar informe</button>
+            <button type="button" class="btn-x" id="printReport">Descargar en PDF</button>
+          </div>
+          <textarea class="sr-only" id="copyFallback" aria-hidden="true" tabindex="-1" readonly></textarea>
+          <p class="reset"><button type="button" id="resetData">Borrar mis datos</button></p>
+        </section>
+      </form>
+    </div>
+  </section>
+
+  {showBf && (
+    <section class="sec bg-cream is-light bf" data-bf data-only="promocion">
+      <div class="wrap">
+        <p class="eyebrow">Black Friday sin miedo</p>
+        <h2 class="h2 balance mt-2 bf__h">Black Friday, sí. <span class="gold-ink">Regalar tu trabajo, no.</span></h2>
+        <div class="bf__cards mt-4">
+          <article class="bf__card"><span class="bf__n">01</span><h3>Solo en tus horas flojas.</h3><p>Martes por la mañana, primera hora… Llenas huecos que hoy no aprovechas, sin tocar tus horas llenas.</p></article>
+          <article class="bf__card bf__card--g"><span class="bf__n">02</span><h3>Mejor un bono regalo que un descuento.</h3><p>Esta semana tus clientas compran regalos de Navidad. Cobras ahora, se usa en enero y febrero y te llega una clienta nueva.</p></article>
+          <article class="bf__card"><span class="bf__n">03</span><h3>Siempre con límite.</h3><p>Plazas contadas y fecha de fin, para que no se quede como tu precio de siempre.</p></article>
+        </div>
+        <div class="wa mt-4">
+          <p class="eyebrow">Un mensaje listo para enviar</p>
+          <div class="wa__bubble"><p data-r="waMsg">¡Hola, [nombre]! Esta semana tengo Black Friday: Tu servicio a 38,72 € solo en estos huecos: [día y hora]. Plazas limitadas. ¿Te guardo uno? 💛</p></div>
+          <button type="button" class="btn-x btn-x--green" id="copyWa">Copiar mensaje</button>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="sec bg-green is-dark close">
+    <div class="wrap close__in">
+      <div class="close__txt">
+        <h2 class="h2 balance">Ahora que conoces <span class="gold">el valor de tu tiempo…</span></h2>
+        <p class="lead mt-2">Dedica menos tiempo a gestionar y más tiempo a tus clientas.</p>
+        <p class="mt-2 close__t">Con Omyra puedes organizar tu agenda, gestionar tus servicios, mantener el historial de tus clientas y facilitar tus reservas online.</p>
+        <ol class="close__steps mt-3">
+          <li><b>Crea tu promoción.</b> Un código de descuento con fechas, servicios y límite de usos.</li>
+          <li><b>Compártela con tu enlace de reservas.</b> Tus clientas reservan solas desde Instagram, WhatsApp o Google y solo ven los huecos que tú habilitas.</li>
+          <li><b>Omyra hace el resto.</b> Confirmación y recordatorio por correo para tu clienta, aviso en el móvil para ti y la cita directa en tu agenda.</li>
+        </ol>
+        <div class="close__ctas mt-3"><Button href={cta.start.href} size="lg" arrow>{cta.start.label}</Button><Button href={cta.demo.href} variant="ghost" size="lg">{cta.demo.label}</Button></div>
+        <p class="close__price">{pricing.full} · sin permanencia</p>
+        <p class="close__sign">Tu clienta. Tu marca. Tu reserva.</p>
+      </div>
+      <figure class="close__fig">
+        <div class="omx-phone close__phone"><div class="omx-phone__screen"><Image src={omxCodigo} alt="Formulario de Omyra en el móvil para crear una promoción con código, servicios, descuento y fechas" widths={[400, 700]} sizes="300px" loading="lazy" format="webp" quality={82} class="on" /></div></div>
+        <figcaption>Así se crea una promoción en Omyra.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <button type="button" class="bar" id="bar" hidden><span data-r="barText">Disponible por hora: — · Objetivo 15 €/h</span><span aria-hidden="true">↓</span></button>
+</Base>
+
+<script>
+  import '../scripts/calculadora/ui';
+</script>
+
+<style>
+  .bfline { font: 600 .85rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--deep); background: var(--lime); padding: .55em .9em; border-radius: 99px; }
+  :global(.phero__h) { font-size: clamp(2.6rem, 1.2rem + 4.2vw, 5.4rem) !important; line-height: .92 !important; }
+  .hv { position: relative; padding-bottom: 4.5rem; }
+  .hv__tag { position: absolute; z-index: 2; top: -.9rem; right: 1.2rem; font: 600 .72rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; background: var(--lilac); color: var(--deep); padding: .6em .9em; border-radius: 99px; }
+  .hv :global(.hv__shot) { rotate: 1.2deg; box-shadow: 0 40px 80px -30px rgb(0 0 0 / .6); }
+  .teaser { position: absolute; left: -1.5rem; bottom: 0; width: min(78%, 330px); background: var(--deep); border: 1px solid var(--line-dark); border-radius: 22px; padding: 1.2rem 1.3rem; display: grid; gap: .35rem; rotate: -2deg; box-shadow: 0 30px 60px -20px rgb(0 0 0 / .6); }
+  .teaser__k { font: 500 .74rem/1.2 var(--mono); letter-spacing: .12em; text-transform: uppercase; color: var(--on-dark); }
+  .teaser__big { font-size: 1.45rem; line-height: 1.05; letter-spacing: -.04em; font-weight: 600; }
+  .teaser__big b { color: var(--lime); }
+  .teaser__s { color: var(--on-dark); font-size: .95rem; }
+  .teaser__s b { color: var(--cream-l); }
+  .teaser__bar { height: 8px; border-radius: 8px; background: var(--line-dark); overflow: hidden; margin-block: .5rem; }
+  .teaser__bar i { display: block; height: 100%; background: var(--lime); border-radius: inherit; }
+
+  .calc-sec { background: var(--cream-l); padding-block: clamp(2.5rem, 2rem + 3vw, 5rem) clamp(4rem, 3rem + 4vw, 7rem); }
+  .calc { display: grid; grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+  .calc > * { min-width: 0; }
+  [hidden] { display: none !important; }
+
+  .modes { border: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .mode { position: relative; cursor: pointer; }
+  .mode input { position: absolute; opacity: 0; inset: 0; cursor: pointer; }
+  .mode__in { height: 100%; display: grid; gap: .4rem; padding: 1.4rem 1.5rem; border-radius: 24px; background: #fff; box-shadow: inset 0 0 0 1.5px var(--line); transition: background .2s, box-shadow .2s; }
+  .mode__t { font-size: 1.2rem; font-weight: 600; letter-spacing: -.02em; color: var(--green); padding-right: 1.8rem; }
+  .mode__d { font-size: .95rem; color: var(--muted); }
+  .mode__in::after { content: ''; position: absolute; right: 1.2rem; top: 1.4rem; width: 20px; height: 20px; border-radius: 50%; box-shadow: inset 0 0 0 2px var(--line); }
+  .mode input:checked + .mode__in { background: var(--green); box-shadow: none; }
+  .mode input:checked + .mode__in .mode__t { color: var(--cream-l); }
+  .mode input:checked + .mode__in .mode__d { color: var(--on-dark); }
+  .mode input:checked + .mode__in::after { background: var(--lime); box-shadow: inset 0 0 0 5px var(--lime), inset 0 0 0 10px var(--deep); }
+  .mode input:focus-visible + .mode__in { outline: 3px solid var(--lime); outline-offset: 3px; }
+
+  .step { background: #fff; border-radius: 28px; padding: clamp(1.3rem, 1rem + 1.5vw, 2.2rem); display: grid; gap: 1.1rem; box-shadow: 0 20px 50px -34px rgb(10 43 32 / .4); }
+  .step__h { display: flex; align-items: center; gap: .7rem; flex-wrap: wrap; font-size: 1.5rem; letter-spacing: -.03em; color: var(--green); line-height: 1.1; }
+  .step__n { flex: none; width: 2.1rem; height: 2.1rem; border-radius: 50%; display: grid; place-items: center; background: var(--green); color: var(--lime); font: 600 1rem/1 var(--mono); }
+  .step__tag { font: 500 .7rem/1 var(--mono); letter-spacing: .12em; text-transform: uppercase; background: var(--cream); color: var(--green); padding: .5em .8em; border-radius: 99px; }
+  .field { display: grid; gap: .35rem; align-content: start; min-width: 0; }
+  .field label, .lbl { font-weight: 600; font-size: .94rem; color: var(--green); }
+  .opt { font-weight: 400; color: var(--muted); }
+  .hint { font-size: .84rem; color: var(--muted); }
+  .err { font-size: .86rem; color: #8A3324; font-weight: 500; }
+  .inp { position: relative; display: flex; align-items: center; }
+  .inp input, #f-name { width: 100%; min-height: 50px; border: 1.5px solid rgb(15 61 46 / .2); background: #fff; border-radius: 14px; padding: .75rem 1rem; font-size: 1.05rem; transition: border-color .2s, box-shadow .2s; }
+  .inp input { padding-right: 4.6rem; font-variant-numeric: tabular-nums; }
+  .inp--s { width: 120px; flex: none; }
+  .inp--s input { padding-right: 2.2rem; }
+  .unit { position: absolute; right: 1rem; color: var(--muted); font-size: .9rem; pointer-events: none; }
+  .inp input:focus, #f-name:focus { outline: none; border-color: var(--green); box-shadow: 0 0 0 4px rgb(215 243 107 / .45); }
+  .inp input[aria-invalid='true'] { border-color: #8A3324; }
+  .row2 { display: grid; grid-template-columns: auto 1fr; gap: 1rem 1.6rem; align-items: start; }
+  .vatrow { display: flex; gap: .6rem; align-items: center; flex-wrap: wrap; }
+  .chips { display: flex; gap: .4rem; flex-wrap: wrap; }
+  .chip-b { min-height: 44px; padding: 0 1rem; border-radius: 99px; border: 0; background: var(--cream); color: var(--green); font-weight: 600; cursor: pointer; }
+  .chip-b[aria-pressed='true'] { background: var(--green); color: var(--lime); }
+  .switch { position: relative; width: 96px; height: 50px; border-radius: 99px; border: 0; background: var(--cream); cursor: pointer; display: flex; align-items: center; justify-content: space-between; padding: 0 1rem; font-weight: 600; color: var(--muted); }
+  .switch__k { position: absolute; top: 5px; left: 5px; width: 44px; height: 40px; border-radius: 99px; background: var(--green); transition: translate .2s var(--ease); }
+  .switch[aria-checked='false'] .switch__k { translate: 42px 0; }
+  .switch__on, .switch__off { position: relative; z-index: 1; width: 34px; text-align: center; }
+  .switch[aria-checked='true'] .switch__on, .switch[aria-checked='false'] .switch__off { color: var(--lime); }
+  .sub { display: grid; gap: .3rem; padding-top: .4rem; border-top: 1px solid var(--line); }
+  .sub__h { font-weight: 600; font-size: 1.08rem; color: var(--green); margin-top: .6rem; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+  .mt-s { margin-top: .6rem; }
+  .sum { margin-top: .8rem; font-size: 1.02rem; }
+  .sum b { color: var(--green); }
+  .tip { background: #F1ECFF; border-radius: 14px; padding: .8rem 1rem; font-size: .92rem; color: var(--ink); }
+  .sumlist { display: grid; gap: 0; border-radius: 18px; background: var(--cream-l); padding: .4rem 1.1rem; }
+  .sumlist > div { display: flex; justify-content: space-between; gap: 1rem; padding: .65rem 0; border-bottom: 1px solid var(--line); }
+  .sumlist > div:last-child { border-bottom: 0; }
+  .sumlist dt { color: var(--muted); }
+  .sumlist dt span { font-size: .85em; }
+  .sumlist dd { font-weight: 600; color: var(--green); font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .sumlist__t dt { color: var(--green); font-weight: 600; }
+
+  .tabs { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: .3rem; background: var(--cream); padding: .3rem; border-radius: 18px; }
+  .tabs button { min-height: 46px; border: 0; background: none; border-radius: 14px; font-weight: 600; color: var(--green); cursor: pointer; padding: .4rem .5rem; line-height: 1.15; font-size: .9rem; }
+  .tabs button[aria-selected='true'] { background: var(--green); color: var(--lime); }
+  .panel { display: grid; gap: .9rem; }
+  .pctrow { display: flex; gap: 1rem; align-items: center; }
+  .pctrow input[type='range'] { flex: 1; accent-color: var(--green); height: 44px; min-width: 0; }
+
+  .res { background: var(--green); color: var(--cream-l); border-radius: 28px; padding: clamp(1.4rem, 1rem + 1.5vw, 2.2rem); display: grid; gap: 1rem; box-shadow: var(--shadow); }
+  .res > div { display: grid; gap: 1rem; }
+  .res__k { font: 500 .75rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--lime); }
+  .res__l { display: block; font-size: .82rem; color: var(--on-dark); }
+  .res b { font-variant-numeric: tabular-nums; }
+  .lime { color: var(--lime); }
+  .prices { display: flex; align-items: flex-end; gap: .8rem; flex-wrap: wrap; }
+  .prices b { display: block; font-size: 1.6rem; letter-spacing: -.03em; line-height: 1.1; }
+  .prices small, .kpis small, .small { display: block; font-size: .8rem; color: var(--on-dark); }
+  .prices__arr { color: var(--lime); font-size: 1.4rem; padding-bottom: 1.3rem; }
+  .kpis { display: grid; grid-template-columns: 1fr 1fr; gap: .8rem; }
+  .kpis > div { background: rgb(247 245 241 / .07); border-radius: 18px; padding: .9rem 1rem; }
+  .kpis b { display: block; font-size: 1.55rem; letter-spacing: -.03em; line-height: 1.15; }
+  .status { justify-self: start; font-weight: 600; font-size: .9rem; padding: .45em .95em; border-radius: 99px; }
+  .status[data-s='above'], .status[data-s='on'] { background: var(--lime); color: var(--deep); }
+  .status[data-s='below'] { background: var(--lilac); color: var(--deep); }
+  .res__msg { color: var(--cream-l); font-size: .98rem; }
+  .res__msg :global(b), .res__block :global(b) { color: var(--lime); }
+  .res__block { display: grid; gap: .3rem; padding-top: .9rem; border-top: 1px solid var(--line-dark); }
+  .key { background: var(--lime); color: var(--deep); border-radius: 18px; padding: 1rem 1.1rem; font-size: 1.08rem; font-weight: 600; letter-spacing: -.01em; line-height: 1.3; }
+  .key :global(b) { font-size: 1.25em; }
+  .key[data-s='below'] { background: var(--lilac); }
+  .big { font-size: 1.05rem; }
+  .big b { font-size: 1.4rem; }
+  .legal { font-size: .78rem; color: var(--on-dark); line-height: 1.45; }
+  .legal--light { color: var(--muted); }
+
+  .report { border-radius: 22px; background: var(--cream-l); padding: clamp(1.2rem, 1rem + 1vw, 1.8rem); display: grid; gap: 1.1rem; }
+  .report__t { font-size: 1.35rem; font-weight: 600; color: var(--green); letter-spacing: -.02em; }
+  .report__s { font: 500 .74rem/1.3 var(--mono); letter-spacing: .12em; color: var(--muted); margin-top: .2rem; }
+  .report__rows > div { display: flex; justify-content: space-between; gap: 1rem; padding: .6rem 0; border-bottom: 1px solid var(--line); }
+  .report__rows dt { color: var(--muted); }
+  .report__rows dd { font-weight: 600; color: var(--green); text-align: right; font-variant-numeric: tabular-nums; }
+  .report__hl { background: var(--green); color: var(--cream-l); border-radius: 18px; padding: 1rem 1.2rem; display: grid; gap: .3rem; }
+  .report__hl b { color: var(--lime); font-size: 1.15em; }
+  .report__hl .small { color: var(--on-dark); }
+  .report__mean { display: grid; gap: .35rem; }
+  .report__l { font-weight: 600; color: var(--green); }
+  .checks { list-style: none; display: grid; gap: .3rem; }
+  .checks li::before { content: '✦ '; color: var(--brand-gold); }
+  @media (max-width: 640px) {
+    .report__rows > div { display: grid; gap: .1rem; }
+    .report__rows dt { font-size: .85rem; }
+    .report__rows dd { text-align: left; }
+  }
+  .report__btns { display: flex; gap: .6rem; flex-wrap: wrap; }
+  .btn-x { min-height: 50px; padding: 0 1.4rem; border-radius: 99px; border: 1.5px solid var(--green); background: #fff; color: var(--green); font-weight: 600; cursor: pointer; }
+  .btn-x--green { background: var(--green); color: var(--lime); }
+  .btn-x:hover { transform: translateY(-1px); }
+  .reset button { background: none; border: 0; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; cursor: pointer; font-size: .9rem; padding: .4rem 0; }
+  .print-only { display: none; }
+
+  .bf__h { max-width: 16em; color: var(--green); }
+  .bf__cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+  .bf__card { background: #fff; border-radius: 26px; padding: 1.6rem; display: grid; gap: .5rem; align-content: start; }
+  .bf__card h3 { font-size: 1.3rem; letter-spacing: -.02em; color: var(--green); line-height: 1.15; }
+  .bf__card p { color: var(--muted); }
+  .bf__card--g { background: var(--green); }
+  .bf__card--g h3 { color: var(--lime); } .bf__card--g p { color: var(--on-dark); }
+  .bf__n { font: 600 .8rem/1 var(--mono); color: var(--brand-gold); }
+  .wa { display: grid; gap: 1rem; justify-items: start; max-width: 560px; }
+  .wa__bubble { position: relative; background: #DCF8C6; color: #111; border-radius: 18px 18px 18px 4px; padding: 1rem 1.2rem; font-size: 1.02rem; box-shadow: 0 6px 20px -12px rgb(0 0 0 / .35); }
+
+  .close__in { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: clamp(2rem, 4vw, 4rem); align-items: center; }
+  .close__txt { display: grid; justify-items: start; }
+  .close__steps { list-style: none; counter-reset: s; display: grid; gap: .7rem; max-width: 56ch; }
+  .close__steps li { counter-increment: s; position: relative; padding-left: 2.6rem; color: var(--on-dark); }
+  .close__steps li::before { content: counter(s); position: absolute; left: 0; top: .1rem; width: 1.8rem; height: 1.8rem; border-radius: 50%; background: var(--lime); color: var(--deep); font: 600 .9rem/1.8rem var(--mono); text-align: center; }
+  .close__steps b { color: var(--cream-l); }
+  .close__price { margin-top: 1rem; font-size: .92rem; color: var(--on-dark); }
+  .close__fig { display: grid; gap: .8rem; justify-items: center; }
+  .close__fig .close__phone { width: min(280px, 78%); rotate: 2deg; }
+  .close__fig figcaption { font-size: .85rem; color: var(--on-dark); }
+  @media (max-width: 900px) { .close__in { grid-template-columns: 1fr; } .close__fig { rotate: 0deg; } }
+  .close__t { color: var(--on-dark); max-width: 56ch; }
+  .close__ctas { display: flex; flex-wrap: wrap; gap: .8rem; }
+  .close__sign { margin-top: 1rem; font-style: italic; color: var(--lilac); }
+
+  .bar { position: fixed; left: 12px; right: 12px; bottom: 12px; z-index: 40; min-height: 54px; display: flex; align-items: center; justify-content: space-between; gap: .8rem; padding: .7rem 1.1rem; border: 0; border-radius: 18px; background: var(--deep); color: var(--cream-l); font-weight: 600; font-size: .88rem; text-align: left; box-shadow: 0 16px 40px -12px rgb(0 0 0 / .5); cursor: pointer; }
+  .bar :global(b) { color: var(--lime); }
+
+
+  /* Móvil «En Omyra» */
+  .omx__k { font: 600 .7rem/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--brand-gold); }
+  .omx__t { font-weight: 600; color: var(--green); letter-spacing: -.01em; line-height: 1.2; }
+  .omx__d { font-size: .88rem; color: var(--muted); line-height: 1.45; }
+  .omx-inline { display: grid; grid-template-columns: 96px 1fr; gap: 1rem; align-items: center; background: var(--cream); border-radius: 22px; padding: .9rem 1.1rem .9rem .9rem; }
+  .omx-inline > div { display: grid; gap: .3rem; }
+  .omx-inline :global(.omx-inline__img) { width: 96px; height: 150px; object-fit: cover; object-position: top; border-radius: 16px; border: 4px solid #0b1712; background: #fff; }
+  .omx-side { display: none; }
+  .omx-phone { width: 100%; aspect-ratio: 375 / 780; padding: 7px; border-radius: 38px; background: #0b1712; box-shadow: var(--shadow); position: relative; }
+  .omx-phone::before { content: ''; position: absolute; z-index: 2; top: 13px; left: 50%; translate: -50% 0; width: 26%; height: 14px; border-radius: 10px; background: #0b1712; }
+  .omx-phone__screen { position: relative; width: 100%; height: 100%; border-radius: 31px; overflow: hidden; background: #fff; }
+  .omx-phone__screen :global(img) { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: top; opacity: 0; transition: opacity .5s var(--ease); }
+  .omx-phone__screen :global(img.on) { opacity: 1; }
+  .omx__txt { display: none; gap: .3rem; }
+  .omx__txt.on { display: grid; }
+  .omx__dots { list-style: none; display: flex; gap: .35rem; justify-content: center; }
+  .omx__dots li { width: 8px; height: 8px; border-radius: 50%; background: var(--line); transition: background .3s, width .3s; }
+  .omx__dots li.on { width: 22px; border-radius: 8px; background: var(--green); }
+  @media (min-width: 1200px) {
+    .calc { grid-template-columns: minmax(0, 1fr) 230px minmax(300px, 360px) !important; }
+    .omx-side { display: grid; gap: .9rem; grid-column: 2; grid-row: 1 / span 7; position: sticky; top: calc(var(--header-h) + 16px); align-self: start; }
+    .res { grid-column: 3 !important; grid-row: 1 / span 7 !important; }
+    .omx-inline { display: none; }
+  }
+  @media (prefers-reduced-motion: reduce) { .omx-phone__screen :global(img) { transition: none; } }
+  @media (min-width: 768px) {
+    .calc { grid-template-columns: minmax(0, 1fr) minmax(300px, 400px); column-gap: clamp(1.2rem, 3vw, 2.5rem); align-items: start; }
+    .calc > :not(.res):not(.omx-side) { grid-column: 1; }
+    .res { grid-column: 2; grid-row: 1 / span 6; position: sticky; top: calc(var(--header-h) + 16px); max-height: calc(100vh - var(--header-h) - 32px); overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: rgb(247 245 241 / .25) transparent; }
+    .bar { display: none !important; }
+  }
+  @media (max-width: 900px) { .hv { margin-top: 1rem; padding-bottom: 0; } .hv :global(.hv__shot) { rotate: 0deg; } .teaser { position: relative; left: auto; bottom: auto; width: auto; margin: -2.2rem .8rem 0; rotate: -1deg; } .bf__cards { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    .modes { grid-template-columns: 1fr; }
+    .row2 { grid-template-columns: 1fr; }
+    .calc-sec { padding-bottom: 6rem; }
+  }
+  @media (max-width: 359px) {
+    .kpis { grid-template-columns: 1fr; }
+    .grid2:not(.grid2--t) { grid-template-columns: 1fr 1fr; }
+  }
+  @media (prefers-reduced-motion: reduce) { .switch__k { transition: none; } .btn-x:hover { transform: none; } }
+
+  @media print {
+    @page { size: A4; margin: 16mm; }
+    :global(body) { background: #fff !important; }
+    :global(header), :global(footer), :global(.phero), :global(.skip), .modes, .step:not(.step--report), .res, .omx-side, .omx-inline, .bf, .close, .bar, .report__btns, .reset, .step--report > .step__h { display: none !important; }
+    .calc-sec { padding: 0; background: #fff; }
+    .calc { display: block; }
+    .step--report { box-shadow: none; padding: 0; }
+    .report { background: #fff; padding: 0; }
+    .print-only { display: flex; }
+    .report__brand { justify-content: space-between; align-items: center; margin-bottom: 1rem; color: var(--muted); font-size: .9rem; }
+    .report__hl { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .report__t { font-size: 20pt; }
+    .report__src { display: block !important; margin-top: 6mm; padding-top: 3mm; border-top: 1px solid rgb(15 61 46 / .15); font-size: 9pt; color: var(--muted); }
+    .report__src b { color: var(--green); }
+    .omy { display: grid !important; gap: 12px; break-before: page; page-break-before: always; padding-top: 4mm; color: var(--ink); }
+    .omy__k { font: 600 9pt/1 var(--mono); letter-spacing: .14em; text-transform: uppercase; color: var(--brand-gold); }
+    .omy__h { font-size: 20pt; line-height: 1.05; letter-spacing: -.03em; color: var(--green); font-weight: 600; }
+    .omy__h span { font-weight: 300; }
+    .omy__steps { list-style: none; counter-reset: s; display: grid; gap: 8px; }
+    .omy__steps li { counter-increment: s; position: relative; padding: 9px 12px 9px 44px; border-radius: 12px; background: #F7F5F1; font-size: 10.5pt; line-height: 1.4; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .omy__steps li::before { content: counter(s); position: absolute; left: 11px; top: 9px; width: 22px; height: 22px; border-radius: 50%; background: var(--green); color: var(--lime); font: 600 10pt/22px var(--mono); text-align: center; }
+    .omy__steps b { color: var(--green); }
+    .omy__shot { border-radius: 12px; overflow: hidden; box-shadow: 0 0 0 1px rgb(15 61 46 / .15); }
+    .omy__shot img { width: 100%; height: auto; display: block; }
+    .omy__shot figcaption { font-size: 8.5pt; color: var(--muted); padding: 5px 10px; background: #F7F5F1; }
+    .omy__cta { background: var(--green); color: #F7F5F1; border-radius: 14px; padding: 12px 16px; display: grid; gap: 2px; font-size: 10pt; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .omy__cta b { color: var(--lime); font-size: 13pt; }
+  }
+</style>
