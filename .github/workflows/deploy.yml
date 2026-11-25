@@ -26,6 +26,9 @@ jobs:
         uses: withastro/action@v3
         with:
           node-version: 24
+        # Variables: Settings → Secrets and variables → Actions → Variables.
+        env:
+          PUBLIC_META_DOMAIN_VERIFICATION: ${{ vars.PUBLIC_META_DOMAIN_VERIFICATION }}
 
   deploy:
     needs: build

@@ -14,6 +14,9 @@ interface Props {
 }
 const { title, description, noindex = false, jsonld = [], headerTone = 'dark', bare = false } = Astro.props;
 const canonical = new URL(Astro.url.pathname.replace(/\.html$/, '').replace(/\/index$/, '/').replace(/(.)\/$/, '$1') || '/', site.url).href;
+// Verificación del dominio en Meta (no es una cookie: sale siempre). Valor desde la variable PUBLIC_META_DOMAIN_VERIFICATION.
+const fbVerifyRaw = import.meta.env.PUBLIC_META_DOMAIN_VERIFICATION;
+const fbVerify = typeof fbVerifyRaw === 'string' && /^[a-z0-9]{10,64}$/i.test(fbVerifyRaw.trim()) ? fbVerifyRaw.trim() : null;
 const ogImage = new URL('/og-omyra.jpg', site.url).href;
 ---
 <!doctype html>
@@ -25,6 +28,7 @@ const ogImage = new URL('/og-omyra.jpg', site.url).href;
     <meta name="description" content={description} />
     {noindex ? <meta name="robots" content="noindex, nofollow" /> : <link rel="canonical" href={canonical} />}
     <meta name="theme-color" content="#0F3D2E" />
+    {fbVerify && <meta name="facebook-domain-verification" content={fbVerify} />}
     <link rel="icon" href="/favicon.ico" sizes="48x48" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="icon" href="/favicon-96.png" type="image/png" sizes="96x96" />
