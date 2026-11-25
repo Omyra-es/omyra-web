@@ -82,16 +82,23 @@ const TO_TIKTOK: Record<string, string | null> = {
   Purchase: 'CompletePayment', CompleteRegistration: null, UsoCalculadora: 'UsoCalculadora',
 };
 
+// Producto que se mide en la vista del alta, el paso al pago y el alta pagada.
+const PRODUCT_ID = 'omyra-plan-mensual';
+const WITH_PRODUCT = new Set(['ViewContent', 'InitiateCheckout', 'Purchase']);
+
 function send(ev: Ev) {
   const p = Object.fromEntries(Object.entries(ev.params || {}).filter(([, v]) => v !== undefined && v !== ''));
+  const product = WITH_PRODUCT.has(ev.name);
   if (ids.meta && window.fbq) {
     const name = ev.name === 'LeadDemo' ? 'Lead' : ev.name;
     const opts = ev.id ? { eventID: ev.id } : undefined;
-    if (META_STD.has(name)) window.fbq('track', name, p, opts); else window.fbq('trackCustom', name, p, opts);
+    const mp = product ? { ...p, content_ids: [PRODUCT_ID], content_type: 'product' } : p;
+    if (META_STD.has(name)) window.fbq('track', name, mp, opts); else window.fbq('trackCustom', name, mp, opts);
   }
   if (ids.tiktok && window.ttq) {
     const name = ev.name in TO_TIKTOK ? TO_TIKTOK[ev.name] : ev.name;
-    if (name) window.ttq.track(name, p, ev.id ? { event_id: ev.id } : undefined);
+    const tp = product ? { ...p, content_id: PRODUCT_ID, content_type: 'product' } : p;
+    if (name) window.ttq.track(name, tp, ev.id ? { event_id: ev.id } : undefined);
   }
 }
 
