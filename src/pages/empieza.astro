@@ -151,9 +151,13 @@ const cfg = {
 
 <script>
   import { validators, normalize, isInternalEmail } from '../scripts/alta-validate';
+  import { track as px, utm, once } from '../scripts/track';
+  import { pricing } from '../content/pricing';
+  const PX_VALUE = { value: pricing.amountNumber, currency: pricing.currencyCode };
 
   type Cfg = { endpoint: string | null; termsVersion: string; plan: string; loginUrl: string | null; payLink: string | null; internal: { domains: string[]; endpoint: string | null; loginUrl: string }; hs: string | null; total: string; email: string; wa: string; phone: string; phoneHref: string };
   const cfg: Cfg = JSON.parse(document.getElementById('alta-cfg')!.textContent || '{}');
+  px('ViewContent', { content_name: 'alta' });
   const form = document.getElementById('alta') as HTMLFormElement;
   const steps = [...form.querySelectorAll<HTMLFieldSetElement>('[data-step]')];
   const dots = [...document.querySelectorAll<HTMLLIElement>('[data-dot]')];
@@ -266,6 +270,8 @@ const cfg = {
     if (!checkStep(step)) return;
     clearNote();
     track(step + 1);
+    // Medición: datos del paso 1 completados (sin enviar nombre, correo ni teléfono).
+    if (step === 1 && !internal() && !valueOf('website') && once('lead')) px('Lead', { content_name: 'alta', ...utm() });
     go(step + 1);
   }));
   form.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => go(step - 1)));
@@ -357,7 +363,8 @@ const cfg = {
       const url = new URL(cfg.payLink);
       url.searchParams.set('prefilled_email', normalize.email(valueOf('email')));
       url.searchParams.set('locale', 'es');
-      location.href = url.href;
+      px('InitiateCheckout', { ...PX_VALUE, content_name: 'alta', ...utm() });
+      setTimeout(() => (location.href = url.href), 450); // margen para que salga el evento antes de ir a Stripe
       return;
     }
     pay.disabled = true;
@@ -366,6 +373,7 @@ const cfg = {
       const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload()) });
       const body = await res.json().catch(() => ({}));
       if (res.ok && typeof body.checkoutUrl === 'string' && body.checkoutUrl.startsWith('https://')) {
+        if (!isTeam) { px('InitiateCheckout', { ...PX_VALUE, content_name: 'alta', ...utm() }); await new Promise((r) => setTimeout(r, 450)); }
         location.href = body.checkoutUrl;
         return;
       }

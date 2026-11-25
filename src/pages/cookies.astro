@@ -2,25 +2,49 @@
 import Legal from '../layouts/Legal.astro';
 import { site } from '../content/site';
 ---
-<Legal title="Política de cookies" description="Información sobre el uso de cookies en el sitio web de Omyra." updated="16 de noviembre de 2026">
-  <p>De acuerdo con el artículo 22.2 de la Ley 34/2002 (LSSI-CE), te informamos sobre el uso de cookies y tecnologías similares en este sitio web.</p>
+<Legal title="Política de cookies" description="Qué cookies usa el sitio web de Omyra, para qué sirven, cuánto duran y cómo cambiar tu elección." updated="25 de noviembre de 2026">
+  <p>De acuerdo con el artículo 22.2 de la Ley 34/2002 (LSSI-CE), te informamos sobre las cookies y tecnologías similares que usa este sitio web (omyra.es) y de cómo puedes aceptarlas, rechazarlas o cambiar tu elección.</p>
 
   <h2>1. ¿Qué son las cookies?</h2>
-  <p>Son pequeños archivos que algunos sitios web guardan en tu navegador para recordar información sobre tu visita, por ejemplo, tus preferencias o tu comportamiento de navegación.</p>
+  <p>Son pequeños archivos que un sitio web guarda en tu navegador para recordar información sobre tu visita. Otras tecnologías, como el almacenamiento local del navegador (localStorage y sessionStorage), cumplen una función parecida.</p>
 
-  <h2>2. Cookies que usa este sitio</h2>
-  <p><b>Este sitio no instala cookies propias</b> y no usamos herramientas de analítica ni de publicidad. Las fuentes tipográficas y las imágenes se sirven desde el propio sitio, sin conectar con servicios externos.</p>
-  <p>La única excepción es el <b>calendario de reservas de Calendly</b> de la página de contacto. Lo muestra Calendly (Calendly LLC) dentro de nuestra página, y Calendly puede usar sus propias cookies para que el calendario funcione. Las cookies que no son necesarias las gestiona Calendly con su propio aviso y su enlace «Cookie settings», que aparece dentro del calendario. Puedes consultar el detalle en la <a href="https://calendly.com/legal/privacy-notice" target="_blank" rel="noopener">política de privacidad de Calendly</a>, que incluye su uso de cookies. El resto de páginas de este sitio no cargan Calendly.</p>
+  <h2>2. Tu elección</h2>
+  <p>Al entrar por primera vez te mostramos un aviso con tres opciones del mismo peso: <b>Aceptar</b>, <b>Rechazar</b> y <b>Configurar</b>. Ninguna categoría opcional viene marcada. Hasta que eliges, y si rechazas, <b>no se carga nada de Meta ni de TikTok</b>. Si aceptas más tarde, se cargan en ese momento.</p>
+  <p id="configurar">Puedes cambiar tu elección cuando quieras desde <a href="/cookies#configurar" data-ck="settings">Configurar cookies</a>, también en el pie de todas las páginas. Si retiras el consentimiento, borramos las cookies de publicidad que este sitio haya guardado en omyra.es. Guardamos tu elección durante 12 meses; después te volvemos a preguntar.</p>
 
-  <h2>3. Formulario y calendario de solicitud de demo</h2>
-  <p>El formulario no instala cookies. Al enviarlo, tus datos se transmiten directamente a HubSpot, la herramienta de gestión de contactos de Omyra, sin cargar su código de seguimiento. Si reservas tu demo en el calendario, los datos de la reserva los recibe Calendly por nuestra cuenta. El tratamiento de esos datos se explica en la <a href="/privacidad">política de privacidad</a>.</p>
+  <h2>3. Cookies necesarias (siempre activas)</h2>
+  <p>Hacen que la web funcione y no requieren consentimiento. Son propias, de omyra.es, y no se usan para publicidad.</p>
+  <div class="tbl"><table>
+    <thead><tr><th>Nombre</th><th>Tipo</th><th>Para qué</th><th>Duración</th></tr></thead>
+    <tbody>
+      <tr><td>omyra-consent</td><td>Almacenamiento local</td><td>Recordar tu elección de cookies</td><td>12 meses</td></tr>
+      <tr><td>omyra-alta</td><td>Almacenamiento de sesión</td><td>Que no pierdas los datos del alta mientras la rellenas</td><td>Hasta cerrar la pestaña o terminar el alta</td></tr>
+      <tr><td>omyra-origen</td><td>Almacenamiento de sesión</td><td>Saber desde qué campaña o red social llegaste, para atender tu alta o tu demo</td><td>Hasta cerrar la pestaña</td></tr>
+      <tr><td>omyra-calculadora</td><td>Almacenamiento local</td><td>Recordar los datos que escribiste en la calculadora, solo en tu navegador. Se borran con «Borrar mis datos»</td><td>Hasta que los borres</td></tr>
+      <tr><td>omyra-px-…</td><td>Almacenamiento local o de sesión</td><td>Evitar que un mismo evento se cuente dos veces si recargas la página</td><td>Sesión, o hasta que los borres en el caso del alta pagada</td></tr>
+    </tbody>
+  </table></div>
 
-  <h2>4. Enlaces a otros sitios</h2>
-  <p>Si sales de este sitio a través de un enlace, por ejemplo al abrir WhatsApp, ese otro sitio puede usar sus propias cookies según su política.</p>
+  <h2>4. Publicidad y medición (solo si las aceptas)</h2>
+  <p>Usamos el <b>píxel de Meta</b> (Facebook e Instagram) y el <b>píxel de TikTok</b> para saber qué anuncios traen visitas, solicitudes de demo y altas, y para que esas plataformas puedan mostrar nuestros anuncios a personas con intereses parecidos. Registran las páginas que visitas en omyra.es y estos momentos: abrir el alta, completar tus datos del alta, ir al pago, terminar el alta pagada, enviar la solicitud de demo y usar la calculadora. Con ellos enviamos la etiqueta de la campaña de la que llegaste. <b>No les enviamos tu nombre, tu correo ni tu teléfono.</b></p>
+  <div class="tbl"><table>
+    <thead><tr><th>Proveedor</th><th>Cookies</th><th>Para qué</th><th>Duración</th></tr></thead>
+    <tbody>
+      <tr><td>Meta Platforms Ireland Ltd.</td><td>_fbp, _fbc (en omyra.es) y fr (en facebook.com)</td><td>Identificar el navegador y la visita que llega desde un anuncio, y medir las conversiones</td><td>Hasta 90 días</td></tr>
+      <tr><td>TikTok Technology Ltd.</td><td>_ttp, _tt_enable_cookie y ttcsid (en omyra.es) y cookies propias en tiktok.com</td><td>Identificar el navegador y la visita que llega desde un anuncio, y medir las conversiones</td><td>Hasta 13 meses</td></tr>
+    </tbody>
+  </table></div>
+  <p>Los nombres y las duraciones son los que indica cada proveedor y pueden cambiar; revisamos esta tabla cuando cambian. Para la recogida y el envío de estos datos desde nuestra web, Omyra y cada plataforma actúan como corresponsables; después, Meta y TikTok los tratan como responsables según sus propias políticas, y pueden tratarlos fuera del Espacio Económico Europeo con sus garantías. Más información en la <a href="https://www.facebook.com/privacy/policy" target="_blank" rel="noopener">política de privacidad de Meta</a> y en la <a href="https://www.tiktok.com/legal/page/eea/privacy-policy/es" target="_blank" rel="noopener">política de privacidad de TikTok</a>.</p>
 
-  <h2>5. Cómo gestionar las cookies en tu navegador</h2>
-  <p>Puedes consultar, bloquear o eliminar las cookies desde la configuración de tu navegador (Chrome, Safari, Firefox, Edge u otros).</p>
+  <h2>5. Calendario de reservas de demo (Calendly)</h2>
+  <p>La página de contacto muestra el calendario de <b>Calendly</b> (Calendly LLC), que puede usar sus propias cookies para que funcione. Las que no son necesarias las gestiona Calendly con su propio aviso y su enlace «Cookie settings», dentro del calendario. Detalle en la <a href="https://calendly.com/legal/privacy-notice" target="_blank" rel="noopener">política de privacidad de Calendly</a>. El resto de páginas no cargan Calendly.</p>
 
-  <h2>6. Cambios</h2>
-  <p>Si en el futuro incorporamos herramientas que usen cookies no necesarias, te pediremos el consentimiento antes de instalarlas y actualizaremos esta política. Para cualquier duda, escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
+  <h2>6. Formulario de demo</h2>
+  <p>El formulario no instala cookies. Al enviarlo, tus datos van directamente a HubSpot, la herramienta de gestión de contactos de Omyra, sin cargar su código de seguimiento. El tratamiento se explica en la <a href="/privacidad">política de privacidad</a>.</p>
+
+  <h2>7. Desde tu navegador</h2>
+  <p>También puedes consultar, bloquear o borrar las cookies desde la configuración de tu navegador (Chrome, Safari, Firefox, Edge u otros). Si bloqueas las necesarias, algunas partes de la web, como el alta, pueden no funcionar bien.</p>
+
+  <h2>8. Cambios y contacto</h2>
+  <p>Si incorporamos otras herramientas que usen cookies no necesarias, te pediremos el consentimiento antes y actualizaremos esta política. Para cualquier duda, escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a>.</p>
 </Legal>
