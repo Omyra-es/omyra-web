@@ -2,6 +2,7 @@
 import { analyze, monthlyGoal, totalMinutes, type Mode, type PromoType } from './formulas';
 import { eur, pct1, pctFloor, duration, hours, int, parseNum } from './format';
 import { BF_END, DEFAULTS, LIMITS, STORAGE_KEY, type CalcState } from './config';
+import { track as px } from '../track';
 
 const root = document.getElementById('calculadora');
 if (root) init(root);
@@ -220,6 +221,11 @@ function init(root: HTMLElement) {
   }
 
   // ---- Eventos ----
+  // Medición: «UsoCalculadora» una vez por visita a la página, cuando la persona cambia algún dato.
+  let used = false;
+  const markUse = () => { if (!used) { used = true; px('UsoCalculadora', { modo: state.mode }); } };
+  form.addEventListener('change', markUse);
+  form.addEventListener('click', (e) => { if ((e.target as HTMLElement).closest('[data-pct], [data-vat], [role="tab"], #f-incvat')) markUse(); });
   form.addEventListener('input', (e) => {
     const t = e.target as HTMLInputElement;
     if (t === range) { byKey('pct').value = range.value; readField(byKey('pct'), false); }

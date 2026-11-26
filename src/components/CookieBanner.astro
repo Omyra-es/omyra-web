@@ -1,0 +1,70 @@
+---
+// Aviso de cookies: solo aparece si hay algún píxel configurado (PUBLIC_META_PIXEL_ID / PUBLIC_TIKTOK_PIXEL_ID).
+// Tres botones con el mismo peso; nada marcado por defecto. La lógica está en scripts/consent.ts.
+---
+<div class="ck" id="ck-banner" role="region" aria-label="Aviso de cookies" hidden>
+  <p class="ck__t">Usamos cookies necesarias y, si aceptas, otras de publicidad. <a href="/cookies">Más información</a>.</p>
+  <div class="ck__btns">
+    <button type="button" class="ck__b" data-ck="reject">Rechazar</button>
+    <button type="button" class="ck__b" data-ck="settings">Configurar</button>
+    <button type="button" class="ck__b" data-ck="accept">Aceptar</button>
+  </div>
+</div>
+
+<dialog class="ckp" id="ck-panel" aria-labelledby="ckp-h">
+  <form method="dialog" class="ckp__in">
+    <p class="ckp__h" id="ckp-h">Configurar cookies</p>
+    <p class="ckp__s">Elige qué cookies aceptas. Puedes cambiarlo cuando quieras desde «Configurar cookies», al pie de la web.</p>
+    <div class="ckp__cat">
+      <div><p class="ckp__ct">Necesarias</p><p class="ckp__cd">Hacen que la web funcione: recordar tu elección de cookies, el alta mientras la rellenas y de dónde llegaste. No se pueden desactivar.</p></div>
+      <span class="ckp__always">Siempre activas</span>
+    </div>
+    <label class="ckp__cat" for="ck-ads">
+      <div><p class="ckp__ct">Publicidad y medición</p><p class="ckp__cd">Píxeles de Meta (Facebook e Instagram) y de TikTok: miden qué anuncios traen visitas y altas, y ayudan a mostrar los anuncios a personas parecidas. Detalle en la <a href="/cookies">política de cookies</a>.</p></div>
+      <input type="checkbox" id="ck-ads" class="ckp__sw" />
+    </label>
+    <div class="ckp__btns">
+      <button type="button" class="ck__b" data-ck="reject">Rechazar todas</button>
+      <button type="button" class="ck__b" data-ck="save">Guardar mi elección</button>
+      <button type="button" class="ck__b" data-ck="accept">Aceptar todas</button>
+    </div>
+    <button type="button" class="ckp__x" data-ck="close" aria-label="Cerrar">×</button>
+  </form>
+</dialog>
+
+<style>
+  .ck { position: fixed; z-index: 60; left: 12px; right: 12px; bottom: 12px; margin-inline: auto; max-width: 760px; display: grid; grid-template-columns: 1fr auto; gap: .8rem 1.2rem; align-items: center; background: var(--deep); color: var(--cream-l); border: 1px solid var(--line-dark); border-radius: 20px; padding: .9rem 1rem .9rem 1.2rem; box-shadow: 0 20px 50px -20px rgb(0 0 0 / .55); font-size: .9rem; line-height: 1.45; }
+  .ck[hidden] { display: none; }
+  .ck__t a { color: var(--lime); }
+  .ck__t b { font-weight: 600; }
+  .ck__btns, .ckp__btns { display: flex; gap: .5rem; flex-wrap: wrap; }
+  /* Mismo peso visual para los tres botones */
+  .ck__b { min-height: 42px; padding: 0 1.1rem; border-radius: 99px; border: 1.5px solid var(--lime); background: transparent; color: inherit; font: 600 .9rem/1 var(--font); cursor: pointer; }
+  .ck__b:hover { background: rgb(215 243 107 / .14); }
+  .ck__b:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+  @media (max-width: 720px) {
+    .ck { grid-template-columns: 1fr; left: 8px; right: 8px; bottom: 8px; padding: .85rem; font-size: .85rem; }
+    .ck__btns { display: grid; grid-template-columns: repeat(3, 1fr); }
+    .ck__b { padding: 0 .4rem; }
+  }
+
+  .ckp { margin: auto; width: min(560px, calc(100% - 24px)); border: 0; border-radius: 24px; padding: 0; background: var(--cream-l); color: var(--ink); box-shadow: var(--shadow); }
+  .ckp::backdrop { background: rgb(10 43 32 / .55); }
+  .ckp__in { position: relative; display: grid; gap: 1rem; padding: 1.5rem; }
+  .ckp__h { font-size: 1.35rem; font-weight: 600; letter-spacing: -.02em; color: var(--green); }
+  .ckp__s, .ckp__cd { font-size: .9rem; color: var(--muted); }
+  .ckp__cd a { color: var(--green); }
+  .ckp__cat { display: grid; grid-template-columns: 1fr auto; gap: 1rem; align-items: center; background: #fff; border-radius: 16px; padding: 1rem; cursor: pointer; }
+  .ckp__ct { font-weight: 600; color: var(--green); }
+  .ckp__always { font-size: .78rem; font-weight: 600; color: var(--green); background: #E4ECE7; padding: .35em .7em; border-radius: 99px; white-space: nowrap; }
+  .ckp__sw { appearance: none; width: 48px; height: 28px; border-radius: 99px; background: rgb(15 61 46 / .2); position: relative; cursor: pointer; transition: background .2s; }
+  .ckp__sw::after { content: ''; position: absolute; top: 3px; left: 3px; width: 22px; height: 22px; border-radius: 50%; background: #fff; transition: translate .2s; }
+  .ckp__sw:checked { background: var(--green); }
+  .ckp__sw:checked::after { translate: 20px 0; }
+  .ckp__sw:focus-visible { outline: 3px solid var(--lime); outline-offset: 2px; }
+  .ckp .ck__b { border-color: var(--green); color: var(--green); }
+  .ckp .ck__b:hover { background: rgb(15 61 46 / .08); }
+  .ckp__x { position: absolute; top: .7rem; right: .9rem; width: 36px; height: 36px; border: 0; background: none; font-size: 1.6rem; line-height: 1; color: var(--muted); cursor: pointer; border-radius: 50%; }
+  @media (max-width: 520px) { .ckp__btns { display: grid; } }
+  @media (prefers-reduced-motion: reduce) { .ckp__sw, .ckp__sw::after { transition: none; } }
+</style>

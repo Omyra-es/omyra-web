@@ -2,7 +2,7 @@
 import Legal from '../layouts/Legal.astro';
 import { site } from '../content/site';
 ---
-<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="19 de noviembre de 2026" noindex>
+<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="25 de noviembre de 2026" noindex>
   <p>Esta política explica cómo trata Omyra los datos personales, de acuerdo con el Reglamento (UE) 2016/679, General de Protección de Datos (RGPD), y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
 
   <div class="box">
@@ -30,6 +30,7 @@ import { site } from '../content/site';
       <tr><td>Seguridad y prevención de abuso</td><td>Eventos técnicos mínimos y evidencias de incidentes</td><td>Interés legítimo en proteger a las personas y el servicio (art. 6.1.f RGPD) y obligaciones legales cuando procedan</td><td>El necesario para cada incidencia, con acceso restringido</td></tr>
       <tr><td>Identificar potenciales negocios clientes</td><td>Datos de contacto empresarial obtenidos de fichas empresariales y fuentes públicas (nombre del establecimiento, dirección, teléfono publicado, web y enlace de reservas)</td><td>Interés legítimo (art. 6.1.f RGPD), con derecho de oposición. No supone autorización para publicidad electrónica</td><td>12 meses desde su obtención si no hay interacción, o desde la última interacción relevante</td></tr>
       <tr><td>Enviarte comunicaciones comerciales de Omyra</td><td>Contacto y preferencias</td><td>Tu consentimiento o, si ya eres cliente, la relación previa para servicios propios similares (LSSI), con posibilidad de oposición</td><td>Hasta que te opongas o retires el consentimiento; guardamos un registro mínimo para no volver a contactarte</td></tr>
+      <tr><td>Medir la eficacia de nuestros anuncios en Meta (Facebook e Instagram) y TikTok, <b>solo si aceptas las cookies de publicidad</b></td><td>Identificadores del navegador (cookies), páginas visitadas, momentos del alta y de la demo, y la campaña de la que llegas. No enviamos tu nombre, tu correo ni tu teléfono</td><td>Tu consentimiento (art. 6.1.a RGPD y art. 22.2 LSSI), que puedes retirar en «Configurar cookies»</td><td>Según la <a href="/cookies">política de cookies</a>: hasta 90 días (Meta) y hasta 13 meses (TikTok)</td></tr>
       <tr><td>Atender tus derechos y reclamaciones</td><td>Identidad necesaria, solicitud y respuesta</td><td>Obligación legal (art. 6.1.c RGPD)</td><td>El tiempo de atención y de defensa de responsabilidades</td></tr>
     </tbody>
   </table></div>
@@ -51,13 +52,14 @@ import { site } from '../content/site';
     <li><b>HubSpot</b>, para gestionar las solicitudes de demo, las altas online que no se terminan y los contactos comerciales. Nuestra cuenta está alojada en su centro de datos de la Unión Europea.</li>
     <li><b>Calendly</b>, para que puedas reservar el día y la hora de tu demo desde la página de contacto. Calendly (Calendly LLC, Estados Unidos) trata los datos de la reserva por nuestra cuenta; se adhiere al Marco de Privacidad de Datos UE-EE. UU.</li>
     <li><b>Stripe</b>, para cobrar la suscripción de Omyra. El pago se hace en la página de Stripe: los datos de la tarjeta los trata Stripe y Omyra no los ve ni los guarda.</li>
+    <li><b>Meta</b> (Meta Platforms Ireland Ltd.) y <b>TikTok</b> (TikTok Technology Ltd.), solo si aceptas las cookies de publicidad, para medir nuestros anuncios. Para la recogida y el envío desde nuestra web somos corresponsables con cada plataforma; después, cada una trata los datos como responsable según su propia política. Detalle en la <a href="/cookies">política de cookies</a>.</li>
     <li>Proveedores de alojamiento web, infraestructura de la plataforma, correo electrónico y notificaciones.</li>
   </ul>
   <p>Algunas funciones de la plataforma conectan con servicios de terceros solo si el negocio las activa: Stripe (pagos con tarjeta), Meta (WhatsApp Business) y Google (Google Calendar). En esos casos, el tercero trata los datos según sus propias condiciones con el negocio.</p>
   <p>También podemos comunicar datos a las administraciones públicas, jueces y tribunales cuando una ley lo exija.</p>
 
   <h2>5. Transferencias internacionales</h2>
-  <p>El alojamiento principal de Omyra está en Alemania (Hetzner, Núremberg). Priorizamos proveedores que tratan los datos dentro del Espacio Económico Europeo. Si algún proveedor accede a datos desde fuera, lo hace con las garantías del RGPD, como una decisión de adecuación (por ejemplo, el Marco de Privacidad de Datos UE-EE. UU.) o las cláusulas contractuales tipo de la Comisión Europea.</p>
+  <p>El alojamiento principal de Omyra está en Alemania (Hetzner, Núremberg). Priorizamos proveedores que tratan los datos dentro del Espacio Económico Europeo. Si algún proveedor accede a datos desde fuera, lo hace con las garantías del RGPD, como una decisión de adecuación (por ejemplo, el Marco de Privacidad de Datos UE-EE. UU.) o las cláusulas contractuales tipo de la Comisión Europea. Meta y TikTok pueden tratar los datos de medición fuera del Espacio Económico Europeo con sus propias garantías.</p>
 
   <h2>6. Tus derechos</h2>
   <p>Puedes ejercer en cualquier momento tus derechos de acceso, rectificación, supresión, oposición, limitación del tratamiento y portabilidad, y retirar tu consentimiento sin que ello afecte a los tratamientos anteriores. Escríbenos a <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> (o, si ya eres cliente, a <a href={`mailto:${site.contact.supportEmail}`}>{site.contact.supportEmail}</a>) indicando qué derecho quieres ejercer y un medio de respuesta. Solo pediremos información adicional de identidad cuando sea necesaria y proporcionada.</p>

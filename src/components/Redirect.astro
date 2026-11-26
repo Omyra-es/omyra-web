@@ -1,8 +1,8 @@
 ---
 // Página mínima de redirección (sin cabecera, pie ni scripts de la web), con noindex.
 // Conserva los parámetros que traiga la visita (p. ej. utm_content) y añade los fijos.
-interface Props { to: string; params?: Record<string, string> }
-const { to, params = {} } = Astro.props;
+interface Props { to: string; params?: Record<string, string>; title?: string; label?: string }
+const { to, params = {}, title = 'Omyra · Calculadora', label = 'Abriendo la calculadora…' } = Astro.props;
 const fallback = `${to}?${new URLSearchParams(params).toString()}`;
 ---
 <!doctype html>
@@ -11,16 +11,16 @@ const fallback = `${to}?${new URLSearchParams(params).toString()}`;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="robots" content="noindex, nofollow" />
-    <title>Omyra · Calculadora</title>
+    <title>{title}</title>
     <script is:inline define:vars={{ to, params }}>
       var q = new URLSearchParams(location.search);
       for (var k in params) if (!q.has(k)) q.set(k, params[k]);
       location.replace(to + '?' + q.toString());
     </script>
     <meta http-equiv="refresh" content={`0; url=${fallback}`} />
-    <link rel="canonical" href="https://omyra.es/calculadora" />
+    <link rel="canonical" href={`https://omyra.es${to === "/" ? "" : to}`} />
   </head>
   <body style="font-family:system-ui,sans-serif;background:#0F3D2E;color:#F7F5F1;display:grid;place-items:center;min-height:100vh;margin:0">
-    <p>Abriendo la calculadora… <a href={fallback} style="color:#D7F36B">Pulsa aquí si no se abre</a></p>
+    <p>{label} <a href={fallback} style="color:#D7F36B">Pulsa aquí si no se abre</a></p>
   </body>
 </html>

@@ -26,6 +26,11 @@ jobs:
         uses: withastro/action@v3
         with:
           node-version: 24
+        # ID de los píxeles: Settings → Secrets and variables → Actions → Variables. Vacías = píxel desactivado.
+        env:
+          PUBLIC_META_PIXEL_ID: ${{ vars.PUBLIC_META_PIXEL_ID }}
+          PUBLIC_TIKTOK_PIXEL_ID: ${{ vars.PUBLIC_TIKTOK_PIXEL_ID }}
+          PUBLIC_META_DOMAIN_VERIFICATION: ${{ vars.PUBLIC_META_DOMAIN_VERIFICATION }}
 
   deploy:
     needs: build

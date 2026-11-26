@@ -5,9 +5,8 @@ import { fileURLToPath } from 'node:url';
 
 // Dominio previsto (solo para URL canónicas y sitemap). Este proyecto no despliega nada.
 // Páginas fuera del sitemap (y con noindex en la propia página).
-const NOINDEX = ['/404', '/empieza', '/gracias', '/black-friday', '/calcula',
-  // Textos legales: accesibles desde el pie de página, pero fuera de buscadores (datos del titular).
-  '/aviso-legal', '/privacidad', '/condiciones-de-contratacion', '/encargo-del-tratamiento', '/cookies'];
+const NOINDEX = ['/404', '/empieza', '/gracias', '/black-friday', '/calcula', '/ig', '/ig-web', '/tt', '/tt-web', 
+                '/aviso-legal', '/privacidad', '/condiciones-de-contratacion', '/encargo-del-tratamiento', '/cookies'];
 
 export default defineConfig({
   site: 'https://omyra.es',

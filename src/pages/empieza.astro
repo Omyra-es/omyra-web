@@ -62,7 +62,8 @@ const cfg = {
         <div class="hp" aria-hidden="true"><label for="f-website">No rellenes este campo</label><input id="f-website" name="website" tabindex="-1" autocomplete="off" /></div>
 
         <fieldset class="card" data-step="1">
-          <legend class="card__h">Tu cuenta</legend>
+          <legend class="sr-only">Tu cuenta</legend>
+          <h2 class="card__h" tabindex="-1">Tu cuenta</h2>
           <p class="card__sub">Con estos datos creamos tu acceso a Omyra. Al pagar entras directamente y lo primero que harás será elegir tu contraseña.</p>
           <div class="f2">
             <div class="field"><label for="f-firstName">Nombre</label><input id="f-firstName" name="firstName" autocomplete="given-name" required /><p class="err" id="e-firstName"></p></div>
@@ -77,7 +78,8 @@ const cfg = {
         </fieldset>
 
         <fieldset class="card" data-step="2" hidden>
-          <legend class="card__h">Tu negocio</legend>
+          <legend class="sr-only">Tu negocio</legend>
+          <h2 class="card__h" tabindex="-1">Tu negocio</h2>
           <div class="field"><label for="f-businessName">Nombre del negocio</label><input id="f-businessName" name="businessName" autocomplete="organization" required aria-describedby="h-businessName" /><span class="hint" id="h-businessName">Es el nombre que verán tus clientes al reservar.</span><p class="err" id="e-businessName"></p></div>
           <div class="field" role="radiogroup" aria-labelledby="l-sector"><span class="lbl" id="l-sector">Sector</span>
             <div class="chips">{sectors.map((s) => <label><input type="radio" name="sector" value={s} required />{s}</label>)}</div>
@@ -90,7 +92,8 @@ const cfg = {
         </fieldset>
 
         <fieldset class="card" data-step="3" hidden>
-          <legend class="card__h">Facturación</legend>
+          <legend class="sr-only">Facturación</legend>
+          <h2 class="card__h" tabindex="-1">Facturación</h2>
           <p class="card__sub">Para emitir tu factura de Omyra cada mes.</p>
           <div class="f2">
             <div class="field"><label for="f-taxId">NIF / CIF</label><input id="f-taxId" name="taxId" autocomplete="off" autocapitalize="characters" required /><p class="err" id="e-taxId"></p><p class="ok" id="ok-taxId" hidden>✓ NIF correcto</p></div>
@@ -106,7 +109,8 @@ const cfg = {
         </fieldset>
 
         <fieldset class="card" data-step="4" hidden>
-          <legend class="card__h">Revisa y paga</legend>
+          <legend class="sr-only">Revisa y paga</legend>
+          <h2 class="card__h" tabindex="-1">Revisa y paga</h2>
           <div class="review">
             <div class="rv"><h3>Tu cuenta</h3><p id="rv-1"></p><button type="button" data-goto="1">Cambiar</button></div>
             <div class="rv"><h3>Tu negocio</h3><p id="rv-2"></p><button type="button" data-goto="2">Cambiar</button></div>
@@ -147,9 +151,13 @@ const cfg = {
 
 <script>
   import { validators, normalize, isInternalEmail } from '../scripts/alta-validate';
+  import { track as px, utm, once } from '../scripts/track';
+  import { pricing } from '../content/pricing';
+  const PX_VALUE = { value: pricing.amountNumber, currency: pricing.currencyCode };
 
   type Cfg = { endpoint: string | null; termsVersion: string; plan: string; loginUrl: string | null; payLink: string | null; internal: { domains: string[]; endpoint: string | null; loginUrl: string }; hs: string | null; total: string; email: string; wa: string; phone: string; phoneHref: string };
   const cfg: Cfg = JSON.parse(document.getElementById('alta-cfg')!.textContent || '{}');
+  px('ViewContent', { content_name: 'alta' });
   const form = document.getElementById('alta') as HTMLFormElement;
   const steps = [...form.querySelectorAll<HTMLFieldSetElement>('[data-step]')];
   const dots = [...document.querySelectorAll<HTMLLIElement>('[data-dot]')];
@@ -254,7 +262,7 @@ const cfg = {
     if (n === 4) fillReview();
     save();
     if (focus) {
-      steps[n - 1].querySelector<HTMLElement>('legend')?.focus?.();
+      steps[n - 1].querySelector<HTMLElement>('.card__h')?.focus?.({ preventScroll: true });
       document.querySelector('.steps')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
@@ -262,6 +270,8 @@ const cfg = {
     if (!checkStep(step)) return;
     clearNote();
     track(step + 1);
+    // Medición: datos del paso 1 completados (sin enviar nombre, correo ni teléfono).
+    if (step === 1 && !internal() && !valueOf('website') && once('lead')) px('Lead', { content_name: 'alta', ...utm() });
     go(step + 1);
   }));
   form.querySelectorAll('[data-back]').forEach((b) => b.addEventListener('click', () => go(step - 1)));
@@ -353,7 +363,8 @@ const cfg = {
       const url = new URL(cfg.payLink);
       url.searchParams.set('prefilled_email', normalize.email(valueOf('email')));
       url.searchParams.set('locale', 'es');
-      location.href = url.href;
+      px('InitiateCheckout', { ...PX_VALUE, content_name: 'alta', ...utm() });
+      setTimeout(() => (location.href = url.href), 450); // margen para que salga el evento antes de ir a Stripe
       return;
     }
     pay.disabled = true;
@@ -362,6 +373,7 @@ const cfg = {
       const res = await fetch(endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload()) });
       const body = await res.json().catch(() => ({}));
       if (res.ok && typeof body.checkoutUrl === 'string' && body.checkoutUrl.startsWith('https://')) {
+        if (!isTeam) { px('InitiateCheckout', { ...PX_VALUE, content_name: 'alta', ...utm() }); await new Promise((r) => setTimeout(r, 450)); }
         location.href = body.checkoutUrl;
         return;
       }
@@ -408,14 +420,14 @@ const cfg = {
   .shell { position: relative; overflow: hidden; padding-top: var(--header-h); background: radial-gradient(110% 90% at 90% 0%, var(--green-2) 0%, var(--green) 45%, var(--deep) 100%); }
   .shell::before { content: '✦'; position: absolute; right: -4rem; top: -6rem; font-size: 26rem; line-height: 1; color: rgb(184 150 85 / .06); pointer-events: none; }
   .intro__h { font-size: clamp(2.7rem, 1.4rem + 4vw, 5rem); line-height: .95; letter-spacing: -.05em; font-weight: 600; color: var(--cream-l); margin-top: 1rem; }
-  .firma { font-weight: 300; letter-spacing: -.04em; color: var(--lime); }
+  .firma { font-weight: 300; letter-spacing: -.04em; color: var(--lime); white-space: nowrap; }
   .firma::after { content: '✦'; display: inline-block; font-size: .4em; font-weight: 400; color: var(--brand-gold); vertical-align: 1.15em; margin-left: .14em; }
   .intro__lead { color: var(--on-dark); margin-top: .8rem; max-width: 54ch; font-size: 1.05rem; }
   .intro__demo { margin-top: .6rem; font-size: .95rem; color: var(--on-dark); }
   .intro__demo a { color: var(--lime); font-weight: 600; }
 
   .steps { list-style: none; display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin: 1.8rem 0 1.2rem; }
-  .steps li { position: relative; display: grid; gap: .4rem; font-size: .88rem; color: rgb(247 245 241 / .55); }
+  .steps li { position: relative; display: grid; align-content: start; gap: .4rem; font-size: .88rem; color: rgb(247 245 241 / .55); }
   .steps li::before { content: ''; height: 4px; border-radius: 4px; background: var(--line-dark); }
   .steps li[data-s='done']::before, .steps li[data-s='now']::before { background: var(--lime); }
   .steps li[data-s='now']::after { content: '✦'; position: absolute; right: -4px; top: -8px; font-size: 13px; line-height: 1; color: var(--brand-gold); }
@@ -433,8 +445,8 @@ const cfg = {
 
   .card { border: 0; background: #fff; border-radius: 28px; padding: clamp(1.3rem, 1rem + 1.5vw, 2.3rem); box-shadow: var(--shadow); display: grid; gap: 1.1rem; min-width: 0; color: var(--ink); --eyebrow: var(--green); }
   .card[hidden] { display: none; }
-  .card__h { font-size: 1.55rem; letter-spacing: -.03em; color: var(--green); font-weight: 600; line-height: 1.1; padding: 0; float: left; width: 100%; }
-  .card__sub { color: var(--muted); font-size: .95rem; margin-top: -.5rem; clear: both; }
+  .card__h { font-size: 1.55rem; letter-spacing: -.03em; color: var(--green); font-weight: 600; line-height: 1.1; outline: none; }
+  .card__sub { color: var(--muted); font-size: .95rem; margin-top: -.5rem; }
   .f2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
   .f3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
   .field { display: grid; gap: .35rem; align-content: start; min-width: 0; clear: both; }

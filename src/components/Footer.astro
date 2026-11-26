@@ -30,7 +30,7 @@ const onStart = [cta.start.href, '/gracias'].includes(Astro.url.pathname.replace
     </div>
     <div class="ftr__bottom">
       <p>© {year} Omyra · {pricing.amount} € {pricing.tax} {pricing.period}</p>
-      <ul role="list">{legal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}</ul>
+      <ul role="list">{legal.map((l) => <li><a href={l.href}>{l.label}</a></li>)}<li data-ck-only><a href="/cookies#configurar" data-ck="settings">Configurar cookies</a></li></ul>
     </div>
   </div>
 </footer>
@@ -48,6 +48,6 @@ const onStart = [cta.start.href, '/gracias'].includes(Astro.url.pathname.replace
   .ftr ul { display: grid; gap: .55rem; margin-top: 1rem; color: var(--on-dark); }
   .ftr a { text-decoration: none; } .ftr a:hover { color: var(--cream-l); text-decoration: underline; text-underline-offset: 4px; }
   .ftr__bottom { display: flex; justify-content: space-between; gap: 1rem; flex-wrap: wrap; padding-top: 1.5rem; font-size: .88rem; color: var(--on-dark); }
-  .ftr__bottom ul { display: flex; gap: 1.4rem; margin: 0; }
+  .ftr__bottom ul { display: flex; flex-wrap: wrap; gap: .5rem 1.4rem; margin: 0; }
   @media (max-width: 760px) { .ftr__top { grid-template-columns: 1fr; } .ftr__cols { grid-template-columns: 1fr 1fr; } }
 </style>

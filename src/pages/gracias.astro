@@ -35,6 +35,8 @@ const cfg = {
 
 <script>
   import { isInternalEmail } from '../scripts/alta-validate';
+  import { track as px, utm, once } from '../scripts/track';
+  import { pricing } from '../content/pricing';
   const cfg = JSON.parse(document.getElementById('ty-cfg')!.textContent || '{}') as { app: string | null; internalDomains: string[]; hs: string | null };
   const params = new URLSearchParams(location.search);
   const sessionId = params.get('session_id') || '';
@@ -49,6 +51,16 @@ const cfg = {
       method: 'POST', headers: { 'Content-Type': 'application/json' }, keepalive: true,
       body: JSON.stringify({ fields: [{ name: 'email', value: data.email.trim().toLowerCase() }, { name: 'paso_del_alta', value: '6 · Pagado' }], context: { pageUri: location.origin + location.pathname, pageName: 'Alta completada' } }),
     }).catch(() => {});
+  }
+  // Medición del alta pagada (Meta: Purchase + CompleteRegistration · TikTok: CompletePayment).
+  // Solo con un pago REAL de Stripe (cs_live_…): los pagos de prueba (cs_test_…) y los correos del equipo no cuentan.
+  // Una sola vez por pago, aunque recargue. El identificador del pago sirve para deduplicar con el servidor más adelante.
+  const live = /^cs_live_[A-Za-z0-9_]+$/.test(sessionId);
+  const team = Boolean(data.email && isInternalEmail(data.email, cfg.internalDomains || []));
+  if (live && !team && once(`purchase-${sessionId}`, true)) {
+    const v = { value: pricing.amountNumber, currency: pricing.currencyCode, content_name: 'alta', ...utm() };
+    px('Purchase', v, sessionId);
+    px('CompleteRegistration', { content_name: 'alta', ...utm() }, `reg-${sessionId}`);
   }
   // El alta ya está hecha: no hace falta conservar el formulario relleno.
   try { sessionStorage.removeItem('omyra-alta'); } catch { /* sin almacenamiento */ }

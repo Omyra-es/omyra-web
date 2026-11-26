@@ -69,6 +69,7 @@ const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&em
 </Base>
 
 <script>
+  import { track as px, utm } from '../scripts/track';
   document.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((t) => t.addEventListener('click', () => {
     document.querySelectorAll<HTMLButtonElement>('[data-tab]').forEach((x) => x.setAttribute('aria-selected', String(x === t)));
     document.querySelectorAll<HTMLElement>('[data-pane]').forEach((p) => (p.hidden = p.dataset.pane !== t.dataset.tab));
@@ -118,6 +119,7 @@ const calSrc = cal ? `${cal}${cal.includes('?') ? '&' : '?'}embed_type=Inline&em
       });
       if (!res.ok) throw new Error(String(res.status));
       form.reset(); show('<b>¡Solicitud enviada!</b> Te contactaremos pronto para organizar la demo.', 'ok');
+      px('LeadDemo', { content_name: 'demo', ...utm() });
     } catch {
       show(`No hemos podido enviar la solicitud. Escríbenos a <a href="mailto:hola@omyra.es">hola@omyra.es</a> o llama al <a href="tel:+34624270477">+34 624 27 04 77</a>, o <a href="${mail}">envíala por correo</a>.`, 'err');
     } finally { btn.disabled = false; btn.innerHTML = 'Solicitar una demo <span aria-hidden="true">→</span>'; }
