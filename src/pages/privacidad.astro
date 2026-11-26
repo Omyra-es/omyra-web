@@ -2,7 +2,7 @@
 import Legal from '../layouts/Legal.astro';
 import { site } from '../content/site';
 ---
-<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="19 de noviembre de 2026">
+<Legal title="Política de privacidad" description="Cómo trata Omyra los datos personales: sitio web, solicitudes de demo, clientes del servicio y datos que los negocios gestionan en la plataforma." updated="19 de noviembre de 2026" noindex>
   <p>Esta política explica cómo trata Omyra los datos personales, de acuerdo con el Reglamento (UE) 2016/679, General de Protección de Datos (RGPD), y la Ley Orgánica 3/2018, de Protección de Datos Personales y garantía de los derechos digitales (LOPDGDD).</p>
 
   <div class="box">
@@ -15,9 +15,7 @@ import { site } from '../content/site';
 
   <h2>1. Responsable del tratamiento</h2>
   <ul>
-    <li><b>Responsable:</b> Sergio Lozano Trujillo (Omyra)</li>
-    <li><b>NIF:</b> 05445200L</li>
-    <li><b>Domicilio:</b> calle Pilar Bardem 1B, escalera 5, 2.º D, 28521 Rivas-Vaciamadrid (Madrid), España</li>
+    <li><b>Responsable:</b> el titular de Omyra, profesional autónomo identificado en el <a href="/aviso-legal">aviso legal</a></li>
     <li><b>Contacto:</b> <a href={`mailto:${site.contact.email}`}>{site.contact.email}</a> · <a href={site.contact.phoneHref}>{site.contact.phone}</a>. Si ya eres cliente: <a href={`mailto:${site.contact.supportEmail}`}>{site.contact.supportEmail}</a></li>
   </ul>
 

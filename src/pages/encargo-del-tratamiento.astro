@@ -1,5 +1,5 @@
 ---
-// Contrato de encargado del tratamiento (art. 28 RGPD). Fuente: DOC-02 V2.2.1, con DOC-03 (medidas) y DOC-04 (proveedores) resumidos.
+// Contrato de encargado del tratamiento (art. 28 RGPD). Fuente: DOC-02 V2.2.1 + sustitución OpenAI → Anthropic (V2.2.2, 25/11/2026), con DOC-03 (medidas) y DOC-04 (proveedores) resumidos.
 import Legal from '../layouts/Legal.astro';
 import { site } from '../content/site';
 const s = site.contact.supportEmail;
@@ -19,12 +19,12 @@ const providers = [
   ['Bilbabit, S.L. (Verifacti)', 'Remisión de registros de facturación VERI*FACTU, cuando el módulo fiscal se habilite', 'Getxo (Bizkaia), España'],
   ['Meta (WhatsApp Business Platform)', 'Canal de WhatsApp del Negocio, cuando lo conecte', 'Según los términos de Meta'],
   ['Google (Google Calendar)', 'Sincronización opcional del calendario del Negocio', 'Según la cuenta de Google'],
-  ['OpenAI (API)', 'Interpretación administrativa de mensajes, solo si el módulo de IA está habilitado y autorizado para ese tratamiento', 'Según el acuerdo de tratamiento de OpenAI'],
+  ['Anthropic (API de Claude)', 'Interpretación administrativa de mensajes, solo si el módulo de IA está habilitado y autorizado para ese tratamiento. Sin uso de los datos para entrenar modelos', 'Estados Unidos, con las cláusulas contractuales tipo de la Comisión Europea incluidas en el acuerdo de tratamiento de Anthropic'],
   ['Servicios de notificaciones push', 'Entrega de avisos en el navegador o el móvil', 'Según el navegador o dispositivo'],
 ];
 ---
-<Legal title="Encargo del tratamiento" description="Contrato de encargado del tratamiento de datos (art. 28 RGPD) entre los negocios que usan Omyra y Omyra." updated="19 de noviembre de 2026">
-  <p>Acuerdo general de encargo de tratamiento (artículo 28 del Reglamento (UE) 2016/679), común a los negocios que contratan Omyra. Las partes son el <b>Negocio</b> que contrata (responsable del tratamiento) y <b>Sergio Lozano Trujillo</b>, NIF 05445200L, marca Omyra (encargado del tratamiento). Se incorpora a las <a href="/condiciones-de-contratacion">condiciones de contratación</a> mediante aceptación electrónica, sin rellenar ni firmar manualmente un ejemplar por negocio. Versión V2.2.1.</p>
+<Legal title="Encargo del tratamiento" description="Contrato de encargado del tratamiento de datos (art. 28 RGPD) entre los negocios que usan Omyra y Omyra." updated="25 de noviembre de 2026" noindex>
+  <p>Acuerdo general de encargo de tratamiento (artículo 28 del Reglamento (UE) 2016/679), común a los negocios que contratan Omyra. Las partes son el <b>Negocio</b> que contrata (responsable del tratamiento) y el titular de Omyra identificado en el <a href="/aviso-legal">aviso legal</a> (encargado del tratamiento). Se incorpora a las <a href="/condiciones-de-contratacion">condiciones de contratación</a> mediante aceptación electrónica, sin rellenar ni firmar manualmente un ejemplar por negocio. Versión V2.2.2.</p>
 
   <h2>1. Objeto y duración</h2>
   <p>El Negocio encarga a Omyra los tratamientos necesarios para prestar las funcionalidades contratadas de gestión de negocio, agenda y reservas, documentación, cobros, facturación y comunicaciones, dentro del alcance realmente habilitado. El encargo comienza al existir acceso legítimo a los datos y dura mientras Omyra los trate por cuenta del Negocio, incluidos devolución, conservación transitoria y eliminación posteriores a la baja. La terminación comercial no extingue anticipadamente estas obligaciones.</p>
@@ -66,7 +66,7 @@ const providers = [
 
   <h2>8. Transferencias internacionales</h2>
   <p>Omyra no realizará transferencias o accesos desde terceros países por mera conveniencia sin identificar su fundamento y garantías. Para cada destino se identificará el mecanismo aplicable, la evaluación cuando proceda y las medidas complementarias. La existencia de un contrato o una marca europea no demuestra ausencia de transferencias.</p>
-  <p>El Negocio recibirá información suficiente para evaluar la transferencia y obtener las garantías pertinentes, que puede solicitar en <a href={mail}>{s}</a>. No se utilizará un consentimiento genérico de contratación para sustituir mecanismos exigibles. Las condiciones de Meta, Google y OpenAI deben verificarse según servicio y cuenta efectivamente utilizados.</p>
+  <p>El Negocio recibirá información suficiente para evaluar la transferencia y obtener las garantías pertinentes, que puede solicitar en <a href={mail}>{s}</a>. No se utilizará un consentimiento genérico de contratación para sustituir mecanismos exigibles. Las condiciones de Meta, Google y Anthropic deben verificarse según servicio y cuenta efectivamente utilizados.</p>
 
   <h2>9. Derechos e información</h2>
   <p>Si Omyra recibe una solicitud relativa a datos cuyo responsable sea el Negocio, la remitirá sin demora injustificada al contacto de protección de datos designado por el Negocio o, en su defecto, a su correo contractual registrado, conservará la evidencia mínima y no decidirá sobre el fondo salvo instrucción o exigencia legal. Facilitará herramientas y asistencia razonable para localizar, exportar, rectificar, limitar o suprimir información dentro de los plazos aplicables.</p>
